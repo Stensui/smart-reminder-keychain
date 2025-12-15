@@ -10,89 +10,58 @@
 
 <div class="container">
 
-  <!-- Main Card -->
-  <div class="card-3d" id="main-card">
-    <h1>🌟 Smart Reminder Keychain 🌟</h1>
+  <h1>Smart Reminder Keychain</h1>
 
-    <button class="card-btn" data-target="owner-info">👤 Owner Information</button>
-    <button class="card-btn" data-target="daily-goals">📝 Daily Goals</button>
-    <button class="card-btn" data-target="personal-reminders">📌 Personal Reminders</button>
-    <button class="card-btn" data-target="emergency-contact">🚨 Emergency Contact</button>
-    <button class="card-btn" data-target="motivation">💡 Motivational Quote</button>
-  </div>
-
-  <!-- Detail Panels -->
-  <div class="detail-card" id="owner-info">
-    <h2>Owner Information</h2>
+  <button class="card-btn" data-target="owner-info">Owner Information</button>
+  <div class="info-panel" id="owner-info">
     <p><strong>Name:</strong> John Doe</p>
     <p><strong>If found, contact:</strong> 09123456789</p>
-    <button class="back-btn">⬅ Back</button>
   </div>
 
-  <div class="detail-card" id="daily-goals">
-    <h2>Daily Goals</h2>
+  <button class="card-btn" data-target="daily-goals">Daily Goals</button>
+  <div class="info-panel" id="daily-goals">
     <ul>
       <li>Finish ICT project</li>
       <li>Review notes for tomorrow</li>
     </ul>
-    <button class="back-btn">⬅ Back</button>
   </div>
 
-  <div class="detail-card" id="personal-reminders">
-    <h2>Personal Reminders</h2>
+  <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
+  <div class="info-panel" id="personal-reminders">
     <ul>
       <li>Backup files</li>
       <li>Charge devices</li>
     </ul>
-    <button class="back-btn">⬅ Back</button>
   </div>
 
-  <div class="detail-card" id="emergency-contact">
-    <h2>Emergency Contact</h2>
+  <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
+  <div class="info-panel" id="emergency-contact">
     <p><strong>Name:</strong> Parent / Guardian</p>
     <p><strong>Phone:</strong> 09123456789</p>
-    <button class="back-btn">⬅ Back</button>
   </div>
 
-  <div class="detail-card" id="motivation">
-    <h2>Motivational Quote</h2>
+  <button class="card-btn" data-target="motivation">Motivational Quote</button>
+  <div class="info-panel" id="motivation">
     <p>"Believe you can and you're halfway there."</p>
-    <button class="back-btn">⬅ Back</button>
   </div>
 
 </div>
 
 <script>
-const cardBtns = document.querySelectorAll('.card-btn');
-const detailCards = document.querySelectorAll('.detail-card');
-const mainCard = document.getElementById('main-card');
-const backBtns = document.querySelectorAll('.back-btn');
+const buttons = document.querySelectorAll('.card-btn');
 
-cardBtns.forEach(btn => {
+buttons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const target = btn.getAttribute('data-target');
-    mainCard.classList.add('fade-out');
-    setTimeout(() => {
-      mainCard.style.display = 'none';
-      const panel = document.getElementById(target);
-      panel.style.display = 'block';
-      panel.classList.add('slide-in');
-    }, 300); // match animation duration
-  });
-});
+    const target = document.getElementById(btn.getAttribute('data-target'));
 
-backBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const panel = btn.parentElement;
-    panel.classList.remove('slide-in');
-    panel.classList.add('fade-out');
-    setTimeout(() => {
-      panel.style.display = 'none';
-      panel.classList.remove('fade-out');
-      mainCard.style.display = 'block';
-      mainCard.classList.remove('fade-out');
-      mainCard.classList.add('slide-in');
-    }, 300);
+    // Toggle expand/collapse
+    if (target.style.maxHeight) {
+      target.style.maxHeight = null; // collapse
+    } else {
+      // Optional: close all other panels
+      document.querySelectorAll('.info-panel').forEach(panel => panel.style.maxHeight = null);
+      target.style.maxHeight = target.scrollHeight + "px"; // expand
+    }
   });
 });
 </script>
