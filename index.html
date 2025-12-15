@@ -1,39 +1,54 @@
 <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Reminder Keychain</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <div class="container">
   <div class="card-3d">
     <h1>🌟 Smart Reminder Keychain 🌟</h1>
 
-    <section class="card-section owner-info">
-      <h2>Owner Info</h2>
+    <button class="accordion">Owner Information</button>
+    <div class="panel">
       <p><strong>Name:</strong> John Doe</p>
       <p><strong>If found, contact:</strong> 09123456789</p>
-    </section>
+    </div>
 
-    <section class="card-section daily-goals">
-      <h2>📝 Daily Goals</h2>
+    <button class="accordion">Daily Goals</button>
+    <div class="panel">
       <ul>
         <li>Finish ICT project</li>
         <li>Review notes for tomorrow</li>
       </ul>
-    </section>
+    </div>
 
-    <section class="card-section personal-reminders">
-      <h2>📌 Personal Reminders</h2>
+    <button class="accordion">Personal Reminders</button>
+    <div class="panel">
       <ul>
         <li>Backup files</li>
         <li>Charge devices</li>
       </ul>
-    </section>
+    </div>
 
-    <section class="card-section emergency-contact">
-      <h2>🚨 Emergency Contact</h2>
+    <button class="accordion">Emergency Contact</button>
+    <div class="panel">
       <p><strong>Name:</strong> Parent / Guardian</p>
       <p><strong>Phone:</strong> 09123456789</p>
-    </section>
+    </div>
 
-    <section class="card-section motivation">
-      <h2>💡 Motivational Quote</h2>
+    <button class="accordion">Motivational Quote</button>
+    <div class="panel">
       <p>"Believe you can and you're halfway there."</p>
-    </section>
+    </div>
   </div>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
