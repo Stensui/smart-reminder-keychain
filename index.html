@@ -146,7 +146,7 @@ h2 { margin:10px 0; color:#00ffff; }
 <!-- EMERGENCY ACCESS -->
 <div class="card login-card" id="emergency-card">
   <h2>Emergency Access</h2>
-  <input type="text" id="emergency-id" placeholder="Enter Student ID" />
+  <input type="text" id="emergency-id" placeholder="Enter Student ID or Name" />
   <button class="card-btn" id="emergency-view-btn">View Info</button>
   <button class="back-btn" id="emergency-back-btn">Back to Login</button>
   <div id="emergency-info" style="margin-top:10px;"></div>
@@ -198,12 +198,45 @@ logoutBtn.onclick = ()=>{
 };
 
 /* EMERGENCY VIEW */
-document.getElementById('emergency-view-btn').onclick=()=>{
-  const id=document.getElementById('emergency-id').value;
-  const infoDiv=document.getElementById('emergency-info');
-  if(id==='student1'){
-    infoDiv.innerHTML='Name: John Doe<br>Contact: 09123456789';
-  }else{ infoDiv.innerHTML='Student not found'; }
+const studentsData = {
+  "student1": {
+    name: "John Doe",
+    contact: "09123456789",
+    location: "PHILTECH GMA Campus",
+    address: "123 Main St, Brgy Poblacion 4, GMA, Cavite"
+  },
+  "student2": {
+    name: "Jane Smith",
+    contact: "09987654321",
+    location: "PHILTECH GMA Dormitory",
+    address: "456 Second Ave, Brgy San Roque, GMA, Cavite"
+  }
+  // Add more students here
+};
+
+document.getElementById('emergency-view-btn').onclick = () => {
+  const input = document.getElementById('emergency-id').value.toLowerCase().trim();
+  const infoDiv = document.getElementById('emergency-info');
+  
+  let studentFound = null;
+  for (const id in studentsData) {
+    const student = studentsData[id];
+    if (id.toLowerCase() === input || student.name.toLowerCase() === input) {
+      studentFound = student;
+      break;
+    }
+  }
+
+  if (studentFound) {
+    infoDiv.innerHTML = `
+      <strong>Name:</strong> ${studentFound.name} <br>
+      <strong>Contact:</strong> ${studentFound.contact} <br>
+      <strong>Location:</strong> ${studentFound.location} <br>
+      <strong>Address:</strong> ${studentFound.address}
+    `;
+  } else {
+    infoDiv.innerHTML = 'Student not found';
+  }
 };
 
 /* MAIN MENU BUTTONS */
