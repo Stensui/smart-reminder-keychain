@@ -1,3 +1,4 @@
+/* Body */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #0050a0, #00aaff);
@@ -18,10 +19,13 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
+/* Title */
 h1 {
   text-align: center;
   color: #fff;
   margin-bottom: 20px;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
 }
 
 /* Buttons */
@@ -37,24 +41,28 @@ h1 {
   text-align: left;
   font-size: 1rem;
   font-weight: 600;
-  transition: transform 0.2s, background 0.3s;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .card-btn:hover {
   transform: scale(1.03);
   background: linear-gradient(90deg, #0066cc, #0080ff);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 /* Info Panels */
 .info-panel {
-  background-color: rgba(255,255,255,0.2);
-  border-radius: 10px;
-  padding: 0 15px;
+  background-color: rgba(255,255,255,0.25);
+  border-radius: 12px;
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.4s ease, padding 0.4s ease;
-  color: #fff;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: max-height 0.5s ease, transform 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
   margin-bottom: 10px;
+  padding: 0 15px;
+  color: #fff;
 }
 
 .info-panel p, .info-panel ul {
