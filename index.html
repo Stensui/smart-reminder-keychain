@@ -54,13 +54,26 @@ buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = document.getElementById(btn.getAttribute('data-target'));
 
-    // Toggle expand/collapse
     if (target.style.maxHeight) {
-      target.style.maxHeight = null; // collapse
+      // Collapse
+      target.style.maxHeight = null;
+      target.style.transform = "scale(0.95)";
+      target.style.opacity = "0";
+      target.style.padding = "0 15px";
     } else {
-      // Optional: close all other panels
-      document.querySelectorAll('.info-panel').forEach(panel => panel.style.maxHeight = null);
-      target.style.maxHeight = target.scrollHeight + "px"; // expand
+      // Optional: close other panels
+      document.querySelectorAll('.info-panel').forEach(panel => {
+        panel.style.maxHeight = null;
+        panel.style.transform = "scale(0.95)";
+        panel.style.opacity = "0";
+        panel.style.padding = "0 15px";
+      });
+
+      // Expand
+      target.style.maxHeight = target.scrollHeight + 20 + "px"; // extra padding for content
+      target.style.transform = "scale(1)";
+      target.style.opacity = "1";
+      target.style.padding = "15px";
     }
   });
 });
