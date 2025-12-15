@@ -5,194 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote - Student Reminders</title>
 <style>
-/* ================= RESET ================= */
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+*{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif;margin:0;padding:0;}
+body{background:linear-gradient(135deg,#010026,#1a1aff);display:flex;justify-content:center;align-items:center;min-height:100vh;color:#fff;}
+.container{width:90%;max-width:500px;position:relative;}
+/* Branding + Logo */
+.branding{text-align:center;margin-bottom:20px;}
+.logo-wrapper{position:relative;display:inline-block;cursor:pointer;}
+.logo-3d{width:90px;height:90px;filter:drop-shadow(0 0 12px #00ffff);animation:float 3s ease-in-out infinite,spin 6s linear infinite;}
+.logo-wrapper:hover .logo-3d{filter:drop-shadow(0 0 25px #00ffff);}
+.logo-wrapper.clicked .logo-3d{animation:flip 0.6s ease,bounce 0.6s ease;}
+.brand-name{margin-top:10px;font-size:2rem;color:#00ffff;text-shadow:0 0 15px #00ffff;animation:glow 2s infinite alternate;}
+.particles{position:absolute;inset:0;pointer-events:none;}
+.particles span{position:absolute;width:6px;height:6px;background:#00ffff;border-radius:50%;animation:particle 0.6s linear forwards;}
 
-/* ================= BODY ================= */
-body {
-  background: linear-gradient(135deg, #010026, #1a1aff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  color: #fff;
-}
+/* Main & Detail Cards */
+.main-card,.detail-card,.login-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);}
+.main-card{display:flex;flex-direction:column;gap:12px;}
+.detail-card,.login-card{display:none;position:absolute;top:0;left:0;width:100%;color:#00ffff;opacity:0;transform:scale(0.9) translateY(40px);}
 
-/* ================= CONTAINER ================= */
-.container {
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-}
+/* Buttons */
+.card-btn,.login-btn{padding:14px;border-radius:14px;border:none;font-size:16px;background:linear-gradient(135deg,#00eaff,#00bcd4);color:#003344;cursor:pointer;transition:0.3s;}
+.card-btn:hover,.login-btn:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.25);}
+.back-btn{margin-top:20px;width:100%;padding:12px;border-radius:12px;border:none;background:#00bcd4;color:white;cursor:pointer;}
+h2{margin-top:0;}
+.line{opacity:0;transform:translateY(20px) scale(0.95);}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+th,td{border:1px solid #00ffff;padding:6px;text-align:center;color:#00ffff;}
+a{color:#00ffff;text-decoration:none;}
+a:hover{text-decoration:underline;}
 
-/* ================= BRANDING ================= */
-.branding {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.logo-wrapper {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.logo-3d {
-  width: 90px;
-  height: 90px;
-  filter: drop-shadow(0 0 12px #00ffff);
-  animation: float 3s ease-in-out infinite, spin 6s linear infinite;
-}
-
-.logo-wrapper:hover .logo-3d {
-  filter: drop-shadow(0 0 25px #00ffff);
-}
-
-.logo-wrapper.clicked .logo-3d {
-  animation: flip 0.6s ease, bounce 0.6s ease;
-}
-
-.brand-name {
-  margin-top: 10px;
-  font-size: 2rem;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
-  animation: glow 2s infinite alternate;
-}
-
-/* ================= PARTICLES ================= */
-.particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.particles span {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #00ffff;
-  border-radius: 50%;
-  animation: particle 0.6s linear forwards;
-}
-
-/* ================= MAIN CARD ================= */
-.main-card,
-.detail-card {
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,255,255,0.5);
-}
-
-.main-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.detail-card {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  color: #00ffff;
-  opacity: 0;
-  transform: scale(0.9) translateY(40px);
-}
-
-/* ================= BUTTONS ================= */
-.card-btn {
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  font-size: 16px;
-  background: linear-gradient(135deg,#00eaff,#00bcd4);
-  color: #003344;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.card-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-}
-
-.back-btn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #00bcd4;
-  color: white;
-  cursor: pointer;
-}
-
-/* ================= TEXT & TABLES ================= */
-h2 {
-  margin-top: 0;
-}
-
-.line {
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  border: 1px solid #00ffff;
-  padding: 6px;
-  text-align: center;
-  color: #00ffff;
-}
-
-a {
-  color: #00ffff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ================= ANIMATIONS ================= */
-.slide-in { animation: slideIn 0.4s ease forwards; }
-.slide-out { animation: slideOut 0.4s ease forwards; }
-
-@keyframes float { 0%{transform:translateY(0);} 100%{transform:translateY(-12px);} }
-@keyframes spin { 100%{transform:rotateY(360deg);} }
-@keyframes flip { 0%{transform:rotateY(0);} 100%{transform:rotateY(180deg);} }
-@keyframes bounce { 50%{transform:scale(1.2);} }
-@keyframes glow { from{text-shadow:0 0 5px #00ffff;} to{text-shadow:0 0 25px #00ffff;} }
-@keyframes particle { to{transform:translate(var(--x), var(--y)); opacity:0;} }
-@keyframes slideIn { from{opacity:0; transform:translateY(40px) scale(0.95);} to{opacity:1; transform:translateY(0) scale(1);} }
-@keyframes slideOut { to{opacity:0; transform:translateY(40px) scale(0.95);} }
+/* Animations */
+.slide-in{animation:slideIn 0.4s ease forwards;}
+.slide-out{animation:slideOut 0.4s ease forwards;}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-12px);}}
+@keyframes spin{100%{transform:rotateY(360deg);}}
+@keyframes flip{0%{transform:rotateY(0);}100%{transform:rotateY(180deg);}}
+@keyframes bounce{50%{transform:scale(1.2);}}
+@keyframes glow{from{text-shadow:0 0 5px #00ffff;}to{text-shadow:0 0 25px #00ffff;}}
+@keyframes particle{to{transform:translate(var(--x),var(--y));opacity:0;}}
+@keyframes slideIn{from{opacity:0;transform:translateY(40px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes slideOut{to{opacity:0;transform:translateY(40px) scale(0.95);}}
+input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-  <!-- LOGO -->
+  <!-- Branding -->
   <div class="branding">
     <div class="logo-wrapper" onclick="logoClick()">
       <svg class="logo-3d" viewBox="0 0 64 64">
-        <rect x="10" y="10" width="44" height="44" rx="6"
-              fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
+        <rect x="10" y="10" width="44" height="44" rx="6" fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
         <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
         <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
         <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
@@ -203,6 +67,14 @@ a:hover {
       <div class="particles"></div>
       <div class="brand-name">FlipNote</div>
     </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="login-card" id="login-card">
+    <h2>Login</h2>
+    <input type="text" id="userID" placeholder="Enter your Student ID">
+    <button class="login-btn" id="login-full">Login with ID</button>
+    <button class="login-btn" id="login-emergency">Emergency Access</button>
   </div>
 
   <!-- MAIN MENU -->
@@ -277,12 +149,11 @@ a:hover {
 
 <script>
 function logoClick() {
-  const wrapper = document.querySelector('.logo-wrapper');
-  const particles = document.querySelector('.particles');
+  const wrapper=document.querySelector('.logo-wrapper');
+  const particles=document.querySelector('.particles');
   wrapper.classList.add('clicked');
-  setTimeout(() => wrapper.classList.remove('clicked'), 600);
-
-  particles.innerHTML = '';
+  setTimeout(()=>wrapper.classList.remove('clicked'),600);
+  particles.innerHTML='';
   for(let i=0;i<12;i++){
     const p=document.createElement('span');
     p.style.setProperty('--x',`${Math.random()*100-50}px`);
@@ -291,9 +162,35 @@ function logoClick() {
   }
 }
 
-const buttons = document.querySelectorAll('.card-btn');
-const backBtns = document.querySelectorAll('.back-btn');
-const mainCard = document.getElementById('main-card');
+// LOGIN SYSTEM
+const loginCard=document.getElementById('login-card');
+const mainCard=document.getElementById('main-card');
+loginCard.style.display='block';
+mainCard.style.display='none';
+
+const fullBtn=document.getElementById('login-full');
+const emBtn=document.getElementById('login-emergency');
+
+fullBtn.onclick=()=>{
+  loginCard.style.display='none';
+  mainCard.style.display='flex';
+  // show all buttons
+  document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');
+};
+
+emBtn.onclick=()=>{
+  loginCard.style.display='none';
+  mainCard.style.display='flex';
+  // hide all except emergency/owner info
+  document.querySelectorAll('.card-btn').forEach(b=>{
+    if(b.dataset.target!=='owner-info' && b.dataset.target!=='emergency-contact'){b.style.display='none';}
+  });
+  document.getElementById('emergency-contact').style.display='none'; // hide panel, show when clicked
+};
+
+// BUTTON PANEL LOGIC
+const buttons=document.querySelectorAll('.card-btn');
+const backBtns=document.querySelectorAll('.back-btn');
 
 buttons.forEach(btn=>{
   btn.onclick=()=>{
@@ -301,9 +198,8 @@ buttons.forEach(btn=>{
     mainCard.style.display='none';
     panel.style.display='block';
     panel.classList.add('slide-in');
-
     panel.querySelectorAll('.line').forEach((l,i)=>{
-      setTimeout(()=>l.style.opacity=1, i*150);
+      setTimeout(()=>l.style.opacity=1,i*150);
     });
   };
 });
