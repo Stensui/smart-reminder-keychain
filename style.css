@@ -58,7 +58,7 @@ h1 {
 
 /* Detail Panels */
 .detail-card {
-  display: none;
+  display: none; /* hide by default */
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(15px);
   border-radius: 25px;
@@ -103,7 +103,7 @@ h1 {
   box-shadow: 0 0 15px #00ffff;
 }
 
-/* Panel lines */
+/* Lines inside panels */
 .line {
   opacity: 0;
   transform: translateY(20px) scale(0.95);
