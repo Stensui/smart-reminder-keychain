@@ -16,7 +16,6 @@ body {
 }
 
 /* Branding + Logo */
-.branding {
  .branding {
   display: flex;
   justify-content: center;
