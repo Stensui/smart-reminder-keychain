@@ -5,12 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote – Student Reminder</title>
 <style>
-* { box-sizing:border-box; font-family:'Poppins',sans-serif; margin:0; padding:0;}
+* { box-sizing:border-box; font-family:'Poppins',sans-serif; margin:0; padding:0; }
 body {
   display:flex; justify-content:center; align-items:center;
   min-height:100vh; background:linear-gradient(135deg,#010026,#1a1aff);
 }
-.container { width:90%; max-width:500px; position:relative; }
+.container {
+  width:90%; max-width:500px; position:relative;
+  padding:20px;
+  overflow:hidden;
+}
 
 /* BRANDING */
 .branding { text-align:center; margin-bottom:20px; }
@@ -30,13 +34,19 @@ body {
 .back-btn:hover { transform:scale(1.05); box-shadow:0 0 15px #00ffff; }
 
 /* DETAIL PANELS */
-.detail-card { display:none; background:rgba(0,0,0,0.6); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(0,255,255,0.5); color:#00ffff; position:absolute; inset:0; opacity:0; transform:translateY(40px) scale(0.9); transition:0.5s ease;}
-.detail-card.show { opacity:1; transform:translateY(0) scale(1);}
+.detail-card { display:none; background:rgba(0,0,0,0.6); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(0,255,255,0.5); color:#00ffff; position:relative; max-height:70vh; overflow-y:auto; margin-top:10px; }
 .line { opacity:0; transform:translateY(20px) scale(0.95); display:block; margin:8px 0; transition:all 0.5s ease; }
 a { color:#00ffff; text-decoration:none;}
 a:hover{text-decoration:underline;}
 
-/* KEYFRAMES */
+/* TIMETABLE */
+.timetable { width:100%; border-collapse:collapse; margin-top:10px;}
+.timetable th, .timetable td { border:1px solid #00ffff; padding:8px; text-align:center;}
+.timetable th { background:rgba(0,255,255,0.1);}
+.timetable td a { color:#00ffff; text-decoration:none; font-weight:bold;}
+.timetable td a:hover { text-decoration:underline; }
+
+/* ANIMATIONS */
 @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
 @keyframes spin { 100%{transform:rotateY(360deg);} }
 @keyframes flip { to{transform:rotateY(180deg);} }
@@ -86,31 +96,40 @@ a:hover{text-decoration:underline;}
 
 <div class="detail-card" id="subjects">
   <h2>Subjects</h2>
-  <p class="line">Mathematics</p>
-  <p class="line">Science</p>
-  <p class="line">ICT</p>
-  <p class="line">English</p>
-  <p class="line">Filipino</p>
+  <table class="timetable">
+    <tr><th>Subject</th></tr>
+    <tr><td>Mathematics</td></tr>
+    <tr><td>Science</td></tr>
+    <tr><td>ICT</td></tr>
+    <tr><td>English</td></tr>
+    <tr><td>Filipino</td></tr>
+  </table>
   <button class="back-btn">Back</button>
 </div>
 
 <div class="detail-card" id="schedule">
   <h2>Subject Schedule</h2>
-  <p class="line">Mon 8AM-10AM: Mathematics</p>
-  <p class="line">Tue 10AM-12PM: ICT</p>
-  <p class="line">Wed 8AM-10AM: Science</p>
-  <p class="line">Thu 10AM-12PM: English</p>
-  <p class="line">Fri 8AM-10AM: Filipino</p>
+  <table class="timetable">
+    <tr><th>Day</th><th>Time</th><th>Subject</th></tr>
+    <tr><td>Mon</td><td>8AM-10AM</td><td>Mathematics</td></tr>
+    <tr><td>Tue</td><td>10AM-12PM</td><td>ICT</td></tr>
+    <tr><td>Wed</td><td>8AM-10AM</td><td>Science</td></tr>
+    <tr><td>Thu</td><td>10AM-12PM</td><td>English</td></tr>
+    <tr><td>Fri</td><td>8AM-10AM</td><td>Filipino</td></tr>
+  </table>
   <button class="back-btn">Back</button>
 </div>
 
 <div class="detail-card" id="classroom">
   <h2>Google Classroom Links</h2>
-  <p class="line"><a href="https://classroom.google.com/" target="_blank">Mathematics</a></p>
-  <p class="line"><a href="https://classroom.google.com/" target="_blank">Science</a></p>
-  <p class="line"><a href="https://classroom.google.com/" target="_blank">ICT</a></p>
-  <p class="line"><a href="https://classroom.google.com/" target="_blank">English</a></p>
-  <p class="line"><a href="https://classroom.google.com/" target="_blank">Filipino</a></p>
+  <table class="timetable">
+    <tr><th>Subject</th><th>Link</th></tr>
+    <tr><td>Mathematics</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+    <tr><td>Science</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+    <tr><td>ICT</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+    <tr><td>English</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+    <tr><td>Filipino</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+  </table>
   <button class="back-btn">Back</button>
 </div>
 
