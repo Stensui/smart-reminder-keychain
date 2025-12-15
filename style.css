@@ -6,21 +6,24 @@ body {
 }
 
 .container {
+  perspective: 1000px; /* For 3D perspective */
   padding: 20px;
 }
 
-.card {
+.card-3d {
   max-width: 450px;
   margin: 40px auto;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  transition: transform 0.2s;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
 }
 
-.card:hover {
-  transform: scale(1.02);
+/* 3D hover effect */
+.card-3d:hover {
+  transform: rotateY(15deg) rotateX(10deg) scale(1.05);
 }
 
 h1 {
@@ -57,3 +60,4 @@ section {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
+
