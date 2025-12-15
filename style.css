@@ -1,119 +1,100 @@
-/* General Body Styles */
 body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background: linear-gradient(135deg, #c3ecb2, #7af6d8);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
   margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-/* Container for the card */
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  perspective: 1000px; /* for future 3D effects */
+  perspective: 1200px;
 }
 
-/* Main Card */
 .card-3d {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 30px;
   max-width: 450px;
   width: 100%;
-  background-color: #ffffffdd;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
 }
 
-/* 3D-like hover effect */
 .card-3d:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
 }
 
-/* Card Title */
 h1 {
   text-align: center;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  font-size: 1.8rem;
+  color: #fff;
+  font-size: 2rem;
+  text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+  margin-bottom: 25px;
 }
 
-/* Section Headers */
-h2 {
-  background: linear-gradient(to right, #16a085, #1abc9c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-top: 20px;
-  font-size: 1.2rem;
-}
-
-/* Sections */
-section {
-  border-bottom: 1px dashed #bdc3c7;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  padding-left: 10px;
+.card-section {
+  background: rgba(255,255,255,0.25);
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Section hover effect */
-section:hover {
-  transform: translateX(5px);
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+.card-section:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
-/* List styles */
+.card-section h2 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.card-section p,
+.card-section li {
+  color: #f0f0f0;
+}
+
 ul {
   list-style: none;
   padding-left: 0;
 }
 
 ul li {
-  padding: 6px 0;
-  position: relative;
   padding-left: 20px;
+  position: relative;
 }
 
-/* Custom bullet points */
 ul li::before {
   content: "•";
   position: absolute;
   left: 0;
-  color: #16a085;
-  font-weight: bold;
+  color: #ffd700;
 }
 
-/* Links */
 a {
-  color: #2980b9;
+  color: #fffa;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 a:hover {
-  color: #e67e22;
-  text-decoration: underline;
+  color: #ffe066;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media screen and (max-width: 500px) {
   .card-3d {
     padding: 20px;
   }
 
   h1 {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
   }
 }
