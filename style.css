@@ -33,31 +33,17 @@ body {
 .logo-3d {
   width: 80px;
   height: 80px;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: rotate3D 5s linear infinite, float 3s ease-in-out infinite alternate;
   cursor: pointer;
+  animation: rotate 6s linear infinite, float 3s ease-in-out infinite alternate;
 }
 
 .logo-3d:hover {
-  animation: rotate3D 1s linear infinite, float 1.5s ease-in-out infinite alternate;
+  animation: rotate 1.5s linear infinite, float 1.5s ease-in-out infinite alternate;
 }
 
-.key, .note {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 15px;
-  background: linear-gradient(45deg, #00FFFF, #004080);
-  box-shadow: 0 0 20px #00FFFF, 0 0 40px #004080;
-}
-
-.key { transform: translateZ(10px) rotateY(10deg); }
-.note { transform: translateZ(-10px) rotateY(-10deg); }
-
-@keyframes rotate3D {
+/* Floating and rotate animations */
+@keyframes rotate {
   0% { transform: rotateY(0deg) rotateX(0deg); }
-  50% { transform: rotateY(180deg) rotateX(20deg); }
   100% { transform: rotateY(360deg) rotateX(0deg); }
 }
 
