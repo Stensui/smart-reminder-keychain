@@ -12,6 +12,11 @@ body {
 .container {
   width: 90%;
   max-width: 500px;
+  position: relative;
+}
+
+/* Main Card */
+.main-card {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -19,7 +24,6 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Title */
 h1 {
   text-align: center;
   color: #fff;
@@ -51,24 +55,58 @@ h1 {
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-/* Info Panels */
-.info-panel {
-  background-color: rgba(255,255,255,0.25);
-  border-radius: 12px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: max-height 0.5s ease, transform 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
-  margin-bottom: 10px;
-  padding: 0 15px;
+/* Detail Panels */
+.detail-card {
+  display: none;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: scale(0.9) translateX(50px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.info-panel p, .info-panel ul {
+/* Slide-in animation */
+.detail-card.slide-in {
+  transform: scale(1) translateX(0);
+  opacity: 1;
+}
+
+/* Slide-out animation */
+.detail-card.slide-out {
+  transform: scale(0.9) translateX(50px);
+  opacity: 0;
+}
+
+/* Back Button */
+.back-btn {
+  margin-top: 20px;
+  background-color: #0080ff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.back-btn:hover {
+  transform: scale(1.05);
+  background-color: #00aaff;
+}
+
+/* Panel content */
+.detail-card p, .detail-card ul {
   margin: 10px 0;
 }
 
-.info-panel ul {
+.detail-card ul {
   padding-left: 20px;
 }
