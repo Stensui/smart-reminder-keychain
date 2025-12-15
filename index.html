@@ -6,13 +6,7 @@
 <title>FlipNote Student Reminder</title>
 <style>
 /* ================= RESET ================= */
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
+* { box-sizing: border-box; font-family: 'Poppins', Arial, sans-serif; margin:0; padding:0; }
 body {
   background: linear-gradient(135deg, #010026, #1a1aff);
   display: flex;
@@ -22,235 +16,162 @@ body {
   color: #fff;
 }
 
-.container {
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-}
-
-/* ================= LOGIN ================= */
-.login-card,
-.main-card,
-.detail-card,
-.emergency-card {
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,255,255,0.3);
-  color: #00ffff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: none;
-  transform: scale(0.95);
-  opacity: 0;
-  transition: all 0.4s ease;
-}
-
-.show { display: block; opacity: 1; transform: scale(1); }
+.container { width: 90%; max-width: 500px; position: relative; }
 
 /* ================= BRANDING ================= */
-.branding {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.logo-wrapper {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
+.branding { text-align: center; margin-bottom: 20px; }
+.logo-wrapper { position: relative; display: inline-block; cursor: pointer; perspective: 800px; }
 .logo-3d {
-  width: 90px;
-  height: 90px;
+  width: 90px; height: 90px;
   filter: drop-shadow(0 0 12px #00ffff);
+  transform-style: preserve-3d;
   animation: float 3s ease-in-out infinite, spin 6s linear infinite;
+  transition: transform 0.3s;
 }
-
-.logo-wrapper.clicked .logo-3d {
-  animation: flip 0.6s ease, bounce 0.6s ease;
-}
-
+.logo-wrapper:hover .logo-3d { transform: rotateX(10deg) rotateY(10deg); filter: drop-shadow(0 0 25px #00ffff); }
+.logo-wrapper.clicked .logo-3d { animation: flip 0.6s ease, bounce 0.6s ease; }
 .brand-name {
-  font-size: 2rem;
-  color: #00ffff;
+  font-size: 2rem; color: #00ffff;
   text-shadow: 0 0 15px #00ffff;
   animation: glow 2s infinite alternate;
   margin-top: 10px;
 }
+.particles { position: absolute; inset:0; pointer-events:none; }
+.particles span { position:absolute; width:6px; height:6px; background:#00ffff; border-radius:50%; animation:particle 0.6s linear forwards; }
 
-.particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* ================= LOGIN ================= */
+.login-card, .main-card, .detail-card, .emergency-card {
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+  border-radius: 20px; padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,255,255,0.3);
+  color: #00ffff; position:absolute; top:0; left:0; width:100%;
+  opacity:0; transform: scale(0.95) translateY(40px); transition: all 0.4s ease; display:none;
 }
-
-.particles span {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #00ffff;
-  border-radius: 50%;
-  animation: particle 0.6s linear forwards;
-}
+.show { display:block; opacity:1; transform: scale(1) translateY(0); }
 
 /* ================= INPUTS ================= */
-.login-card input,
-.emergency-card input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
+.login-card input, .emergency-card input {
+  width: 100%; padding:12px; margin:10px 0; border-radius:12px; border:none; font-size:16px;
 }
 
 /* ================= BUTTONS ================= */
 button {
-  padding: 12px;
-  width: 100%;
-  border: none;
-  border-radius: 12px;
-  margin: 10px 0;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  padding:12px; width:100%; border:none; border-radius:12px; margin:10px 0;
+  font-size:16px; cursor:pointer; font-weight:bold; transition: all 0.3s ease;
 }
+.card-btn { background: linear-gradient(90deg, #00008b, #0000ff); color:#fff; text-align:left; }
+.card-btn:hover { transform: scale(1.05); box-shadow:0 8px 20px rgba(0,255,255,0.3); }
+.back-btn { background-color:#00ffff; color:#000; }
+.back-btn:hover { transform: scale(1.05); box-shadow:0 0 15px #00ffff; }
+.logout-btn { background:#ff5555; color:#fff; }
+.logout-btn:hover { transform: scale(1.05); box-shadow:0 0 15px #ff5555; }
 
-.card-btn { background: linear-gradient(90deg, #00008b, #0000ff); color: #fff; text-align: left; }
-.card-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,255,255,0.3); }
+/* ================= TEXT ================= */
+h2 { margin-bottom:15px; color:#00ffff; }
+.line { opacity:0; transform: translateY(20px) scale(0.95); margin:6px 0; transition: all 0.4s ease; }
 
-.back-btn { background-color: #00ffff; color: #000; }
-.back-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #00ffff; }
-
-.logout-btn { background: #ff5555; color: #fff; }
-.logout-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff5555; }
-
-/* ================= PANELS ================= */
-.detail-card, .emergency-card {
-  opacity: 0;
-  transform: translateY(50px) scale(0.95);
-  transition: all 0.4s ease;
-}
-
-.detail-card.show, .emergency-card.show, .main-card.show, .login-card.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* Text */
-h2 { margin-bottom: 15px; color: #00ffff; }
-.line { opacity: 0; transform: translateY(20px) scale(0.95); margin: 6px 0; }
-
-/* Keyframes */
-@keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
-@keyframes spin { 100% { transform: rotateY(360deg); } }
-@keyframes flip { to { transform: rotateY(180deg); } }
-@keyframes bounce { 50% { transform: scale(1.2); } }
-@keyframes glow { from { text-shadow: 0 0 5px #00ffff; } to { text-shadow:0 0 25px #00ffff; } }
-@keyframes particle { to { transform: translate(var(--x), var(--y)); opacity:0; } }
-
+/* ================= KEYFRAMES ================= */
+@keyframes float { 0%{ transform: translateY(0);} 100%{ transform:translateY(-12px);} }
+@keyframes spin { 100%{ transform: rotateY(360deg);} }
+@keyframes flip { to{ transform: rotateY(180deg);} }
+@keyframes bounce { 50%{ transform: scale(1.2);} }
+@keyframes glow { from{ text-shadow:0 0 5px #00ffff;} to{ text-shadow:0 0 25px #00ffff;} }
+@keyframes particle { to{ transform: translate(var(--x),var(--y)); opacity:0;} }
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- Branding -->
-  <div class="branding">
-    <div class="logo-wrapper" onclick="logoClick()">
-      <svg class="logo-3d" viewBox="0 0 64 64">
-        <rect x="10" y="10" width="44" height="44" rx="6" fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
-        <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
-        <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
-        <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
-        <circle cx="22" cy="20" r="4" fill="#00ffff"/>
-        <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
-        <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
-      </svg>
-      <div class="particles"></div>
-      <div class="brand-name">FlipNote</div>
-    </div>
+<!-- Branding -->
+<div class="branding">
+  <div class="logo-wrapper" onclick="logoClick()">
+    <svg class="logo-3d" viewBox="0 0 64 64">
+      <rect x="10" y="10" width="44" height="44" rx="6" fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
+      <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
+      <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
+      <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
+      <circle cx="22" cy="20" r="4" fill="#00ffff"/>
+      <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
+      <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
+    </svg>
+    <div class="particles"></div>
+    <div class="brand-name">FlipNote</div>
   </div>
+</div>
 
-  <!-- ================= LOGIN ================= -->
-  <div class="login-card show" id="login-card">
-    <h2>Student Login</h2>
-    <input type="text" id="student-id" placeholder="Enter Student ID or Name">
-    <input type="password" id="passcode" placeholder="Enter Passcode">
-    <button id="login-btn">Login</button>
-    <button id="emergency-btn">Emergency Access</button>
-  </div>
+<!-- LOGIN CARD -->
+<div class="login-card show" id="login-card">
+  <h2>Student Login</h2>
+  <input type="text" id="student-id" placeholder="Enter Student ID or Name">
+  <input type="password" id="passcode" placeholder="Enter Passcode">
+  <button id="login-btn">Login</button>
+  <button id="emergency-btn">Emergency Access</button>
+</div>
 
-  <!-- ================= MAIN MENU ================= -->
-  <div class="main-card" id="main-card">
-    <button class="card-btn" data-target="subjects">Subjects</button>
-    <button class="card-btn" data-target="schedule">Schedule</button>
-    <button class="card-btn" data-target="google-links">Google Classroom Links</button>
-    <button class="logout-btn" id="logout-btn">Logout</button>
-  </div>
+<!-- MAIN MENU -->
+<div class="main-card" id="main-card">
+  <button class="card-btn" data-target="subjects">Subjects</button>
+  <button class="card-btn" data-target="schedule">Schedule</button>
+  <button class="card-btn" data-target="google-links">Google Classroom Links</button>
+  <button class="logout-btn" id="logout-btn">Logout</button>
+</div>
 
-  <!-- ================= DETAIL PANELS ================= -->
-  <div class="detail-card" id="subjects">
-    <h2>Subjects</h2>
-    <p class="line">Mathematics</p>
-    <p class="line">Science</p>
-    <p class="line">English</p>
-    <p class="line">ICT</p>
-    <button class="back-btn">Back</button>
-  </div>
+<!-- DETAIL PANELS -->
+<div class="detail-card" id="subjects">
+  <h2>Subjects</h2>
+  <p class="line">Mathematics</p>
+  <p class="line">Science</p>
+  <p class="line">English</p>
+  <p class="line">ICT</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="detail-card" id="schedule">
-    <h2>Schedule</h2>
-    <p class="line">Monday - Math, ICT</p>
-    <p class="line">Tuesday - Science, English</p>
-    <p class="line">Wednesday - ICT Lab</p>
-    <p class="line">Thursday - Math, English</p>
-    <p class="line">Friday - Science, ICT</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="schedule">
+  <h2>Schedule</h2>
+  <p class="line">Monday - Math, ICT</p>
+  <p class="line">Tuesday - Science, English</p>
+  <p class="line">Wednesday - ICT Lab</p>
+  <p class="line">Thursday - Math, English</p>
+  <p class="line">Friday - Science, ICT</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="detail-card" id="google-links">
-    <h2>Google Classroom Links</h2>
-    <p class="line"><a href="https://classroom.google.com" target="_blank">Google Classroom</a></p>
-    <p class="line"><a href="https://drive.google.com" target="_blank">Google Drive</a></p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="google-links">
+  <h2>Google Classroom Links</h2>
+  <p class="line"><a href="https://classroom.google.com" target="_blank">Google Classroom</a></p>
+  <p class="line"><a href="https://drive.google.com" target="_blank">Google Drive</a></p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <!-- ================= EMERGENCY ACCESS ================= -->
-  <div class="emergency-card" id="emergency-card">
-    <h2>Emergency Access</h2>
-    <input type="text" id="emergency-id" placeholder="Enter Student ID or Name">
-    <button id="emergency-view-btn">View Emergency Contact</button>
-    <button class="back-btn" id="emergency-back-btn">Back</button>
-    <div id="emergency-info" style="margin-top:15px;"></div>
-  </div>
+<!-- EMERGENCY CARD -->
+<div class="emergency-card" id="emergency-card">
+  <h2>Emergency Access</h2>
+  <input type="text" id="emergency-id" placeholder="Enter Student ID or Name">
+  <button id="emergency-view-btn">View Emergency Contact</button>
+  <button class="back-btn" id="emergency-back-btn">Back</button>
+  <div id="emergency-info" style="margin-top:15px;"></div>
+</div>
 
 </div>
 
 <script>
-// ================= LOGO CLICK =================
+// LOGO CLICK ANIMATION
 function logoClick() {
   const wrapper = document.querySelector('.logo-wrapper');
   const particles = document.querySelector('.particles');
-
   wrapper.classList.add('clicked');
-  setTimeout(() => wrapper.classList.remove('clicked'), 600);
-
-  particles.innerHTML = '';
-  for (let i = 0; i < 12; i++) {
-    const p = document.createElement('span');
-    p.style.setProperty('--x', `${Math.random()*100-50}px`);
-    p.style.setProperty('--y', `${Math.random()*100-50}px`);
+  setTimeout(()=>wrapper.classList.remove('clicked'),600);
+  particles.innerHTML='';
+  for(let i=0;i<12;i++){
+    const p=document.createElement('span');
+    p.style.setProperty('--x',`${Math.random()*100-50}px`);
+    p.style.setProperty('--y',`${Math.random()*100-50}px`);
     particles.appendChild(p);
   }
 }
 
-// ================= LOGIN =================
+// ELEMENTS
 const loginCard = document.getElementById('login-card');
 const mainCard = document.getElementById('main-card');
 const loginBtn = document.getElementById('login-btn');
@@ -258,25 +179,24 @@ const emergencyBtn = document.getElementById('emergency-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const backBtns = document.querySelectorAll('.back-btn');
 const detailCards = document.querySelectorAll('.detail-card');
-
 const emergencyCard = document.getElementById('emergency-card');
 const emergencyViewBtn = document.getElementById('emergency-view-btn');
 const emergencyBackBtn = document.getElementById('emergency-back-btn');
 const emergencyInfo = document.getElementById('emergency-info');
 
-const correctPasscode = "1234"; // Passcode for full access
+const correctPasscode="1234"; // passcode
 
+// LOGIN FUNCTION
 loginBtn.addEventListener('click', ()=>{
   const id = document.getElementById('student-id').value.trim();
   const pass = document.getElementById('passcode').value.trim();
-  if(id && pass === correctPasscode){
+  if(id && pass===correctPasscode){
     loginCard.classList.remove('show');
     mainCard.classList.add('show');
-  } else {
-    alert("Invalid ID or Passcode!");
-  }
+  } else alert("Invalid ID or Passcode!");
 });
 
+// EMERGENCY ACCESS
 emergencyBtn.addEventListener('click', ()=>{
   loginCard.classList.remove('show');
   emergencyCard.classList.add('show');
@@ -284,35 +204,30 @@ emergencyBtn.addEventListener('click', ()=>{
 
 emergencyBackBtn.addEventListener('click', ()=>{
   emergencyCard.classList.remove('show');
-  loginCard.classList.add('show');
+  loginCard.classList.add('show'); // go back to login page directly
 });
 
 emergencyViewBtn.addEventListener('click', ()=>{
   const id = document.getElementById('emergency-id').value.trim();
   if(id){
-    emergencyInfo.innerHTML = `
-      <p>Name: ${id}</p>
-      <p>Emergency Contact: 09123456789</p>
-    `;
-  } else {
-    alert("Please enter Student ID or Name.");
-  }
+    emergencyInfo.innerHTML=`<p>Name: ${id}</p><p>Emergency Contact: 09123456789</p>`;
+  } else alert("Please enter Student ID or Name.");
 });
 
-// ================= MAIN MENU BUTTONS =================
-document.querySelectorAll('.card-btn').forEach(btn => {
+// MAIN MENU BUTTONS
+document.querySelectorAll('.card-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const panel = document.getElementById(btn.dataset.target);
     mainCard.classList.remove('show');
     panel.classList.add('show');
-    panel.querySelectorAll('.line').forEach((line, i)=>{
+    panel.querySelectorAll('.line').forEach((line,i)=>{
       line.style.opacity=0;
       setTimeout(()=>line.style.opacity=1, i*150);
     });
   });
 });
 
-// ================= DETAIL CARD BACK =================
+// DETAIL PANEL BACK BUTTONS
 backBtns.forEach(btn=>{
   btn.addEventListener('click', ()=>{
     btn.parentElement.classList.remove('show');
@@ -320,7 +235,7 @@ backBtns.forEach(btn=>{
   });
 });
 
-// ================= LOGOUT =================
+// LOGOUT
 logoutBtn.addEventListener('click', ()=>{
   mainCard.classList.remove('show');
   loginCard.classList.add('show');
