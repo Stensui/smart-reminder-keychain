@@ -6,24 +6,25 @@ body {
 }
 
 .container {
-  perspective: 1000px; /* For 3D perspective */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
 .card-3d {
   max-width: 450px;
-  margin: 40px auto;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 3D hover effect */
+/* 3D-like hover effect */
 .card-3d:hover {
-  transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.3);
 }
 
 h1 {
@@ -60,4 +61,3 @@ section {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-
