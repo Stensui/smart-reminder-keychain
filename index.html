@@ -6,7 +6,6 @@
 <title>FlipNote</title>
 
 <style>
-/* ================= RESET ================= */
 * {
   box-sizing: border-box;
   font-family: 'Poppins', Arial, sans-serif;
@@ -22,14 +21,13 @@ body {
   color: #fff;
 }
 
-/* ================= CONTAINER ================= */
 .container {
   width: 100%;
   max-width: 420px;
   padding: 20px;
 }
 
-/* ================= BRANDING ================= */
+/* BRANDING */
 .branding {
   text-align: center;
   margin-bottom: 20px;
@@ -56,7 +54,15 @@ body {
   animation: glow 2s infinite alternate;
 }
 
-/* ================= PARTICLES ================= */
+.school-tagline {
+  font-size: 0.85rem;
+  color: #b3f5ff;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+/* PARTICLES */
 .particles {
   position: absolute;
   inset: 0;
@@ -72,7 +78,7 @@ body {
   animation: particle 0.6s linear forwards;
 }
 
-/* ================= MAIN CARD ================= */
+/* MAIN + DETAIL */
 .main-card,
 .detail-card {
   background: rgba(255,255,255,0.95);
@@ -92,7 +98,7 @@ body {
   display: none;
 }
 
-/* ================= BUTTONS ================= */
+/* BUTTONS */
 .card-btn {
   padding: 14px;
   border-radius: 14px;
@@ -120,7 +126,6 @@ body {
   cursor: pointer;
 }
 
-/* ================= TEXT ================= */
 h2 {
   margin-top: 0;
   color: #008b9a;
@@ -131,7 +136,7 @@ h2 {
   opacity: 0;
 }
 
-/* ================= ANIMATIONS ================= */
+/* ANIMATIONS */
 .slide-in {
   animation: slideIn 0.4s ease forwards;
 }
@@ -140,8 +145,10 @@ h2 {
   animation: slideOut 0.4s ease forwards;
 }
 
-.clicked .logo-3d {
-  animation: flip 0.6s ease, bounce 0.6s ease;
+.clicked .logo-3d,
+.active .logo-3d {
+  animation: bounce 0.4s ease;
+  filter: drop-shadow(0 0 30px #00ffff);
 }
 
 @keyframes float {
@@ -151,10 +158,6 @@ h2 {
 
 @keyframes spin {
   to { transform: rotateY(360deg); }
-}
-
-@keyframes flip {
-  to { transform: rotateY(180deg); }
 }
 
 @keyframes bounce {
@@ -188,7 +191,7 @@ h2 {
 
 <div class="container">
 
-<!-- ================= LOGO ================= -->
+<!-- LOGO -->
 <div class="branding">
   <div class="logo-wrapper" onclick="logoClick()">
     <svg class="logo-3d" viewBox="0 0 64 64">
@@ -203,10 +206,11 @@ h2 {
     </svg>
     <div class="particles"></div>
     <div class="brand-name">FlipNote</div>
+    <div class="school-tagline">Smart Student Reminder</div>
   </div>
 </div>
 
-<!-- ================= MAIN MENU ================= -->
+<!-- MENU -->
 <div class="main-card" id="main-card">
   <button class="card-btn" data-target="owner-info">Owner Information</button>
   <button class="card-btn" data-target="daily-goals">Daily Goals</button>
@@ -215,7 +219,7 @@ h2 {
   <button class="card-btn" data-target="motivation">Motivational Quote</button>
 </div>
 
-<!-- ================= PANELS ================= -->
+<!-- PANELS -->
 <div class="detail-card" id="owner-info">
   <h2>Owner Information</h2>
   <p class="line">Name: John Doe</p>
@@ -258,7 +262,7 @@ function logoClick() {
   const particles = document.querySelector('.particles');
 
   wrapper.classList.add('clicked');
-  setTimeout(() => wrapper.classList.remove('clicked'), 600);
+  setTimeout(() => wrapper.classList.remove('clicked'), 500);
 
   particles.innerHTML = '';
   for (let i = 0; i < 12; i++) {
@@ -272,9 +276,13 @@ function logoClick() {
 const buttons = document.querySelectorAll('.card-btn');
 const backBtns = document.querySelectorAll('.back-btn');
 const mainCard = document.getElementById('main-card');
+const logo = document.querySelector('.logo-wrapper');
 
 buttons.forEach(btn => {
   btn.onclick = () => {
+    logo.classList.add('active');
+    setTimeout(() => logo.classList.remove('active'), 400);
+
     const panel = document.getElementById(btn.dataset.target);
     mainCard.style.display = 'none';
     panel.style.display = 'block';
