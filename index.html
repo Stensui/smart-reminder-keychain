@@ -5,140 +5,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Reminder Keychain</title>
-<style>
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0050a0, #00aaff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-.container {
-  width: 90%;
-  max-width: 500px;
-}
-
-.card-3d {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 25px;
-  padding: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-h1 {
-  text-align: center;
-  color: #fff;
-}
-
-/* Accordion buttons */
-.accordion {
-  background-color: #004080;
-  color: white;
-  cursor: pointer;
-  padding: 15px;
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-  margin-top: 10px;
-  text-align: left;
-  outline: none;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.accordion:hover {
-  background-color: #0066cc;
-}
-
-.accordion.active {
-  background-color: #0080ff;
-}
-
-/* Panel (hidden by default) */
-.panel {
-  background-color: rgba(255,255,255,0.2);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding: 0 15px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-.panel p, .panel ul {
-  color: #fff;
-  margin: 10px 0;
-}
-
-.panel ul {
-  padding-left: 20px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-  <div class="card-3d">
+
+  <!-- Main Card -->
+  <div class="card-3d" id="main-card">
     <h1>🌟 Smart Reminder Keychain 🌟</h1>
 
-    <button class="accordion">Owner Information</button>
-    <div class="panel">
-      <p><strong>Name:</strong> John Doe</p>
-      <p><strong>If found, contact:</strong> 09123456789</p>
-    </div>
-
-    <button class="accordion">Daily Goals</button>
-    <div class="panel">
-      <ul>
-        <li>Finish ICT project</li>
-        <li>Review notes for tomorrow</li>
-      </ul>
-    </div>
-
-    <button class="accordion">Personal Reminders</button>
-    <div class="panel">
-      <ul>
-        <li>Backup files</li>
-        <li>Charge devices</li>
-      </ul>
-    </div>
-
-    <button class="accordion">Emergency Contact</button>
-    <div class="panel">
-      <p><strong>Name:</strong> Parent / Guardian</p>
-      <p><strong>Phone:</strong> 09123456789</p>
-    </div>
-
-    <button class="accordion">Motivational Quote</button>
-    <div class="panel">
-      <p>"Believe you can and you're halfway there."</p>
-    </div>
+    <button class="card-btn" data-target="owner-info">Owner Information</button>
+    <button class="card-btn" data-target="daily-goals">Daily Goals</button>
+    <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
+    <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
+    <button class="card-btn" data-target="motivation">Motivational Quote</button>
   </div>
+
+  <!-- Detail Panels -->
+  <div class="detail-card" id="owner-info">
+    <h2>Owner Information</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>If found, contact:</strong> 09123456789</p>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <div class="detail-card" id="daily-goals">
+    <h2>Daily Goals</h2>
+    <ul>
+      <li>Finish ICT project</li>
+      <li>Review notes for tomorrow</li>
+    </ul>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <div class="detail-card" id="personal-reminders">
+    <h2>Personal Reminders</h2>
+    <ul>
+      <li>Backup files</li>
+      <li>Charge devices</li>
+    </ul>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <div class="detail-card" id="emergency-contact">
+    <h2>Emergency Contact</h2>
+    <p><strong>Name:</strong> Parent / Guardian</p>
+    <p><strong>Phone:</strong> 09123456789</p>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <div class="detail-card" id="motivation">
+    <h2>Motivational Quote</h2>
+    <p>"Believe you can and you're halfway there."</p>
+    <button class="back-btn">Back</button>
+  </div>
+
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const accordions = document.querySelectorAll(".accordion");
-  
-  accordions.forEach(button => {
-    button.addEventListener("click", () => {
-      button.classList.toggle("active");
-      const panel = button.nextElementSibling;
-      if (panel.style.maxHeight) {
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      }
-    });
+const cardBtns = document.querySelectorAll('.card-btn');
+const detailCards = document.querySelectorAll('.detail-card');
+const mainCard = document.getElementById('main-card');
+const backBtns = document.querySelectorAll('.back-btn');
+
+// Show detail panel
+cardBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-target');
+    mainCard.style.display = 'none';
+    document.getElementById(target).style.display = 'block';
+  });
+});
+
+// Back button
+backBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.parentElement.style.display = 'none';
+    mainCard.style.display = 'block';
   });
 });
 </script>
 
 </body>
 </html>
+
 
 
