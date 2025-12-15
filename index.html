@@ -48,7 +48,26 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+  // Get all accordion buttons
+  const accordions = document.querySelectorAll(".accordion");
+
+  accordions.forEach(button => {
+    button.addEventListener("click", () => {
+      // Toggle active class for styling
+      button.classList.toggle("active");
+
+      // Toggle panel visibility
+      const panel = button.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null; // collapse
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px"; // expand
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
 
