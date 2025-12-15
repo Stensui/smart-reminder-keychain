@@ -10,71 +10,83 @@
 
 <div class="container">
 
-  <h1>Smart Reminder Keychain</h1>
-
-  <button class="card-btn" data-target="owner-info">Owner Information</button>
-  <div class="info-panel" id="owner-info">
-    <p><strong>Name:</strong> John Doe</p>
-    <p><strong>If found, contact:</strong> 09123456789</p>
+  <!-- Main Buttons -->
+  <div class="main-card" id="main-card">
+    <h1>Smart Reminder Keychain</h1>
+    <button class="card-btn" data-target="owner-info">Owner Information</button>
+    <button class="card-btn" data-target="daily-goals">Daily Goals</button>
+    <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
+    <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
+    <button class="card-btn" data-target="motivation">Motivational Quote</button>
   </div>
 
-  <button class="card-btn" data-target="daily-goals">Daily Goals</button>
-  <div class="info-panel" id="daily-goals">
+  <!-- Detail Panels -->
+  <div class="detail-card" id="owner-info">
+    <h2>Owner Information</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>If found, contact:</strong> 09123456789</p>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <div class="detail-card" id="daily-goals">
+    <h2>Daily Goals</h2>
     <ul>
       <li>Finish ICT project</li>
       <li>Review notes for tomorrow</li>
     </ul>
+    <button class="back-btn">Back</button>
   </div>
 
-  <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
-  <div class="info-panel" id="personal-reminders">
+  <div class="detail-card" id="personal-reminders">
+    <h2>Personal Reminders</h2>
     <ul>
       <li>Backup files</li>
       <li>Charge devices</li>
     </ul>
+    <button class="back-btn">Back</button>
   </div>
 
-  <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
-  <div class="info-panel" id="emergency-contact">
+  <div class="detail-card" id="emergency-contact">
+    <h2>Emergency Contact</h2>
     <p><strong>Name:</strong> Parent / Guardian</p>
     <p><strong>Phone:</strong> 09123456789</p>
+    <button class="back-btn">Back</button>
   </div>
 
-  <button class="card-btn" data-target="motivation">Motivational Quote</button>
-  <div class="info-panel" id="motivation">
+  <div class="detail-card" id="motivation">
+    <h2>Motivational Quote</h2>
     <p>"Believe you can and you're halfway there."</p>
+    <button class="back-btn">Back</button>
   </div>
 
 </div>
 
 <script>
+// Show detail panel
 const buttons = document.querySelectorAll('.card-btn');
+const backBtns = document.querySelectorAll('.back-btn');
+const mainCard = document.getElementById('main-card');
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = document.getElementById(btn.getAttribute('data-target'));
+    mainCard.style.display = 'none';
+    target.classList.add('slide-in');
+    target.style.display = 'block';
+  });
+});
 
-    if (target.style.maxHeight) {
-      // Collapse
-      target.style.maxHeight = null;
-      target.style.transform = "scale(0.95)";
-      target.style.opacity = "0";
-      target.style.padding = "0 15px";
-    } else {
-      // Optional: close other panels
-      document.querySelectorAll('.info-panel').forEach(panel => {
-        panel.style.maxHeight = null;
-        panel.style.transform = "scale(0.95)";
-        panel.style.opacity = "0";
-        panel.style.padding = "0 15px";
-      });
-
-      // Expand
-      target.style.maxHeight = target.scrollHeight + 20 + "px"; // extra padding for content
-      target.style.transform = "scale(1)";
-      target.style.opacity = "1";
-      target.style.padding = "15px";
-    }
+// Back button
+backBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = btn.parentElement;
+    panel.classList.remove('slide-in');
+    panel.classList.add('slide-out');
+    setTimeout(() => {
+      panel.style.display = 'none';
+      panel.classList.remove('slide-out');
+      mainCard.style.display = 'block';
+    }, 400);
   });
 });
 </script>
