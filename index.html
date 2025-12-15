@@ -3,159 +3,286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlipNote – Student Reminder</title>
+<title>FlipNote - Student Reminders</title>
 <style>
-* { box-sizing:border-box; font-family:'Poppins',sans-serif; margin:0; padding:0; }
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= BODY ================= */
 body {
-  display:flex; justify-content:center; align-items:center;
-  min-height:100vh; background:linear-gradient(135deg,#010026,#1a1aff);
+  background: linear-gradient(135deg, #010026, #1a1aff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #fff;
 }
+
+/* ================= CONTAINER ================= */
 .container {
-  width:90%; max-width:500px; position:relative;
-  padding:20px;
-  overflow:hidden;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
 }
 
-/* BRANDING */
-.branding { text-align:center; margin-bottom:20px; }
-.logo-wrapper { position:relative; cursor:pointer; display:inline-block; }
-.logo-3d { width:90px; height:90px; filter:drop-shadow(0 0 12px #00ffff); 
-  animation: float 3s ease-in-out infinite, spin 6s linear infinite;}
-.logo-wrapper.clicked .logo-3d { animation: flip 0.6s ease, bounce 0.6s ease; }
-.brand-name { color:#00ffff; font-size:2rem; margin-top:10px; text-shadow:0 0 15px #00ffff; animation:glow 2s infinite alternate; }
-.particles { position:absolute; inset:0; pointer-events:none; }
-.particles span { position:absolute; width:6px;height:6px; background:#00ffff; border-radius:50%; animation:particle 0.6s linear forwards; }
+/* ================= BRANDING ================= */
+.branding {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-/* MAIN MENU */
-.main-card { background: rgba(0,0,0,0.5); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(0,0,0,0.5); display:flex; flex-direction:column; gap:12px; }
-.card-btn { padding:14px; border-radius:14px; border:none; font-size:16px; background:linear-gradient(135deg,#00eaff,#00bcd4); color:#003344; cursor:pointer; transition:0.3s;}
-.card-btn:hover { transform:scale(1.06); background:linear-gradient(135deg,#00bcd4,#00eaff);}
-.back-btn { margin-top:20px; width:100%; padding:12px; border-radius:12px; border:none; background:#00bcd4; color:white; cursor:pointer; font-weight:bold; transition:0.3s;}
-.back-btn:hover { transform:scale(1.05); box-shadow:0 0 15px #00ffff; }
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
 
-/* DETAIL PANELS */
-.detail-card { display:none; background:rgba(0,0,0,0.6); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(0,255,255,0.5); color:#00ffff; position:relative; max-height:70vh; overflow-y:auto; margin-top:10px; }
-.line { opacity:0; transform:translateY(20px) scale(0.95); display:block; margin:8px 0; transition:all 0.5s ease; }
-a { color:#00ffff; text-decoration:none;}
-a:hover{text-decoration:underline;}
+.logo-3d {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 0 12px #00ffff);
+  animation: float 3s ease-in-out infinite, spin 6s linear infinite;
+}
 
-/* TIMETABLE */
-.timetable { width:100%; border-collapse:collapse; margin-top:10px;}
-.timetable th, .timetable td { border:1px solid #00ffff; padding:8px; text-align:center;}
-.timetable th { background:rgba(0,255,255,0.1);}
-.timetable td a { color:#00ffff; text-decoration:none; font-weight:bold;}
-.timetable td a:hover { text-decoration:underline; }
+.logo-wrapper:hover .logo-3d {
+  filter: drop-shadow(0 0 25px #00ffff);
+}
 
-/* ANIMATIONS */
-@keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+.logo-wrapper.clicked .logo-3d {
+  animation: flip 0.6s ease, bounce 0.6s ease;
+}
+
+.brand-name {
+  margin-top: 10px;
+  font-size: 2rem;
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  animation: glow 2s infinite alternate;
+}
+
+/* ================= PARTICLES ================= */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #00ffff;
+  border-radius: 50%;
+  animation: particle 0.6s linear forwards;
+}
+
+/* ================= MAIN CARD ================= */
+.main-card,
+.detail-card {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,255,255,0.5);
+}
+
+.main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-card {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #00ffff;
+  opacity: 0;
+  transform: scale(0.9) translateY(40px);
+}
+
+/* ================= BUTTONS ================= */
+.card-btn {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(135deg,#00eaff,#00bcd4);
+  color: #003344;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.back-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #00bcd4;
+  color: white;
+  cursor: pointer;
+}
+
+/* ================= TEXT & TABLES ================= */
+h2 {
+  margin-top: 0;
+}
+
+.line {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #00ffff;
+  padding: 6px;
+  text-align: center;
+  color: #00ffff;
+}
+
+a {
+  color: #00ffff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ================= ANIMATIONS ================= */
+.slide-in { animation: slideIn 0.4s ease forwards; }
+.slide-out { animation: slideOut 0.4s ease forwards; }
+
+@keyframes float { 0%{transform:translateY(0);} 100%{transform:translateY(-12px);} }
 @keyframes spin { 100%{transform:rotateY(360deg);} }
-@keyframes flip { to{transform:rotateY(180deg);} }
+@keyframes flip { 0%{transform:rotateY(0);} 100%{transform:rotateY(180deg);} }
 @keyframes bounce { 50%{transform:scale(1.2);} }
 @keyframes glow { from{text-shadow:0 0 5px #00ffff;} to{text-shadow:0 0 25px #00ffff;} }
-@keyframes particle { to { transform: translate(var(--x),var(--y)); opacity:0; } }
+@keyframes particle { to{transform:translate(var(--x), var(--y)); opacity:0;} }
+@keyframes slideIn { from{opacity:0; transform:translateY(40px) scale(0.95);} to{opacity:1; transform:translateY(0) scale(1);} }
+@keyframes slideOut { to{opacity:0; transform:translateY(40px) scale(0.95);} }
 </style>
 </head>
+
 <body>
+
 <div class="container">
 
-<!-- LOGO -->
-<div class="branding">
-  <div class="logo-wrapper" onclick="logoClick()">
-    <svg class="logo-3d" viewBox="0 0 64 64">
-      <rect x="10" y="10" width="44" height="44" rx="6" fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
-      <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
-      <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
-      <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
-      <circle cx="22" cy="20" r="4" fill="#00ffff"/>
-      <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
-      <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
-    </svg>
-    <div class="particles"></div>
-    <div class="brand-name">FlipNote</div>
+  <!-- LOGO -->
+  <div class="branding">
+    <div class="logo-wrapper" onclick="logoClick()">
+      <svg class="logo-3d" viewBox="0 0 64 64">
+        <rect x="10" y="10" width="44" height="44" rx="6"
+              fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
+        <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
+        <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
+        <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
+        <circle cx="22" cy="20" r="4" fill="#00ffff"/>
+        <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
+        <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
+      </svg>
+      <div class="particles"></div>
+      <div class="brand-name">FlipNote</div>
+    </div>
   </div>
-</div>
 
-<!-- MAIN MENU -->
-<div class="main-card" id="main-card">
-  <button class="card-btn" data-target="student-info">Student Info</button>
-  <button class="card-btn" data-target="subjects">Subjects</button>
-  <button class="card-btn" data-target="schedule">Subject Schedule</button>
-  <button class="card-btn" data-target="classroom">Google Classroom Links</button>
-  <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
-  <button class="card-btn" data-target="motivation">Motivation</button>
-</div>
+  <!-- MAIN MENU -->
+  <div class="main-card" id="main-card">
+    <button class="card-btn" data-target="owner-info">Owner Information</button>
+    <button class="card-btn" data-target="subjects">Subjects</button>
+    <button class="card-btn" data-target="schedule">Subject Schedule</button>
+    <button class="card-btn" data-target="classroom">Google Classroom Links</button>
+    <button class="card-btn" data-target="motivation">Motivational Quote</button>
+  </div>
 
-<!-- DETAIL PANELS -->
-<div class="detail-card" id="student-info">
-  <h2>Student Information</h2>
-  <p class="line">Name: John Doe</p>
-  <p class="line">ID: 2025-ICT-001</p>
-  <p class="line">Year/Section: 12-ICT</p>
-  <button class="back-btn">Back</button>
-</div>
+  <!-- DETAIL PANELS -->
+  <div class="detail-card" id="owner-info">
+    <h2>Owner Information</h2>
+    <p class="line">Name: John Doe</p>
+    <p class="line">Contact: 09123456789</p>
+    <button class="back-btn">Back</button>
+  </div>
 
-<div class="detail-card" id="subjects">
-  <h2>Subjects</h2>
-  <table class="timetable">
-    <tr><th>Subject</th></tr>
-    <tr><td>Mathematics</td></tr>
-    <tr><td>Science</td></tr>
-    <tr><td>ICT</td></tr>
-    <tr><td>English</td></tr>
-    <tr><td>Filipino</td></tr>
-  </table>
-  <button class="back-btn">Back</button>
-</div>
+  <div class="detail-card" id="subjects">
+    <h2>Subjects</h2>
+    <div class="line">
+      <table>
+        <tr><th>Subject</th></tr>
+        <tr><td>Mathematics</td></tr>
+        <tr><td>Science</td></tr>
+        <tr><td>ICT</td></tr>
+        <tr><td>English</td></tr>
+        <tr><td>Filipino</td></tr>
+      </table>
+    </div>
+    <button class="back-btn">Back</button>
+  </div>
 
-<div class="detail-card" id="schedule">
-  <h2>Subject Schedule</h2>
-  <table class="timetable">
-    <tr><th>Day</th><th>Time</th><th>Subject</th></tr>
-    <tr><td>Mon</td><td>8AM-10AM</td><td>Mathematics</td></tr>
-    <tr><td>Tue</td><td>10AM-12PM</td><td>ICT</td></tr>
-    <tr><td>Wed</td><td>8AM-10AM</td><td>Science</td></tr>
-    <tr><td>Thu</td><td>10AM-12PM</td><td>English</td></tr>
-    <tr><td>Fri</td><td>8AM-10AM</td><td>Filipino</td></tr>
-  </table>
-  <button class="back-btn">Back</button>
-</div>
+  <div class="detail-card" id="schedule">
+    <h2>Subject Schedule</h2>
+    <div class="line">
+      <table>
+        <tr><th>Day</th><th>Time</th><th>Subject</th></tr>
+        <tr><td>Mon</td><td>8AM-10AM</td><td>Mathematics</td></tr>
+        <tr><td>Tue</td><td>10AM-12PM</td><td>ICT</td></tr>
+        <tr><td>Wed</td><td>8AM-10AM</td><td>Science</td></tr>
+        <tr><td>Thu</td><td>10AM-12PM</td><td>English</td></tr>
+        <tr><td>Fri</td><td>8AM-10AM</td><td>Filipino</td></tr>
+      </table>
+    </div>
+    <button class="back-btn">Back</button>
+  </div>
 
-<div class="detail-card" id="classroom">
-  <h2>Google Classroom Links</h2>
-  <table class="timetable">
-    <tr><th>Subject</th><th>Link</th></tr>
-    <tr><td>Mathematics</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
-    <tr><td>Science</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
-    <tr><td>ICT</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
-    <tr><td>English</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
-    <tr><td>Filipino</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
-  </table>
-  <button class="back-btn">Back</button>
-</div>
+  <div class="detail-card" id="classroom">
+    <h2>Google Classroom Links</h2>
+    <div class="line">
+      <table>
+        <tr><th>Subject</th><th>Link</th></tr>
+        <tr><td>Mathematics</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+        <tr><td>Science</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+        <tr><td>ICT</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+        <tr><td>English</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+        <tr><td>Filipino</td><td><a href="https://classroom.google.com/" target="_blank">Open</a></td></tr>
+      </table>
+    </div>
+    <button class="back-btn">Back</button>
+  </div>
 
-<div class="detail-card" id="personal-reminders">
-  <h2>Personal Reminders</h2>
-  <p class="line">Backup files</p>
-  <p class="line">Prepare for quizzes</p>
-  <p class="line">Charge devices</p>
-  <button class="back-btn">Back</button>
-</div>
-
-<div class="detail-card" id="motivation">
-  <h2>Motivation</h2>
-  <p class="line">"Believe you can and you're halfway there."</p>
-  <button class="back-btn">Back</button>
-</div>
+  <div class="detail-card" id="motivation">
+    <h2>Motivation</h2>
+    <p class="line">Believe you can and you're halfway there.</p>
+    <button class="back-btn">Back</button>
+  </div>
 
 </div>
 
 <script>
-function logoClick(){
-  const wrapper=document.querySelector('.logo-wrapper');
-  const particles=document.querySelector('.particles');
+function logoClick() {
+  const wrapper = document.querySelector('.logo-wrapper');
+  const particles = document.querySelector('.particles');
   wrapper.classList.add('clicked');
-  setTimeout(()=>wrapper.classList.remove('clicked'),600);
-  particles.innerHTML='';
+  setTimeout(() => wrapper.classList.remove('clicked'), 600);
+
+  particles.innerHTML = '';
   for(let i=0;i<12;i++){
     const p=document.createElement('span');
     p.style.setProperty('--x',`${Math.random()*100-50}px`);
@@ -164,21 +291,19 @@ function logoClick(){
   }
 }
 
-const buttons=document.querySelectorAll('.card-btn');
-const backBtns=document.querySelectorAll('.back-btn');
-const mainCard=document.getElementById('main-card');
+const buttons = document.querySelectorAll('.card-btn');
+const backBtns = document.querySelectorAll('.back-btn');
+const mainCard = document.getElementById('main-card');
 
 buttons.forEach(btn=>{
   btn.onclick=()=>{
     const panel=document.getElementById(btn.dataset.target);
     mainCard.style.display='none';
     panel.style.display='block';
-    panel.classList.add('show');
+    panel.classList.add('slide-in');
+
     panel.querySelectorAll('.line').forEach((l,i)=>{
-      setTimeout(()=>{
-        l.style.opacity=1;
-        l.style.transform='translateY(0) scale(1)';
-      },i*150);
+      setTimeout(()=>l.style.opacity=1, i*150);
     });
   };
 });
@@ -186,14 +311,16 @@ buttons.forEach(btn=>{
 backBtns.forEach(btn=>{
   btn.onclick=()=>{
     const panel=btn.parentElement;
-    panel.classList.remove('show');
-    panel.querySelectorAll('.line').forEach(l=>{ l.style.opacity=0; l.style.transform='translateY(20px) scale(0.95)'; });
+    panel.classList.add('slide-out');
     setTimeout(()=>{
       panel.style.display='none';
+      panel.classList.remove('slide-out');
       mainCard.style.display='flex';
-    },500);
+      panel.querySelectorAll('.line').forEach(l=>l.style.opacity=0);
+    },400);
   };
 });
 </script>
+
 </body>
 </html>
