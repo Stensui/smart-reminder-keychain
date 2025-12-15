@@ -197,17 +197,21 @@ logoutBtn.onclick = ()=>{
   loginCard.classList.add('show');
 };
 
-/* EMERGENCY VIEW */
+/* EMERGENCY VIEW - FULL DETAILS */
 const studentsData = {
   "student1": {
     name: "John Doe",
-    contact: "09123456789",
+    contact: "", // empty if student has no personal contact
+    emergency_contact: "09123456789 (Father)",
+    alt_contact: "09211234567 (Mother)",
     location: "PHILTECH GMA Campus",
     address: "123 Main St, Brgy Poblacion 4, GMA, Cavite"
   },
   "student2": {
     name: "Jane Smith",
-    contact: "09987654321",
+    contact: "",
+    emergency_contact: "09987654321 (Guardian)",
+    alt_contact: "09112223344 (Relative)",
     location: "PHILTECH GMA Dormitory",
     address: "456 Second Ave, Brgy San Roque, GMA, Cavite"
   }
@@ -230,7 +234,9 @@ document.getElementById('emergency-view-btn').onclick = () => {
   if (studentFound) {
     infoDiv.innerHTML = `
       <strong>Name:</strong> ${studentFound.name} <br>
-      <strong>Contact:</strong> ${studentFound.contact} <br>
+      <strong>Student Contact:</strong> ${studentFound.contact || 'N/A'} <br>
+      <strong>Emergency Contact:</strong> ${studentFound.emergency_contact} <br>
+      <strong>Alternative Contact:</strong> ${studentFound.alt_contact} <br>
       <strong>Location:</strong> ${studentFound.location} <br>
       <strong>Address:</strong> ${studentFound.address}
     `;
