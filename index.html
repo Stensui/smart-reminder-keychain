@@ -5,183 +5,191 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote Student Reminder</title>
 <style>
-/* ========== RESET ========== */
-* { box-sizing: border-box; font-family: 'Poppins', Arial, sans-serif; margin: 0; padding:0; }
+/* ====== RESET ====== */
+* { box-sizing: border-box; font-family:'Poppins', sans-serif; margin:0; padding:0; }
+
+/* ====== BODY ====== */
 body {
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background: linear-gradient(135deg, #010026, #1a1aff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  color: #fff;
+  color:#fff;
 }
 
-/* ========== CONTAINER ========== */
-.container { width: 90%; max-width: 500px; position: relative; }
+/* ====== CONTAINER ====== */
+.container {
+  width:90%;
+  max-width:500px;
+  position:relative;
+}
 
-/* ========== LOGO & BRAND ========== */
-.branding { text-align: center; margin-bottom: 20px; }
-.logo-wrapper { position: relative; cursor: pointer; display: inline-block; }
+/* ====== BRANDING ====== */
+.branding { text-align:center; margin-bottom:20px; }
+.logo-wrapper {
+  position:relative;
+  cursor:pointer;
+  text-align:center;
+}
 .logo-3d {
-  width: 90px; height: 90px; filter: drop-shadow(0 0 12px #00ffff);
+  width:90px; height:90px;
   animation: float 3s ease-in-out infinite, spin 6s linear infinite;
+  filter: drop-shadow(0 0 12px #00ffff);
 }
 .logo-wrapper:hover .logo-3d { filter: drop-shadow(0 0 25px #00ffff); }
 .logo-wrapper.clicked .logo-3d { animation: flip 0.6s ease, bounce 0.6s ease; }
 .brand-name {
-  font-size: 2rem; margin-top: 10px; color: #00ffff;
-  text-shadow: 0 0 15px #00ffff; animation: glow 2s infinite alternate;
+  margin-top:10px;
+  font-size:2rem;
+  text-shadow:0 0 15px #00ffff;
+  color:#00ffff;
+  animation: glow 2s infinite alternate;
 }
-.particles { position: absolute; inset: 0; pointer-events: none; }
+.particles { position:absolute; inset:0; pointer-events:none; }
 .particles span {
-  position: absolute; width: 6px; height: 6px; background: #00ffff;
-  border-radius: 50%; animation: particle 0.6s linear forwards;
+  position:absolute; width:6px; height:6px; border-radius:50%;
+  background:#00ffff; animation: particle 0.6s linear forwards;
 }
 
-/* ========== CARDS ========== */
-.card { background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border-radius: 25px; padding: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.main-card, .login-card, .emergency-card { display: none; flex-direction: column; gap:12px; }
-.main-card.show, .login-card.show, .emergency-card.show, .detail-card.show { display: flex; }
+/* ====== CARDS ====== */
+.card { display:none; background:rgba(0,0,0,0.6); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(0,255,255,0.5); position:relative; transition: all 0.4s ease;}
+.card.show { display:flex; flex-direction:column; gap:12px; }
+h2 { margin:10px 0; color:#00ffff; }
+.line { opacity:0; transform: translateY(20px) scale(0.95); }
 
-/* ========== BUTTONS ========== */
-.card-btn {
-  padding: 14px; border-radius: 14px; border:none; font-size:16px;
-  background: linear-gradient(135deg,#00eaff,#00bcd4); color:#003344; cursor:pointer; transition:0.3s;
+/* ====== BUTTONS ====== */
+.card-btn, .back-btn {
+  padding:12px; border-radius:12px; border:none; cursor:pointer; font-weight:600; transition:all 0.3s ease;
 }
-.card-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+.card-btn { background:linear-gradient(135deg,#00eaff,#00bcd4); color:#003344; }
+.card-btn:hover { transform:scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.25); }
+.back-btn { background:#00bcd4; color:#fff; margin-top:10px; }
+.back-btn:hover { transform:scale(1.05); box-shadow:0 0 15px #00ffff; }
 
-.back-btn {
-  margin-top:20px; width:100%; padding:12px; border-radius:12px;
-  border:none; background:#00bcd4; color:white; cursor:pointer;
-}
-.back-btn:hover { transform: scale(1.05); box-shadow:0 0 15px #00ffff; }
-
-.logout-btn { margin-top: 10px; background:#ff4d4d; color:white; }
-
-/* ========== TEXT ========== */
-h2 { color: #00ffff; margin-top:0; }
-.line { opacity:0; transform: translateY(20px) scale(0.95); transition: all 0.4s ease; }
-
-/* ========== ANIMATIONS ========== */
-.slide-in { animation: slideIn 0.4s ease forwards; }
-.slide-out { animation: slideOut 0.4s ease forwards; }
-
-@keyframes float { from{transform:translateY(0);} to{transform:translateY(-12px);} }
-@keyframes spin { to{transform:rotateY(360deg);} }
-@keyframes flip { to{transform:rotateY(180deg);} }
-@keyframes bounce {50%{transform:scale(1.2);}}
+/* ====== ANIMATIONS ====== */
+@keyframes float { 0%{transform:translateY(0);} 100%{transform:translateY(-12px);} }
+@keyframes spin { 100%{transform:rotateY(360deg);} }
+@keyframes flip { 0%{transform:rotateY(0);} 100%{transform:rotateY(180deg);} }
+@keyframes bounce { 50%{transform:scale(1.2);} }
 @keyframes glow { from{text-shadow:0 0 5px #00ffff;} to{text-shadow:0 0 25px #00ffff;} }
+@keyframes particle { to{transform:translate(var(--x),var(--y));opacity:0;} }
 @keyframes slideIn { from{opacity:0; transform:translateY(40px) scale(0.95);} to{opacity:1; transform:translateY(0) scale(1);} }
 @keyframes slideOut { to{opacity:0; transform:translateY(40px) scale(0.95);} }
-@keyframes particle { to { transform: translate(var(--x), var(--y)); opacity:0; } }
+.card.slide-in { animation:slideIn 0.4s ease forwards; }
+.card.slide-out { animation:slideOut 0.4s ease forwards; }
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- LOGO -->
-  <div class="branding">
-    <div class="logo-wrapper" onclick="logoClick()">
-      <svg class="logo-3d" viewBox="0 0 64 64">
-        <rect x="10" y="10" width="44" height="44" rx="6" fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
-        <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
-        <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
-        <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
-        <circle cx="22" cy="20" r="4" fill="#00ffff"/>
-        <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
-        <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
-      </svg>
-      <div class="particles"></div>
-      <div class="brand-name">FlipNote</div>
-    </div>
+<!-- BRANDING -->
+<div class="branding">
+  <div class="logo-wrapper" onclick="logoClick()">
+    <svg class="logo-3d" viewBox="0 0 64 64">
+      <rect x="10" y="10" width="44" height="44" rx="6" fill="#fff" stroke="#00ffff" stroke-width="2"/>
+      <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
+      <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
+      <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
+      <circle cx="22" cy="20" r="4" fill="#00ffff"/>
+      <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
+      <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
+    </svg>
+    <div class="particles"></div>
+    <div class="brand-name">FlipNote</div>
   </div>
+</div>
 
-  <!-- LOGIN CARD -->
-  <div class="card login-card show" id="login-card">
-    <h2>Student Login</h2>
-    <input type="text" id="student-id" placeholder="Enter Student ID" style="padding:10px; border-radius:10px; border:none; margin-bottom:10px;">
-    <input type="password" id="student-pass" placeholder="Enter Passcode" style="padding:10px; border-radius:10px; border:none; margin-bottom:10px;">
-    <button class="card-btn" id="login-btn">Login</button>
-    <button class="card-btn" id="emergency-btn">Emergency Access</button>
-  </div>
+<!-- LOGIN CARD -->
+<div class="card login-card show" id="login-card">
+  <h2>Student Login</h2>
+  <input type="text" id="student-id" placeholder="Enter Student ID" />
+  <input type="password" id="student-pass" placeholder="Enter Passcode" />
+  <button class="card-btn" id="login-btn">Login</button>
+  <button class="card-btn" id="emergency-btn">Emergency Access</button>
+</div>
 
-  <!-- MAIN MENU -->
-  <div class="card main-card" id="main-card">
-    <button class="card-btn" data-target="subjects">Subjects</button>
-    <button class="card-btn" data-target="schedule">Schedule</button>
-    <button class="card-btn" data-target="google-links">Google Classroom Links</button>
-    <button class="logout-btn" id="logout-btn">Logout</button>
-  </div>
+<!-- MAIN MENU -->
+<div class="card main-card" id="main-card">
+  <button class="card-btn" data-target="subjects">Subjects</button>
+  <button class="card-btn" data-target="schedule">Subjects Schedule</button>
+  <button class="card-btn" data-target="google-links">Google Classroom Links</button>
+  <button class="back-btn" id="logout-btn">Logout</button>
+</div>
 
-  <!-- EMERGENCY ACCESS -->
-  <div class="card emergency-card" id="emergency-card">
-    <h2>Emergency Access</h2>
-    <input type="text" id="emergency-id" placeholder="Enter Student ID" style="padding:10px; border-radius:10px; border:none; margin-bottom:10px;">
-    <button class="card-btn" id="emergency-check">View Emergency Info</button>
-    <button class="back-btn" id="emergency-back">Back</button>
-    <div id="emergency-info" style="margin-top:10px;"></div>
-  </div>
+<!-- DETAIL CARDS -->
+<div class="card detail-card" id="subjects">
+  <h2>Subjects</h2>
+  <p class="line">Math</p>
+  <p class="line">Science</p>
+  <p class="line">ICT</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <!-- DETAIL CARDS -->
-  <div class="card detail-card" id="subjects">
-    <h2>Subjects</h2>
-    <p class="line">Math</p>
-    <p class="line">Science</p>
-    <p class="line">ICT</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="card detail-card" id="schedule">
+  <h2>Subjects Schedule</h2>
+  <p class="line">Mon: Math</p>
+  <p class="line">Tue: Science</p>
+  <p class="line">Wed: ICT</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="card detail-card" id="schedule">
-    <h2>Schedule</h2>
-    <p class="line">Monday: ICT Lab</p>
-    <p class="line">Tuesday: Math</p>
-    <p class="line">Wednesday: Science</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="card detail-card" id="google-links">
+  <h2>Google Classroom Links</h2>
+  <p class="line"><a href="#" target="_blank">Math Link</a></p>
+  <p class="line"><a href="#" target="_blank">Science Link</a></p>
+  <p class="line"><a href="#" target="_blank">ICT Link</a></p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="card detail-card" id="google-links">
-    <h2>Google Classroom Links</h2>
-    <p class="line"><a href="https://classroom.google.com" target="_blank">Classroom Link 1</a></p>
-    <p class="line"><a href="https://classroom.google.com" target="_blank">Classroom Link 2</a></p>
-    <button class="back-btn">Back</button>
-  </div>
+<!-- EMERGENCY ACCESS -->
+<div class="card login-card" id="emergency-card">
+  <h2>Emergency Access</h2>
+  <input type="text" id="emergency-id" placeholder="Enter Student ID" />
+  <button class="card-btn" id="emergency-view-btn">View Info</button>
+  <button class="back-btn" id="emergency-back-btn">Back to Login</button>
+  <div id="emergency-info" style="margin-top:10px;"></div>
+</div>
 
 </div>
 
 <script>
-// LOGO CLICK EFFECT
+/* LOGO CLICK */
 function logoClick(){
-  const wrapper = document.querySelector('.logo-wrapper');
-  const particles = document.querySelector('.particles');
+  const wrapper=document.querySelector('.logo-wrapper');
+  const particles=document.querySelector('.particles');
   wrapper.classList.add('clicked');
   setTimeout(()=>wrapper.classList.remove('clicked'),600);
   particles.innerHTML='';
   for(let i=0;i<12;i++){
     const p=document.createElement('span');
-    p.style.setProperty('--x', `${Math.random()*100-50}px`);
-    p.style.setProperty('--y', `${Math.random()*100-50}px`);
+    p.style.setProperty('--x',`${Math.random()*100-50}px`);
+    p.style.setProperty('--y',`${Math.random()*100-50}px`);
     particles.appendChild(p);
   }
 }
 
-// LOGIN FUNCTIONALITY
-const loginBtn = document.getElementById('login-btn');
-const emergencyBtn = document.getElementById('emergency-btn');
-const logoutBtn = document.getElementById('logout-btn');
-const loginCard = document.getElementById('login-card');
-const mainCard = document.getElementById('main-card');
-const emergencyCard = document.getElementById('emergency-card');
+/* LOGIN FUNCTIONALITY */
+const loginCard=document.getElementById('login-card');
+const mainCard=document.getElementById('main-card');
+const emergencyCard=document.getElementById('emergency-card');
+const loginBtn=document.getElementById('login-btn');
+const emergencyBtn=document.getElementById('emergency-btn');
+const logoutBtn=document.getElementById('logout-btn');
 
 loginBtn.onclick = ()=>{
-  const id = document.getElementById('student-id').value;
-  const pass = document.getElementById('student-pass').value;
-  if(id==='student1' && pass==='1234'){ // example passcode
+  const id=document.getElementById('student-id').value;
+  const pass=document.getElementById('student-pass').value;
+  if(id==='student1' && pass==='1234'){
     loginCard.classList.remove('show');
     mainCard.classList.add('show');
-  }else{
-    alert('Invalid ID or Passcode');
-  }
+  }else{ alert('Invalid ID or Passcode'); }
+};
+
+emergencyBtn.onclick = ()=>{
+  loginCard.classList.remove('show');
+  emergencyCard.classList.add('show');
 };
 
 logoutBtn.onclick = ()=>{
@@ -189,47 +197,47 @@ logoutBtn.onclick = ()=>{
   loginCard.classList.add('show');
 };
 
-// EMERGENCY ACCESS
-emergencyBtn.onclick = ()=>{
-  loginCard.classList.remove('show');
-  emergencyCard.classList.add('show');
+/* EMERGENCY VIEW */
+document.getElementById('emergency-view-btn').onclick=()=>{
+  const id=document.getElementById('emergency-id').value;
+  const infoDiv=document.getElementById('emergency-info');
+  if(id==='student1'){
+    infoDiv.innerHTML='Name: John Doe<br>Contact: 09123456789';
+  }else{ infoDiv.innerHTML='Student not found'; }
 };
 
-const emergencyBackBtn = document.getElementById('emergency-back');
-emergencyBackBtn.onclick = ()=>{
+/* MAIN MENU BUTTONS */
+document.querySelectorAll('.main-card .card-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    const panel=document.getElementById(btn.dataset.target);
+    mainCard.classList.remove('show');
+    panel.classList.add('show','slide-in');
+    panel.querySelectorAll('.line').forEach((l,i)=>{
+      setTimeout(()=>l.style.opacity=1,i*150);
+    });
+  };
+});
+
+/* DETAIL BACK BUTTONS */
+document.querySelectorAll('.detail-card .back-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    const panel=btn.parentElement;
+    panel.classList.remove('slide-in');
+    panel.classList.add('slide-out');
+    setTimeout(()=>{
+      panel.classList.remove('slide-out','show');
+      mainCard.classList.add('show');
+      panel.querySelectorAll('.line').forEach(l=>l.style.opacity=0);
+    },400);
+  };
+});
+
+/* EMERGENCY BACK BUTTON */
+document.getElementById('emergency-back-btn').onclick=()=>{
   emergencyCard.classList.remove('show');
   loginCard.classList.add('show');
 };
-
-const emergencyCheck = document.getElementById('emergency-check');
-emergencyCheck.onclick = ()=>{
-  const eid = document.getElementById('emergency-id').value;
-  const info = document.getElementById('emergency-info');
-  if(eid==='student1'){ // example ID check
-    info.innerHTML = "<p>Name: John Doe</p><p>Contact: 09123456789</p>";
-  }else{
-    info.innerHTML = "<p>Student ID not found.</p>";
-  }
-};
-
-// DETAIL PANEL NAVIGATION
-document.querySelectorAll('.main-card .card-btn').forEach(btn=>{
-  btn.onclick = ()=>{
-    const panel = document.getElementById(btn.dataset.target);
-    mainCard.classList.remove('show');
-    panel.classList.add('show','slide-in');
-    panel.querySelectorAll('.line').forEach((l,i)=>{setTimeout(()=>l.style.opacity=1,i*150);});
-  };
-});
-
-document.querySelectorAll('.detail-card .back-btn').forEach(btn=>{
-  btn.onclick = ()=>{
-    const panel = btn.parentElement;
-    panel.classList.remove('show');
-    mainCard.classList.add('show');
-    panel.querySelectorAll('.line').forEach(l=>l.style.opacity=0);
-  };
-});
 </script>
+
 </body>
 </html>
