@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote Student Reminder - Full Hologram UI</title>
 <style>
-/* ====== RESET ====== */
-* { box-sizing: border-box; font-family:'Orbitron', sans-serif; margin:0; padding:0; }
+/* RESET */
+* { box-sizing:border-box; font-family:'Orbitron', sans-serif; margin:0; padding:0; }
 
-/* ====== BODY ====== */
+/* BODY */
 body {
   min-height:100vh;
   display:flex;
@@ -19,7 +19,7 @@ body {
   overflow:hidden;
 }
 
-/* ====== BACKGROUND HOLOGRAM PARTICLES ====== */
+/* BACKGROUND HOLOGRAM PARTICLES */
 .bg-particles {
   position:fixed;
   inset:0;
@@ -28,8 +28,7 @@ body {
 }
 .bg-particles span {
   position:absolute;
-  width:2px;
-  height:2px;
+  width:2px; height:2px;
   border-radius:50%;
   background: rgba(0,255,255,0.4);
   animation: bgParticleMove 6s linear infinite;
@@ -40,33 +39,18 @@ body {
   100% { transform: translateY(-400px) translateX(-50px); opacity:0.1; }
 }
 
-/* ====== CONTAINER ====== */
-.container {
-  width:90%;
-  max-width:500px;
-  position:relative;
-  perspective: 1000px;
-}
+/* CONTAINER */
+.container { width:90%; max-width:500px; position:relative; perspective:1000px; }
 
-/* ====== BRANDING ====== */
+/* BRANDING */
 .branding { text-align:center; margin-bottom:20px; }
 .logo-wrapper { position:relative; cursor:pointer; text-align:center; }
-.logo-3d {
-  width:90px; height:90px;
-  animation: float 3s ease-in-out infinite, spin 6s linear infinite;
-  filter: drop-shadow(0 0 12px #00ffff);
-}
-.logo-wrapper:hover .logo-3d { filter: drop-shadow(0 0 25px #00ffff); }
+.logo-3d { width:90px; height:90px; animation: float 3s ease-in-out infinite, spin 6s linear infinite; filter: drop-shadow(0 0 12px #00ffff);}
+.logo-wrapper:hover .logo-3d { filter: drop-shadow(0 0 25px #00ffff);}
 .logo-wrapper.clicked .logo-3d { animation: flip 0.6s ease, bounce 0.6s ease; }
-.brand-name {
-  margin-top:10px;
-  font-size:2rem;
-  color:#00ffff;
-  animation: glow 2s infinite alternate;
-  letter-spacing: 2px;
-}
+.brand-name { margin-top:10px; font-size:2rem; color:#00ffff; animation: glow 2s infinite alternate; letter-spacing:2px; }
 
-/* ====== CARDS ====== */
+/* CARDS */
 .card {
   display:none;
   background:rgba(0,0,0,0.4);
@@ -79,19 +63,13 @@ body {
   transform-style: preserve-3d;
 }
 .card.show { display:flex; flex-direction:column; gap:12px; }
-.card.floating {
-  animation: floatCard 4s ease-in-out infinite alternate;
-}
-/* 3D hover effect */
-.card:hover {
-  transform: scale(1.05) rotateX(2deg) rotateY(2deg);
-  box-shadow: 0 0 40px #00ffff, 0 0 60px #00eaff inset;
-}
+.card.floating { animation: floatCard 4s ease-in-out infinite alternate; }
+.card:hover { transform: scale(1.05) rotateX(2deg) rotateY(2deg); box-shadow:0 0 40px #00ffff,0 0 60px #00eaff inset; }
 
-h2 { margin:10px 0; color:#00ffff; text-shadow: 0 0 10px #00ffff; letter-spacing: 1px; }
+h2 { margin:10px 0; color:#00ffff; text-shadow:0 0 10px #00ffff; letter-spacing:1px; }
 .line { opacity:0; transform: translateY(20px) scale(0.95); }
 
-/* ====== BUTTONS ====== */
+/* BUTTONS */
 .card-btn, .back-btn {
   padding:12px;
   border-radius:12px;
@@ -99,10 +77,10 @@ h2 { margin:10px 0; color:#00ffff; text-shadow: 0 0 10px #00ffff; letter-spacing
   cursor:pointer;
   font-weight:600;
   transition: all 0.3s ease;
-  text-shadow: 0 0 5px #00ffff;
+  text-shadow:0 0 5px #00ffff;
   background: rgba(0,0,0,0.3);
   position: relative;
-  overflow: hidden;
+  overflow:hidden;
 }
 .card-btn::after {
   content:"";
@@ -114,43 +92,37 @@ h2 { margin:10px 0; color:#00ffff; text-shadow: 0 0 10px #00ffff; letter-spacing
   transform: scaleX(0);
   transition: transform 0.4s ease;
 }
-.card-btn:hover::after { transform: scaleX(1); }
-.card-btn:hover { transform: scale(1.05); box-shadow:0 0 20px #00ffff, 0 0 30px #00eaff inset; }
+.card-btn:hover::after { transform: scaleX(1);}
+.card-btn:hover { transform: scale(1.05); box-shadow:0 0 20px #00ffff,0 0 30px #00eaff inset; }
 .back-btn { background: rgba(0,0,0,0.3); color:#00ffff; margin-top:10px; }
 .back-btn:hover { transform:scale(1.05); box-shadow:0 0 15px #00ffff; }
 
-/* ====== HOLOGRAM PARTICLES ON CARDS ====== */
+/* HOLOGRAM PARTICLES */
 .holo-particle {
-  position:absolute;
-  width:4px; height:4px;
-  border-radius:50%;
-  background:#00ffff;
-  opacity:0.7;
-  pointer-events:none;
+  position:absolute; width:4px; height:4px;
+  border-radius:50%; background:#00ffff; opacity:0.7; pointer-events:none;
   animation: holoMove 3s infinite linear;
 }
 
-/* ====== FLOAT ANIMATION FOR CARDS ====== */
+/* FLOAT CARD */
 @keyframes floatCard { 0%{transform: translateY(0px) rotateX(0deg) rotateY(0deg);} 100%{transform: translateY(-10px) rotateX(2deg) rotateY(2deg);} }
 
-/* ====== OTHER ANIMATIONS ====== */
-@keyframes holoMove { 0% {transform: translate(0,0);} 50% {transform: translate(var(--x), var(--y)); opacity:1;} 100% {transform: translate(0,0); opacity:0;} }
-@keyframes float { 0%{transform:translateY(0);} 100%{transform:translateY(-12px);} }
-@keyframes spin { 100%{transform:rotateY(360deg);} }
-@keyframes flip { 0%{transform:rotateY(0);} 100%{transform:rotateY(180deg);} }
-@keyframes bounce { 50%{transform:scale(1.2);} }
-@keyframes glow { from{text-shadow:0 0 5px #00ffff;} to{text-shadow:0 0 25px #00ffff;} }
-@keyframes slideIn { from{opacity:0; transform:translateY(40px) scale(0.95);} to{opacity:1; transform:translateY(0) scale(1);} }
-@keyframes slideOut { to{opacity:0; transform:translateY(40px) scale(0.95);} }
+/* ANIMATIONS */
+@keyframes holoMove {0%{transform:translate(0,0);}50%{transform:translate(var(--x),var(--y));opacity:1;}100%{transform:translate(0,0);opacity:0;}}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-12px);}}
+@keyframes spin{100%{transform:rotateY(360deg);}}
+@keyframes flip{0%{transform:rotateY(0);}100%{transform:rotateY(180deg);}}
+@keyframes bounce{50%{transform:scale(1.2);}}
+@keyframes glow{from{text-shadow:0 0 5px #00ffff;}to{text-shadow:0 0 25px #00ffff;}}
+@keyframes slideIn{from{opacity:0;transform:translateY(40px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes slideOut{to{opacity:0;transform:translateY(40px) scale(0.95);}}
 
-/* COOL FONT */
+/* FONT */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
 </style>
 </head>
 <body>
 
-<!-- Background hologram particles -->
 <div class="bg-particles" id="bg-particles"></div>
 
 <div class="container">
@@ -190,20 +162,56 @@ h2 { margin:10px 0; color:#00ffff; text-shadow: 0 0 10px #00ffff; letter-spacing
   <button class="back-btn" id="logout-btn">Logout</button>
 </div>
 
-<!-- Other cards like Subjects, Schedule, Google Links, Student Info, Emergency Access -->
-<!-- Use same structure as previous code with holo-particles and floating animation -->
+<!-- STUDENT INFO CARD -->
+<div class="card detail-card" id="student-info">
+  <h2>Student Info</h2>
+  <div id="student-details"></div>
+  <button class="back-btn">Back</button>
+</div>
+
+<!-- EMERGENCY ACCESS -->
+<div class="card login-card" id="emergency-card">
+  <h2>Emergency Access</h2>
+  <input type="text" id="emergency-id" placeholder="Enter Student ID or Name" />
+  <button class="card-btn" id="emergency-view-btn">View Info</button>
+  <button class="back-btn" id="emergency-back-btn">Back to Login</button>
+  <div id="emergency-info" style="margin-top:10px;"></div>
+</div>
+
+<!-- OTHER CARDS: Subjects, Schedule, Google Links -->
+<div class="card detail-card" id="subjects">
+  <h2>Subjects</h2>
+  <p class="line">Math</p>
+  <p class="line">Science</p>
+  <p class="line">ICT</p>
+  <button class="back-btn">Back</button>
+</div>
+<div class="card detail-card" id="schedule">
+  <h2>Schedule</h2>
+  <p class="line">Mon: Math</p>
+  <p class="line">Tue: Science</p>
+  <p class="line">Wed: ICT</p>
+  <button class="back-btn">Back</button>
+</div>
+<div class="card detail-card" id="google-links">
+  <h2>Google Classroom Links</h2>
+  <p class="line"><a href="#" target="_blank">Math Link</a></p>
+  <p class="line"><a href="#" target="_blank">Science Link</a></p>
+  <p class="line"><a href="#" target="_blank">ICT Link</a></p>
+  <button class="back-btn">Back</button>
+</div>
 
 <script>
-// Background particles
-const bgParticles = document.getElementById('bg-particles');
+// BACKGROUND PARTICLES
+const bgParticles=document.getElementById('bg-particles');
 for(let i=0;i<100;i++){
-  const p = document.createElement('span');
-  p.style.left = Math.random()*100 + '%';
-  p.style.top = Math.random()*100 + '%';
+  const p=document.createElement('span');
+  p.style.left=Math.random()*100+'%';
+  p.style.top=Math.random()*100+'%';
   bgParticles.appendChild(p);
 }
 
-// Logo click
+// LOGO CLICK
 function logoClick(){
   const wrapper=document.querySelector('.logo-wrapper');
   const particles=document.querySelector('.particles');
@@ -218,54 +226,118 @@ function logoClick(){
   }
 }
 
-// Student data
+// STUDENT DATA
 const studentsData = {
   "student1": {
-    name: "John Doe",
-    contact: "",
-    emergency_contact: "09123456789 (Father)",
-    alt_contact: "09211234567 (Mother)",
-    location: "PHILTECH GMA Campus",
-    address: "123 Main St, Brgy Poblacion 4, GMA, Cavite"
+    name:"John Doe",
+    contact:"09123456789",
+    emergency_contact:"09211234567",
+    alt_contact:"No Backup Contact",
+    location:"PHILTECH GMA Campus",
+    address:"123 Main St, Brgy Poblacion 4, GMA, Cavite"
   }
 };
-let loggedInStudentId = "";
+let loggedInStudentId="";
 
-// Login functionality and logout confirmation
-const loginCard=document.getElementById('login-card');
-const mainCard=document.getElementById('main-card');
-const emergencyCard=document.getElementById('emergency-card');
-const loginBtn=document.getElementById('login-btn');
-const emergencyBtn=document.getElementById('emergency-btn');
-const logoutBtn=document.getElementById('logout-btn');
-
+// CLEAR INPUTS
 function clearInputs(){
-  document.getElementById('student-id').value = '';
-  document.getElementById('student-pass').value = '';
-  document.getElementById('emergency-id').value = '';
-  document.getElementById('emergency-info').innerHTML = '';
+  document.getElementById('student-id').value='';
+  document.getElementById('student-pass').value='';
+  document.getElementById('emergency-id').value='';
+  document.getElementById('emergency-info').innerHTML='';
 }
 
-loginBtn.onclick = ()=>{
+// LOGIN BUTTON
+document.getElementById('login-btn').onclick=()=>{
   const id=document.getElementById('student-id').value;
   const pass=document.getElementById('student-pass').value;
-  if(studentsData[id] && pass==='1234'){ loggedInStudentId = id;
+  if(studentsData[id] && pass==='1234'){
+    loggedInStudentId=id;
     loginCard.classList.remove('show');
     mainCard.classList.add('show');
-  } else { alert('Invalid ID or Passcode'); }
+  } else alert('Invalid ID or Passcode');
 };
 
-logoutBtn.onclick = ()=>{
+// LOGOUT BUTTON
+document.getElementById('logout-btn').onclick=()=>{
   if(confirm("Are you sure you want to logout?")){
     mainCard.classList.remove('show');
     loginCard.classList.add('show');
     clearInputs();
-    loggedInStudentId = "";
+    loggedInStudentId="";
   }
 };
 
-// Emergency and other functionality same as previous code...
-</script>
+// EMERGENCY BUTTON
+document.getElementById('emergency-btn').onclick=()=>{
+  loginCard.classList.remove('show');
+  document.getElementById('emergency-card').classList.add('show');
+};
 
+// EMERGENCY BACK
+document.getElementById('emergency-back-btn').onclick=()=>{
+  document.getElementById('emergency-card').classList.remove('show');
+  loginCard.classList.add('show');
+  clearInputs();
+};
+
+// EMERGENCY VIEW
+document.getElementById('emergency-view-btn').onclick=()=>{
+  const id=document.getElementById('emergency-id').value;
+  const infoDiv=document.getElementById('emergency-info');
+  let found=false;
+  for(let key in studentsData){
+    const student=studentsData[key];
+    if(id.toLowerCase()===key.toLowerCase() || id.toLowerCase()===student.name.toLowerCase()){
+      infoDiv.innerHTML=`Name: ${student.name}<br>
+      Contact: ${student.contact || student.emergency_contact || student.alt_contact}<br>
+      Location: ${student.location}<br>
+      Address: ${student.address}`;
+      found=true;
+    }
+  }
+  if(!found) infoDiv.innerHTML='Student not found';
+};
+
+// MAIN MENU BUTTONS
+document.querySelectorAll('.main-card .card-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    if(btn.id==='view-profile-btn'){
+      const card=document.getElementById('student-info');
+      const details=document.getElementById('student-details');
+      if(loggedInStudentId){
+        const s=studentsData[loggedInStudentId];
+        details.innerHTML=`Name: ${s.name}<br>
+        Contact: ${s.contact || s.emergency_contact || s.alt_contact}<br>
+        Location: ${s.location}<br>
+        Address: ${s.address}`;
+      } else { details.innerHTML='No student logged in'; }
+      mainCard.classList.remove('show');
+      card.classList.add('show','floating');
+    } else {
+      const target=document.getElementById(btn.dataset.target);
+      mainCard.classList.remove('show');
+      target.classList.add('show','slide-in');
+      target.querySelectorAll('.line').forEach((l,i)=>{
+        setTimeout(()=>l.style.opacity=1,i*150);
+      });
+    }
+  };
+});
+
+// DETAIL BACK BUTTONS
+document.querySelectorAll('.detail-card .back-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    const panel=btn.parentElement;
+    panel.classList.remove('slide-in');
+    panel.classList.add('slide-out');
+    setTimeout(()=>{
+      panel.classList.remove('slide-out','show');
+      mainCard.classList.add('show');
+      panel.querySelectorAll('.line').forEach(l=>l.style.opacity=0);
+    },400);
+  };
+});
+</script>
 </body>
 </html>
