@@ -5,37 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote - Student Reminders</title>
 <style>
-*{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif;margin:0;padding:0;}
+/* ===== RESET ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Roboto',sans-serif;}
 body{background:linear-gradient(135deg,#010026,#1a1aff);display:flex;justify-content:center;align-items:center;min-height:100vh;color:#fff;}
 .container{width:90%;max-width:500px;position:relative;}
+
+/* ===== BRANDING ===== */
 .branding{text-align:center;margin-bottom:20px;}
 .logo-wrapper{position:relative;display:inline-block;cursor:pointer;}
 .logo-3d{width:90px;height:90px;filter:drop-shadow(0 0 12px #00ffff);animation:float 3s ease-in-out infinite,spin 6s linear infinite;}
 .logo-wrapper:hover .logo-3d{filter:drop-shadow(0 0 25px #00ffff);}
 .logo-wrapper.clicked .logo-3d{animation:flip 0.6s ease,bounce 0.6s ease;}
-.brand-name{margin-top:10px;font-size:2rem;color:#00ffff;text-shadow:0 0 15px #00ffff;animation:glow 2s infinite alternate;}
+.brand-name{margin-top:10px;font-size:2.2rem;color:#00ffff;text-shadow:0 0 15px #00ffff;animation:glow 2s infinite alternate;}
 .particles{position:absolute;inset:0;pointer-events:none;}
 .particles span{position:absolute;width:6px;height:6px;background:#00ffff;border-radius:50%;animation:particle 0.6s linear forwards;}
 
-/* Cards */
-.main-card,.detail-card,.login-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);position:relative;}
-.main-card{display:none;flex-direction:column;gap:12px;}
+/* ===== CARDS ===== */
+.login-card,.main-card,.detail-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);position:relative;}
 .login-card{display:block;}
+.main-card{display:none;flex-direction:column;gap:12px;}
 .detail-card{display:none;position:absolute;top:0;left:0;width:100%;color:#00ffff;opacity:0;transform:scale(0.9) translateY(40px);}
 
-/* Buttons */
-.card-btn,.login-btn{padding:14px;border-radius:14px;border:none;font-size:16px;background:linear-gradient(135deg,#00eaff,#00bcd4);color:#003344;cursor:pointer;transition:0.3s;}
-.card-btn:hover,.login-btn:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.25);}
-.back-btn{margin-top:20px;width:100%;padding:12px;border-radius:12px;border:none;background:#00bcd4;color:white;cursor:pointer;}
-h2{margin-top:0;}
+/* ===== BUTTONS ===== */
+.card-btn,.login-btn,.back-btn,.logout-btn{padding:14px;border-radius:14px;border:none;font-size:16px;background:linear-gradient(135deg,#00eaff,#00bcd4);color:#003344;cursor:pointer;transition:0.3s;}
+.card-btn:hover,.login-btn:hover,.logout-btn:hover,.back-btn:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.25);}
+.back-btn,.logout-btn{margin-top:15px;width:100%;padding:12px;border-radius:12px;border:none;background:#00bcd4;color:white;cursor:pointer;}
+
+/* ===== TEXT ===== */
+h2{margin-top:0;color:#00ffff;}
 .line{opacity:0;transform:translateY(20px) scale(0.95);}
 table{width:100%;border-collapse:collapse;margin-top:10px;}
 th,td{border:1px solid #00ffff;padding:6px;text-align:center;color:#00ffff;}
 a{color:#00ffff;text-decoration:none;}
 a:hover{text-decoration:underline;}
-input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
+input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;font-size:1rem;}
 
-/* Animations */
+/* ===== ANIMATIONS ===== */
 .slide-in{animation:slideIn 0.4s ease forwards;}
 .slide-out{animation:slideOut 0.4s ease forwards;}
 @keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-12px);}}
@@ -52,7 +57,7 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 
 <div class="container">
 
-  <!-- Branding -->
+  <!-- BRANDING -->
   <div class="branding">
     <div class="logo-wrapper" onclick="logoClick()">
       <svg class="logo-3d" viewBox="0 0 64 64">
@@ -69,12 +74,13 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
     </div>
   </div>
 
-  <!-- LOGIN -->
+  <!-- LOGIN CARD -->
   <div class="login-card" id="login-card">
     <h2>Login</h2>
     <input type="text" id="userID" placeholder="Enter your Student ID">
     <button class="login-btn" id="login-full">Login with ID</button>
     <button class="login-btn" id="login-emergency">Emergency Access</button>
+    <button class="back-btn" id="login-back">Back</button>
   </div>
 
   <!-- MAIN MENU -->
@@ -85,6 +91,7 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
     <button class="card-btn" data-target="classroom">Google Classroom Links</button>
     <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
     <button class="card-btn" data-target="motivation">Motivational Quote</button>
+    <button class="logout-btn" id="logout-btn">Logout</button>
   </div>
 
   <!-- DETAIL PANELS -->
@@ -156,6 +163,7 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 </div>
 
 <script>
+// LOGO PARTICLES
 function logoClick(){
   const wrapper=document.querySelector('.logo-wrapper');
   const particles=document.querySelector('.particles');
@@ -170,27 +178,20 @@ function logoClick(){
   }
 }
 
-// LOGIN SYSTEM
+// LOGIN
 const loginCard=document.getElementById('login-card');
 const mainCard=document.getElementById('main-card');
-loginCard.style.display='block';
-mainCard.style.display='none';
+const loginFull=document.getElementById('login-full');
+const loginEmergency=document.getElementById('login-emergency');
+const loginBack=document.getElementById('login-back');
+const logoutBtn=document.getElementById('logout-btn');
 
-document.getElementById('login-full').onclick=()=>{
-  loginCard.style.display='none';
-  mainCard.style.display='flex';
-  document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');
-};
+loginFull.onclick=()=>{loginCard.style.display='none';mainCard.style.display='flex';document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');};
+loginEmergency.onclick=()=>{loginCard.style.display='none';mainCard.style.display='flex';document.querySelectorAll('.card-btn').forEach(b=>{if(b.dataset.target!=='owner-info'&&b.dataset.target!=='emergency-contact'){b.style.display='none';}});};
+loginBack.onclick=()=>{alert('Back pressed - can reset page or welcome screen');};
+logoutBtn.onclick=()=>{mainCard.style.display='none';loginCard.style.display='block';document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');};
 
-document.getElementById('login-emergency').onclick=()=>{
-  loginCard.style.display='none';
-  mainCard.style.display='flex';
-  document.querySelectorAll('.card-btn').forEach(b=>{
-    if(b.dataset.target!=='owner-info' && b.dataset.target!=='emergency-contact'){b.style.display='none';}
-  });
-};
-
-// BUTTON PANEL LOGIC
+// BUTTON PANELS
 const buttons=document.querySelectorAll('.card-btn');
 const backBtns=document.querySelectorAll('.back-btn');
 
