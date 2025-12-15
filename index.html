@@ -18,7 +18,7 @@ body{background:linear-gradient(135deg,#010026,#1a1aff);display:flex;justify-con
 .particles{position:absolute;inset:0;pointer-events:none;}
 .particles span{position:absolute;width:6px;height:6px;background:#00ffff;border-radius:50%;animation:particle 0.6s linear forwards;}
 
-/* Main & Detail Cards */
+/* Cards */
 .main-card,.detail-card,.login-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);}
 .main-card{display:flex;flex-direction:column;gap:12px;}
 .detail-card,.login-card{display:none;position:absolute;top:0;left:0;width:100%;color:#00ffff;opacity:0;transform:scale(0.9) translateY(40px);}
@@ -33,6 +33,7 @@ table{width:100%;border-collapse:collapse;margin-top:10px;}
 th,td{border:1px solid #00ffff;padding:6px;text-align:center;color:#00ffff;}
 a{color:#00ffff;text-decoration:none;}
 a:hover{text-decoration:underline;}
+input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 
 /* Animations */
 .slide-in{animation:slideIn 0.4s ease forwards;}
@@ -45,7 +46,6 @@ a:hover{text-decoration:underline;}
 @keyframes particle{to{transform:translate(var(--x),var(--y));opacity:0;}}
 @keyframes slideIn{from{opacity:0;transform:translateY(40px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
 @keyframes slideOut{to{opacity:0;transform:translateY(40px) scale(0.95);}}
-input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 </style>
 </head>
 <body>
@@ -83,6 +83,7 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
     <button class="card-btn" data-target="subjects">Subjects</button>
     <button class="card-btn" data-target="schedule">Subject Schedule</button>
     <button class="card-btn" data-target="classroom">Google Classroom Links</button>
+    <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
     <button class="card-btn" data-target="motivation">Motivational Quote</button>
   </div>
 
@@ -139,6 +140,13 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
     <button class="back-btn">Back</button>
   </div>
 
+  <div class="detail-card" id="emergency-contact">
+    <h2>Emergency Contact</h2>
+    <p class="line">Parent / Guardian</p>
+    <p class="line">09123456789</p>
+    <button class="back-btn">Back</button>
+  </div>
+
   <div class="detail-card" id="motivation">
     <h2>Motivation</h2>
     <p class="line">Believe you can and you're halfway there.</p>
@@ -148,7 +156,7 @@ input{padding:10px;width:100%;border-radius:10px;border:none;margin:10px 0;}
 </div>
 
 <script>
-function logoClick() {
+function logoClick(){
   const wrapper=document.querySelector('.logo-wrapper');
   const particles=document.querySelector('.particles');
   wrapper.classList.add('clicked');
@@ -174,18 +182,15 @@ const emBtn=document.getElementById('login-emergency');
 fullBtn.onclick=()=>{
   loginCard.style.display='none';
   mainCard.style.display='flex';
-  // show all buttons
   document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');
 };
 
 emBtn.onclick=()=>{
   loginCard.style.display='none';
   mainCard.style.display='flex';
-  // hide all except emergency/owner info
   document.querySelectorAll('.card-btn').forEach(b=>{
     if(b.dataset.target!=='owner-info' && b.dataset.target!=='emergency-contact'){b.style.display='none';}
   });
-  document.getElementById('emergency-contact').style.display='none'; // hide panel, show when clicked
 };
 
 // BUTTON PANEL LOGIC
@@ -198,9 +203,7 @@ buttons.forEach(btn=>{
     mainCard.style.display='none';
     panel.style.display='block';
     panel.classList.add('slide-in');
-    panel.querySelectorAll('.line').forEach((l,i)=>{
-      setTimeout(()=>l.style.opacity=1,i*150);
-    });
+    panel.querySelectorAll('.line').forEach((l,i)=>{setTimeout(()=>l.style.opacity=1,i*150);});
   };
 });
 
