@@ -11,20 +11,31 @@
 <div class="container">
 
   <!-- Branding + Logo -->
-  <div class="branding">
-    <div class="logo-container">
-      <!-- Inline SVG logo -->
-      <svg class="logo-3d" width="80" height="80" viewBox="0 0 64 64">
-        <!-- Key handle -->
-        <circle cx="16" cy="32" r="12" fill="#00FFFF" stroke="#004080" stroke-width="3"/>
-        <!-- Key body -->
-        <rect x="24" y="28" width="28" height="8" fill="#00FFFF" stroke="#004080"/>
-        <!-- Key teeth -->
-        <path d="M52 28 L60 28 L60 36 L52 36 Z" fill="#004080"/>
-      </svg>
-      <h1>FlipNote</h1>
-    </div>
+<div class="branding">
+  <div class="logo-wrapper" onclick="logoClick()">
+    <svg class="logo-3d" viewBox="0 0 64 64">
+      <!-- Notebook -->
+      <rect x="10" y="10" width="44" height="44" rx="6"
+            fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
+
+      <!-- Lines -->
+      <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
+      <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
+      <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
+
+      <!-- Key -->
+      <circle cx="22" cy="20" r="4" fill="#00ffff"/>
+      <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
+      <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
+    </svg>
+
+    <h1 class="brand-name">FlipNote</h1>
+
+    <!-- Particles -->
+    <div class="particles"></div>
   </div>
+</div>
+
 
   <!-- Main Buttons -->
   <div class="main-card" id="main-card">
