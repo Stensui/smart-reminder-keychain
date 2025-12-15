@@ -58,6 +58,14 @@ body {
 
 /* BRAND NAME */
 .brand-name {
+ .school-tagline {
+  font-size: 0.85rem;
+  color: #b3f5ff;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+  
   color: #00ffff;
   font-size: 2rem;
   margin-top: 10px;
