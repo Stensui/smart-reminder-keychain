@@ -4,121 +4,298 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlipNote</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+/* ================= BRANDING ================= */
+.branding {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.logo-3d {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 0 12px #00ffff);
+  animation: float 3s ease-in-out infinite, spin 6s linear infinite;
+}
+
+.brand-name {
+  margin-top: 10px;
+  font-size: 2.2rem;
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  animation: glow 2s infinite alternate;
+}
+
+/* ================= PARTICLES ================= */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #00ffff;
+  border-radius: 50%;
+  animation: particle 0.6s linear forwards;
+}
+
+/* ================= MAIN CARD ================= */
+.main-card,
+.detail-card {
+  background: rgba(255,255,255,0.95);
+  color: #003344;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-card {
+  display: none;
+}
+
+/* ================= BUTTONS ================= */
+.card-btn {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(135deg,#00eaff,#00bcd4);
+  color: #003344;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.back-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #00bcd4;
+  color: white;
+  cursor: pointer;
+}
+
+/* ================= TEXT ================= */
+h2 {
+  margin-top: 0;
+  color: #008b9a;
+}
+
+.line {
+  margin: 8px 0;
+  opacity: 0;
+}
+
+/* ================= ANIMATIONS ================= */
+.slide-in {
+  animation: slideIn 0.4s ease forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.4s ease forwards;
+}
+
+.clicked .logo-3d {
+  animation: flip 0.6s ease, bounce 0.6s ease;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-12px); }
+}
+
+@keyframes spin {
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes flip {
+  to { transform: rotateY(180deg); }
+}
+
+@keyframes bounce {
+  50% { transform: scale(1.2); }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00ffff; }
+  to { text-shadow: 0 0 25px #00ffff; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideOut {
+  to { opacity: 0; transform: translateY(40px) scale(0.95); }
+}
+
+@keyframes particle {
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- Branding + Logo -->
+<!-- ================= LOGO ================= -->
 <div class="branding">
   <div class="logo-wrapper" onclick="logoClick()">
     <svg class="logo-3d" viewBox="0 0 64 64">
-      <!-- Notebook -->
       <rect x="10" y="10" width="44" height="44" rx="6"
             fill="#ffffff" stroke="#00ffff" stroke-width="2"/>
-
-      <!-- Lines -->
       <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
       <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
       <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
-
-      <!-- Key -->
       <circle cx="22" cy="20" r="4" fill="#00ffff"/>
       <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
       <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
     </svg>
-
-    <h1 class="brand-name">FlipNote</h1>
-
-    <!-- Particles -->
     <div class="particles"></div>
+    <div class="brand-name">FlipNote</div>
   </div>
 </div>
 
+<!-- ================= MAIN MENU ================= -->
+<div class="main-card" id="main-card">
+  <button class="card-btn" data-target="owner-info">Owner Information</button>
+  <button class="card-btn" data-target="daily-goals">Daily Goals</button>
+  <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
+  <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
+  <button class="card-btn" data-target="motivation">Motivational Quote</button>
+</div>
 
-  <!-- Main Buttons -->
-  <div class="main-card" id="main-card">
-    <button class="card-btn" data-target="owner-info">Owner Information</button>
-    <button class="card-btn" data-target="daily-goals">Daily Goals</button>
-    <button class="card-btn" data-target="personal-reminders">Personal Reminders</button>
-    <button class="card-btn" data-target="emergency-contact">Emergency Contact</button>
-    <button class="card-btn" data-target="motivation">Motivational Quote</button>
-  </div>
+<!-- ================= PANELS ================= -->
+<div class="detail-card" id="owner-info">
+  <h2>Owner Information</h2>
+  <p class="line">Name: John Doe</p>
+  <p class="line">Contact: 09123456789</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <!-- Detail Panels -->
-  <div class="detail-card" id="owner-info">
-    <h2>Owner Information</h2>
-    <p class="line">Name: John Doe</p>
-    <p class="line">If found, contact: 09123456789</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="daily-goals">
+  <h2>Daily Goals</h2>
+  <p class="line">Finish ICT project</p>
+  <p class="line">Review notes</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="detail-card" id="daily-goals">
-    <h2>Daily Goals</h2>
-    <p class="line">Finish ICT project</p>
-    <p class="line">Review notes for tomorrow</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="personal-reminders">
+  <h2>Personal Reminders</h2>
+  <p class="line">Backup files</p>
+  <p class="line">Charge devices</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="detail-card" id="personal-reminders">
-    <h2>Personal Reminders</h2>
-    <p class="line">Backup files</p>
-    <p class="line">Charge devices</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="emergency-contact">
+  <h2>Emergency Contact</h2>
+  <p class="line">Parent / Guardian</p>
+  <p class="line">09123456789</p>
+  <button class="back-btn">Back</button>
+</div>
 
-  <div class="detail-card" id="emergency-contact">
-    <h2>Emergency Contact</h2>
-    <p class="line">Name: Parent / Guardian</p>
-    <p class="line">Phone: 09123456789</p>
-    <button class="back-btn">Back</button>
-  </div>
-
-  <div class="detail-card" id="motivation">
-    <h2>Motivational Quote</h2>
-    <p class="line">"Believe you can and you're halfway there."</p>
-    <button class="back-btn">Back</button>
-  </div>
+<div class="detail-card" id="motivation">
+  <h2>Motivation</h2>
+  <p class="line">Believe you can and you're halfway there.</p>
+  <button class="back-btn">Back</button>
+</div>
 
 </div>
 
 <script>
+function logoClick() {
+  const wrapper = document.querySelector('.logo-wrapper');
+  const particles = document.querySelector('.particles');
+
+  wrapper.classList.add('clicked');
+  setTimeout(() => wrapper.classList.remove('clicked'), 600);
+
+  particles.innerHTML = '';
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('span');
+    p.style.setProperty('--x', `${Math.random()*100-50}px`);
+    p.style.setProperty('--y', `${Math.random()*100-50}px`);
+    particles.appendChild(p);
+  }
+}
+
 const buttons = document.querySelectorAll('.card-btn');
 const backBtns = document.querySelectorAll('.back-btn');
 const mainCard = document.getElementById('main-card');
 
 buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const panel = document.getElementById(btn.getAttribute('data-target'));
+  btn.onclick = () => {
+    const panel = document.getElementById(btn.dataset.target);
     mainCard.style.display = 'none';
     panel.style.display = 'block';
     panel.classList.add('slide-in');
 
-    const lines = panel.querySelectorAll('.line');
-    lines.forEach((line, index) => {
-      line.style.opacity = 0;
-      line.style.transform = "translateY(20px) scale(0.95)";
-      setTimeout(() => {
-        line.style.transition = "all 0.5s ease";
-        line.style.opacity = 1;
-        line.style.transform = "translateY(0) scale(1)";
-      }, index * 150);
+    panel.querySelectorAll('.line').forEach((l,i)=>{
+      setTimeout(()=>l.style.opacity=1, i*150);
     });
-  });
+  };
 });
 
 backBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.onclick = () => {
     const panel = btn.parentElement;
-    panel.classList.remove('slide-in');
     panel.classList.add('slide-out');
-    setTimeout(() => {
-      panel.style.display = 'none';
+    setTimeout(()=>{
+      panel.style.display='none';
       panel.classList.remove('slide-out');
-      mainCard.style.display = 'block';
-    }, 400);
-  });
+      mainCard.style.display='flex';
+    },400);
+  };
 });
 </script>
 
