@@ -15,7 +15,72 @@ body {
   position: relative;
 }
 
-/* Main Card */
+/* Branding + Logo */
+.branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.logo-3d {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate3D 5s linear infinite, float 3s ease-in-out infinite alternate;
+  cursor: pointer;
+}
+
+.logo-3d:hover {
+  animation: rotate3D 1s linear infinite, float 1.5s ease-in-out infinite alternate;
+}
+
+.key, .note {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #00FFFF, #004080);
+  box-shadow: 0 0 20px #00FFFF, 0 0 40px #004080;
+}
+
+.key { transform: translateZ(10px) rotateY(10deg); }
+.note { transform: translateZ(-10px) rotateY(-10deg); }
+
+@keyframes rotate3D {
+  0% { transform: rotateY(0deg) rotateX(0deg); }
+  50% { transform: rotateY(180deg) rotateX(20deg); }
+  100% { transform: rotateY(360deg) rotateX(0deg); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+}
+
+.logo-container h1 {
+  color: #00FFFF;
+  font-size: 2rem;
+  text-shadow: 0 0 15px #00FFFF;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 10px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF; }
+  to { text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; }
+}
+
+/* Main Card Buttons */
 .main-card {
   background: rgba(0,0,0,0.5);
   backdrop-filter: blur(15px);
@@ -24,16 +89,6 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-h1 {
-  text-align: center;
-  color: #00ffff;
-  margin-bottom: 25px;
-  font-size: 2rem;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-/* Buttons */
 .card-btn {
   background: linear-gradient(90deg, #00008b, #0000ff);
   color: #fff;
@@ -58,7 +113,7 @@ h1 {
 
 /* Detail Panels */
 .detail-card {
-  display: none; /* hide by default */
+  display: none;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(15px);
   border-radius: 25px;
@@ -74,18 +129,9 @@ h1 {
   transition: all 0.4s ease;
 }
 
-/* Slide in/out */
-.detail-card.slide-in {
-  transform: scale(1) translateX(0);
-  opacity: 1;
-}
+.detail-card.slide-in { transform: scale(1) translateX(0); opacity:1; }
+.detail-card.slide-out { transform: scale(0.9) translateX(50px); opacity:0; }
 
-.detail-card.slide-out {
-  transform: scale(0.9) translateX(50px);
-  opacity: 0;
-}
-
-/* Back Button */
 .back-btn {
   margin-top: 20px;
   background-color: #00ffff;
@@ -98,13 +144,6 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.back-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00ffff;
-}
+.back-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #00ffff; }
 
-/* Lines inside panels */
-.line {
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-}
+.line { opacity: 0; transform: translateY(20px) scale(0.95); }
