@@ -8,7 +8,6 @@
 *{box-sizing:border-box;font-family:'Poppins',Arial,sans-serif;margin:0;padding:0;}
 body{background:linear-gradient(135deg,#010026,#1a1aff);display:flex;justify-content:center;align-items:center;min-height:100vh;color:#fff;}
 .container{width:90%;max-width:500px;position:relative;}
-/* Branding + Logo */
 .branding{text-align:center;margin-bottom:20px;}
 .logo-wrapper{position:relative;display:inline-block;cursor:pointer;}
 .logo-3d{width:90px;height:90px;filter:drop-shadow(0 0 12px #00ffff);animation:float 3s ease-in-out infinite,spin 6s linear infinite;}
@@ -19,9 +18,10 @@ body{background:linear-gradient(135deg,#010026,#1a1aff);display:flex;justify-con
 .particles span{position:absolute;width:6px;height:6px;background:#00ffff;border-radius:50%;animation:particle 0.6s linear forwards;}
 
 /* Cards */
-.main-card,.detail-card,.login-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);}
-.main-card{display:flex;flex-direction:column;gap:12px;}
-.detail-card,.login-card{display:none;position:absolute;top:0;left:0;width:100%;color:#00ffff;opacity:0;transform:scale(0.9) translateY(40px);}
+.main-card,.detail-card,.login-card{background:rgba(0,0,0,0.5);backdrop-filter:blur(15px);border-radius:25px;padding:25px;box-shadow:0 20px 40px rgba(0,255,255,0.5);position:relative;}
+.main-card{display:none;flex-direction:column;gap:12px;}
+.login-card{display:block;}
+.detail-card{display:none;position:absolute;top:0;left:0;width:100%;color:#00ffff;opacity:0;transform:scale(0.9) translateY(40px);}
 
 /* Buttons */
 .card-btn,.login-btn{padding:14px;border-radius:14px;border:none;font-size:16px;background:linear-gradient(135deg,#00eaff,#00bcd4);color:#003344;cursor:pointer;transition:0.3s;}
@@ -176,16 +176,13 @@ const mainCard=document.getElementById('main-card');
 loginCard.style.display='block';
 mainCard.style.display='none';
 
-const fullBtn=document.getElementById('login-full');
-const emBtn=document.getElementById('login-emergency');
-
-fullBtn.onclick=()=>{
+document.getElementById('login-full').onclick=()=>{
   loginCard.style.display='none';
   mainCard.style.display='flex';
   document.querySelectorAll('.card-btn').forEach(b=>b.style.display='flex');
 };
 
-emBtn.onclick=()=>{
+document.getElementById('login-emergency').onclick=()=>{
   loginCard.style.display='none';
   mainCard.style.display='flex';
   document.querySelectorAll('.card-btn').forEach(b=>{
