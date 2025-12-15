@@ -14,8 +14,8 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  background: linear-gradient(135deg, #7fd1f9, #c2f0fc); /* student-friendly colors */
-  color:#333;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* hologram dark bg */
+  color:#fff;
 }
 
 /* ====== CONTAINER ====== */
@@ -35,43 +35,73 @@ body {
 .logo-3d {
   width:90px; height:90px;
   animation: float 3s ease-in-out infinite, spin 6s linear infinite;
-  filter: drop-shadow(0 0 12px #4da6ff);
+  filter: drop-shadow(0 0 12px #00ffff);
 }
-.logo-wrapper:hover .logo-3d { filter: drop-shadow(0 0 25px #4da6ff); }
+.logo-wrapper:hover .logo-3d { filter: drop-shadow(0 0 25px #00ffff); }
 .logo-wrapper.clicked .logo-3d { animation: flip 0.6s ease, bounce 0.6s ease; }
 .brand-name {
   margin-top:10px;
   font-size:2rem;
-  color:#4da6ff;
+  color:#00ffff;
   animation: glow 2s infinite alternate;
 }
 .particles { position:absolute; inset:0; pointer-events:none; }
 .particles span {
   position:absolute; width:6px; height:6px; border-radius:50%;
-  background:#4da6ff; animation: particle 0.6s linear forwards;
+  background:#00ffff; animation: particle 0.6s linear forwards;
 }
 
 /* ====== CARDS ====== */
-.card { display:none; background:rgba(255,255,255,0.85); backdrop-filter:blur(15px); border-radius:25px; padding:25px; box-shadow:0 20px 40px rgba(77,166,255,0.5); position:relative; transition: all 0.4s ease;}
+.card {
+  display:none;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(15px);
+  border-radius:25px;
+  padding:25px;
+  box-shadow: 0 0 20px #00ffff, 0 20px 40px rgba(0,255,255,0.2);
+  position:relative;
+  transition: all 0.4s ease;
+}
 .card.show { display:flex; flex-direction:column; gap:12px; }
-h2 { margin:10px 0; color:#4da6ff; }
+h2 { margin:10px 0; color:#00ffff; text-shadow: 0 0 10px #00ffff; }
 .line { opacity:0; transform: translateY(20px) scale(0.95); }
 
 /* ====== BUTTONS ====== */
 .card-btn, .back-btn {
-  padding:12px; border-radius:12px; border:none; cursor:pointer; font-weight:600; transition:all 0.3s ease;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #00ffff;
 }
-.card-btn { background:linear-gradient(135deg,#4da6ff,#2b87d0); color:#fff; }
-.card-btn:hover { transform:scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.25); }
-.back-btn { background:#2b87d0; color:#fff; margin-top:10px; }
-.back-btn:hover { transform:scale(1.05); box-shadow:0 0 15px #4da6ff; }
+.card-btn {
+  background: linear-gradient(135deg, #00eaff, #00bcd4);
+  color:#003344;
+  box-shadow: 0 0 10px #00eaff, 0 0 20px #00bcd4 inset;
+}
+.card-btn:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 20px #00ffff, 0 0 30px #00eaff inset;
+}
+.back-btn {
+  background:#00bcd4;
+  color:#fff;
+  margin-top:10px;
+  box-shadow: 0 0 10px #00bcd4;
+}
+.back-btn:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00ffff;
+}
 
 /* ====== ANIMATIONS ====== */
 @keyframes float { 0%{transform:translateY(0);} 100%{transform:translateY(-12px);} }
 @keyframes spin { 100%{transform:rotateY(360deg);} }
 @keyframes flip { 0%{transform:rotateY(0);} 100%{transform:rotateY(180deg);} }
 @keyframes bounce { 50%{transform:scale(1.2);} }
-@keyframes glow { from{text-shadow:0 0 5px #4da6ff;} to{text-shadow:0 0 25px #4da6ff;} }
+@keyframes glow { from{text-shadow:0 0 5px #00ffff;} to{text-shadow:0 0 25px #00ffff;} }
 @keyframes particle { to{transform:translate(var(--x),var(--y));opacity:0;} }
 @keyframes slideIn { from{opacity:0; transform:translateY(40px) scale(0.95);} to{opacity:1; transform:translateY(0) scale(1);} }
 @keyframes slideOut { to{opacity:0; transform:translateY(40px) scale(0.95);} }
@@ -87,13 +117,13 @@ h2 { margin:10px 0; color:#4da6ff; }
 <div class="branding">
   <div class="logo-wrapper" onclick="logoClick()">
     <svg class="logo-3d" viewBox="0 0 64 64">
-      <rect x="10" y="10" width="44" height="44" rx="6" fill="#fff" stroke="#4da6ff" stroke-width="2"/>
-      <line x1="18" y1="24" x2="46" y2="24" stroke="#4da6ff"/>
-      <line x1="18" y1="30" x2="46" y2="30" stroke="#4da6ff"/>
-      <line x1="18" y1="36" x2="46" y2="36" stroke="#4da6ff"/>
-      <circle cx="22" cy="20" r="4" fill="#4da6ff"/>
-      <rect x="26" y="18" width="16" height="4" fill="#4da6ff"/>
-      <rect x="42" y="18" width="4" height="6" fill="#4da6ff"/>
+      <rect x="10" y="10" width="44" height="44" rx="6" fill="#fff" stroke="#00ffff" stroke-width="2"/>
+      <line x1="18" y1="24" x2="46" y2="24" stroke="#00ffff"/>
+      <line x1="18" y1="30" x2="46" y2="30" stroke="#00ffff"/>
+      <line x1="18" y1="36" x2="46" y2="36" stroke="#00ffff"/>
+      <circle cx="22" cy="20" r="4" fill="#00ffff"/>
+      <rect x="26" y="18" width="16" height="4" fill="#00ffff"/>
+      <rect x="42" y="18" width="4" height="6" fill="#00ffff"/>
     </svg>
     <div class="particles"></div>
     <div class="brand-name">FlipNote</div>
@@ -111,10 +141,10 @@ h2 { margin:10px 0; color:#4da6ff; }
 
 <!-- MAIN MENU -->
 <div class="card main-card" id="main-card">
+  <button class="card-btn" id="view-profile-btn">Student Info</button>
   <button class="card-btn" data-target="subjects">Subjects</button>
   <button class="card-btn" data-target="schedule">Subjects Schedule</button>
   <button class="card-btn" data-target="google-links">Google Classroom Links</button>
-  <button class="card-btn" id="view-profile-btn">Student Info</button>
   <button class="back-btn" id="logout-btn">Logout</button>
 </div>
 
@@ -207,6 +237,13 @@ const loginBtn=document.getElementById('login-btn');
 const emergencyBtn=document.getElementById('emergency-btn');
 const logoutBtn=document.getElementById('logout-btn');
 
+function clearInputs(){
+  document.getElementById('student-id').value = '';
+  document.getElementById('student-pass').value = '';
+  document.getElementById('emergency-id').value = '';
+  document.getElementById('emergency-info').innerHTML = '';
+}
+
 loginBtn.onclick = ()=>{
   const id=document.getElementById('student-id').value;
   const pass=document.getElementById('student-pass').value;
@@ -214,6 +251,7 @@ loginBtn.onclick = ()=>{
     loggedInStudentId = id;
     loginCard.classList.remove('show');
     mainCard.classList.add('show');
+    showStudentInfo(); // automatically show info first
   } else { alert('Invalid ID or Passcode'); }
 };
 
@@ -225,6 +263,7 @@ emergencyBtn.onclick = ()=>{
 logoutBtn.onclick = ()=>{
   mainCard.classList.remove('show');
   loginCard.classList.add('show');
+  clearInputs();
 };
 
 /* EMERGENCY VIEW */
@@ -251,24 +290,18 @@ document.getElementById('emergency-view-btn').onclick = () => {
   } else { infoDiv.innerHTML = 'Student not found'; }
 };
 
+/* EMERGENCY BACK */
+document.getElementById('emergency-back-btn').onclick = ()=>{
+  emergencyCard.classList.remove('show');
+  loginCard.classList.add('show');
+  clearInputs();
+};
+
 /* MAIN MENU BUTTONS */
 document.querySelectorAll('.main-card .card-btn').forEach(btn=>{
   btn.onclick=()=>{
     if(btn.id === 'view-profile-btn'){
-      const student = studentsData[loggedInStudentId];
-      if(student){
-        const infoDiv = document.getElementById('student-info-lines');
-        infoDiv.innerHTML = `
-          <strong>Name:</strong> ${student.name} <br>
-          <strong>Student Contact:</strong> ${student.contact || 'N/A'} <br>
-          <strong>Emergency Contact:</strong> ${student.emergency_contact} <br>
-          <strong>Alternative Contact:</strong> ${student.alt_contact} <br>
-          <strong>Location:</strong> ${student.location} <br>
-          <strong>Address:</strong> ${student.address}
-        `;
-        mainCard.classList.remove('show');
-        document.getElementById('student-info-card').classList.add('show','slide-in');
-      }
+      showStudentInfo();
       return;
     }
     const panel=document.getElementById(btn.dataset.target);
@@ -279,6 +312,24 @@ document.querySelectorAll('.main-card .card-btn').forEach(btn=>{
     });
   };
 });
+
+/* SHOW STUDENT INFO */
+function showStudentInfo(){
+  const student = studentsData[loggedInStudentId];
+  if(student){
+    const infoDiv = document.getElementById('student-info-lines');
+    infoDiv.innerHTML = `
+      <strong>Name:</strong> ${student.name} <br>
+      <strong>Student Contact:</strong> ${student.contact || 'N/A'} <br>
+      <strong>Emergency Contact:</strong> ${student.emergency_contact} <br>
+      <strong>Alternative Contact:</strong> ${student.alt_contact} <br>
+      <strong>Location:</strong> ${student.location} <br>
+      <strong>Address:</strong> ${student.address}
+    `;
+    mainCard.classList.remove('show');
+    document.getElementById('student-info-card').classList.add('show','slide-in');
+  }
+}
 
 /* DETAIL BACK BUTTONS */
 document.querySelectorAll('.detail-card .back-btn').forEach(btn=>{
@@ -293,12 +344,6 @@ document.querySelectorAll('.detail-card .back-btn').forEach(btn=>{
     },400);
   };
 });
-
-/* EMERGENCY BACK BUTTON */
-document.getElementById('emergency-back-btn').onclick=()=>{
-  emergencyCard.classList.remove('show');
-  loginCard.classList.add('show');
-};
 </script>
 
 </body>
