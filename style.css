@@ -1,6 +1,6 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0050a0, #00aaff); /* school colors */
+  background: linear-gradient(135deg, #0050a0, #00aaff);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,19 +11,34 @@ body {
 .container {
   width: 90%;
   max-width: 500px;
+  perspective: 1000px;
+  position: relative;
 }
 
+/* Main Card */
 .card-3d {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   border-radius: 25px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Accordion buttons */
-.accordion {
-  background-color: #004080; /* school color */
+.card-3d:hover {
+  transform: rotateY(5deg) rotateX(3deg);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Buttons on Main Card */
+.card-btn {
+  background-color: #004080;
   color: white;
   cursor: pointer;
   padding: 15px;
@@ -32,35 +47,41 @@ body {
   border-radius: 10px;
   margin-top: 10px;
   text-align: left;
-  outline: none;
   font-size: 1rem;
   transition: background-color 0.3s;
 }
 
-.accordion:hover {
+.card-btn:hover {
   background-color: #0066cc;
 }
 
-.accordion.active {
-  background-color: #0080ff;
-}
-
-/* Panel (hidden by default) */
-.panel {
-  background-color: rgba(255,255,255,0.2);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding: 0 15px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-.panel p, .panel ul {
+/* Detail Cards */
+.detail-card {
+  display: none; /* hidden by default */
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   color: #fff;
-  margin: 10px 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.panel ul {
+/* Back Button */
+.back-btn {
+  margin-top: 20px;
+  background-color: #0080ff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #00aaff;
+}
+
+ul {
   padding-left: 20px;
 }
