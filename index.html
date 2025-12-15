@@ -65,11 +65,11 @@ const mainCard = document.getElementById('main-card');
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     const panel = document.getElementById(btn.getAttribute('data-target'));
-    mainCard.style.display = 'none';
-    panel.style.display = 'block';
+    mainCard.style.display = 'none'; // hide main buttons
+    panel.style.display = 'block'; // show the panel
     panel.classList.add('slide-in');
 
-    // Animate lines with stagger
+    // Animate each line with stagger
     const lines = panel.querySelectorAll('.line');
     lines.forEach((line, index) => {
       line.style.opacity = 0;
@@ -78,7 +78,7 @@ buttons.forEach(btn => {
         line.style.transition = "all 0.5s ease";
         line.style.opacity = 1;
         line.style.transform = "translateY(0) scale(1)";
-      }, index * 150); // stagger by 150ms
+      }, index * 150);
     });
   });
 });
@@ -89,9 +89,9 @@ backBtns.forEach(btn => {
     panel.classList.remove('slide-in');
     panel.classList.add('slide-out');
     setTimeout(() => {
-      panel.style.display = 'none';
+      panel.style.display = 'none'; // hide panel
       panel.classList.remove('slide-out');
-      mainCard.style.display = 'block';
+      mainCard.style.display = 'block'; // show buttons again
     }, 400);
   });
 });
