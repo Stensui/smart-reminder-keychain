@@ -1,100 +1,61 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
-  margin: 0;
+  background: linear-gradient(135deg, #0050a0, #00aaff); /* school colors */
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin: 0;
 }
 
 .container {
-  perspective: 1200px;
+  width: 90%;
+  max-width: 500px;
 }
 
 .card-3d {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   border-radius: 25px;
-  padding: 30px;
-  max-width: 450px;
-  width: 100%;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
-}
-
-.card-3d:hover {
-  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-}
-
-h1 {
-  text-align: center;
-  color: #fff;
-  font-size: 2rem;
-  text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
-  margin-bottom: 25px;
-}
-
-.card-section {
-  background: rgba(255,255,255,0.25);
-  margin: 15px 0;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-.card-section:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+/* Accordion buttons */
+.accordion {
+  background-color: #004080; /* darker school color */
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  text-align: left;
+  outline: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
-.card-section h2 {
-  font-size: 1.2rem;
+.accordion:hover {
+  background-color: #0066cc;
+}
+
+/* Panel (hidden by default) */
+.panel {
+  background-color: rgba(255,255,255,0.2);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 15px;
+  border-radius: 10px;
+}
+
+.panel p, .panel ul {
   color: #fff;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
-.card-section p,
-.card-section li {
-  color: #f0f0f0;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-ul li {
+.panel ul {
   padding-left: 20px;
-  position: relative;
-}
-
-ul li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #ffd700;
-}
-
-a {
-  color: #fffa;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-a:hover {
-  color: #ffe066;
-}
-
-/* Responsive */
-@media screen and (max-width: 500px) {
-  .card-3d {
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-  }
 }
