@@ -1,7 +1,7 @@
 /* Body */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0050a0, #00aaff);
+  background: linear-gradient(135deg, #010026, #1a1aff);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,25 +17,26 @@ body {
 
 /* Main Card */
 .main-card {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
   padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 h1 {
   text-align: center;
-  color: #fff;
-  margin-bottom: 20px;
-  font-size: 1.8rem;
+  color: #00ffff;
+  margin-bottom: 25px;
+  font-size: 2rem;
   letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ffff;
 }
 
 /* Buttons */
 .card-btn {
-  background: linear-gradient(90deg, #004080, #0066cc);
-  color: white;
+  background: linear-gradient(90deg, #00008b, #0000ff);
+  color: #fff;
   cursor: pointer;
   padding: 15px;
   width: 100%;
@@ -45,41 +46,40 @@ h1 {
   text-align: left;
   font-size: 1rem;
   font-weight: 600;
-  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,255,255,0.3);
 }
 
 .card-btn:hover {
-  transform: scale(1.03);
-  background: linear-gradient(90deg, #0066cc, #0080ff);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,255,255,0.5);
+  background: linear-gradient(90deg, #0000ff, #00ffff);
 }
 
 /* Detail Panels */
 .detail-card {
   display: none;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
   padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  color: #fff;
+  box-shadow: 0 20px 40px rgba(0,255,255,0.5);
+  color: #00ffff;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   opacity: 0;
   transform: scale(0.9) translateX(50px);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: all 0.4s ease;
 }
 
-/* Slide-in animation */
+/* Slide in/out */
 .detail-card.slide-in {
   transform: scale(1) translateX(0);
   opacity: 1;
 }
 
-/* Slide-out animation */
 .detail-card.slide-out {
   transform: scale(0.9) translateX(50px);
   opacity: 0;
@@ -88,25 +88,23 @@ h1 {
 /* Back Button */
 .back-btn {
   margin-top: 20px;
-  background-color: #0080ff;
-  color: white;
+  background-color: #00ffff;
+  color: #000;
   padding: 10px 15px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .back-btn:hover {
   transform: scale(1.05);
-  background-color: #00aaff;
+  box-shadow: 0 0 15px #00ffff;
 }
 
-/* Panel content */
-.detail-card p, .detail-card ul {
-  margin: 10px 0;
-}
-
-.detail-card ul {
-  padding-left: 20px;
+/* Panel lines */
+.line {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
 }
