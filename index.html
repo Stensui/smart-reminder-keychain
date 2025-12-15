@@ -23,60 +23,66 @@
   <!-- Detail Panels -->
   <div class="detail-card" id="owner-info">
     <h2>Owner Information</h2>
-    <p><strong>Name:</strong> John Doe</p>
-    <p><strong>If found, contact:</strong> 09123456789</p>
+    <p class="line">Name: John Doe</p>
+    <p class="line">If found, contact: 09123456789</p>
     <button class="back-btn">Back</button>
   </div>
 
   <div class="detail-card" id="daily-goals">
     <h2>Daily Goals</h2>
-    <ul>
-      <li>Finish ICT project</li>
-      <li>Review notes for tomorrow</li>
-    </ul>
+    <p class="line">Finish ICT project</p>
+    <p class="line">Review notes for tomorrow</p>
     <button class="back-btn">Back</button>
   </div>
 
   <div class="detail-card" id="personal-reminders">
     <h2>Personal Reminders</h2>
-    <ul>
-      <li>Backup files</li>
-      <li>Charge devices</li>
-    </ul>
+    <p class="line">Backup files</p>
+    <p class="line">Charge devices</p>
     <button class="back-btn">Back</button>
   </div>
 
   <div class="detail-card" id="emergency-contact">
     <h2>Emergency Contact</h2>
-    <p><strong>Name:</strong> Parent / Guardian</p>
-    <p><strong>Phone:</strong> 09123456789</p>
+    <p class="line">Name: Parent / Guardian</p>
+    <p class="line">Phone: 09123456789</p>
     <button class="back-btn">Back</button>
   </div>
 
   <div class="detail-card" id="motivation">
     <h2>Motivational Quote</h2>
-    <p>"Believe you can and you're halfway there."</p>
+    <p class="line">"Believe you can and you're halfway there."</p>
     <button class="back-btn">Back</button>
   </div>
 
 </div>
 
 <script>
-// Show detail panel
 const buttons = document.querySelectorAll('.card-btn');
 const backBtns = document.querySelectorAll('.back-btn');
 const mainCard = document.getElementById('main-card');
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const target = document.getElementById(btn.getAttribute('data-target'));
+    const panel = document.getElementById(btn.getAttribute('data-target'));
     mainCard.style.display = 'none';
-    target.classList.add('slide-in');
-    target.style.display = 'block';
+    panel.style.display = 'block';
+    panel.classList.add('slide-in');
+
+    // Animate lines with stagger
+    const lines = panel.querySelectorAll('.line');
+    lines.forEach((line, index) => {
+      line.style.opacity = 0;
+      line.style.transform = "translateY(20px) scale(0.95)";
+      setTimeout(() => {
+        line.style.transition = "all 0.5s ease";
+        line.style.opacity = 1;
+        line.style.transform = "translateY(0) scale(1)";
+      }, index * 150); // stagger by 150ms
+    });
   });
 });
 
-// Back button
 backBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const panel = btn.parentElement;
