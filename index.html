@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>FlipNote | Student Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlipNote – Student Portal</title>
 
-<!-- GOOGLE FONTS -->
+<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:'Poppins', sans-serif;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 
+/* ===== BODY ===== */
 body{
   min-height:100vh;
   display:flex;
@@ -26,122 +22,104 @@ body{
   overflow:hidden;
 }
 
-/* SOFT PARTICLE BACKGROUND */
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-}
+/* ===== BACKGROUND FLOAT ===== */
 .bg span{
   position:absolute;
-  width:6px;
-  height:6px;
+  width:6px;height:6px;
   border-radius:50%;
-  background:rgba(255,255,255,0.15);
-  animation:floatBg 10s linear infinite;
+  background:rgba(255,255,255,.15);
+  animation:float 12s linear infinite;
 }
-@keyframes floatBg{
-  0%{transform:translateY(100vh);}
-  100%{transform:translateY(-10vh);}
-}
-
-/* CONTAINER */
-.container{
-  width:95%;
-  max-width:420px;
+@keyframes float{
+  0%{transform:translateY(100vh)}
+  100%{transform:translateY(-10vh)}
 }
 
-/* BRAND */
-.brand{
+/* ===== CONTAINER ===== */
+.container{width:95%;max-width:420px}
+
+/* ===== SCHOOL HEADER ===== */
+.school{
   text-align:center;
   margin-bottom:20px;
 }
-.brand h1{
+.school img{
+  width:70px;
+  margin-bottom:8px;
+}
+.school h1{
   font-family:'Orbitron',sans-serif;
-  letter-spacing:2px;
   color:#8ee7ff;
-  text-shadow:0 0 15px rgba(142,231,255,0.6);
+  text-shadow:0 0 10px rgba(142,231,255,.6);
 }
 
-/* GLASS CARD */
+/* ===== GLASS CARD ===== */
 .card{
   display:none;
   flex-direction:column;
   gap:14px;
-  padding:24px;
+  padding:22px;
   border-radius:20px;
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,.12);
   backdrop-filter:blur(18px);
-  box-shadow:0 15px 40px rgba(0,0,0,0.4);
-  animation:fadeUp 0.5s ease;
+  box-shadow:0 15px 35px rgba(0,0,0,.4);
+  animation:fadeUp .5s ease;
 }
-.card.show{display:flex;}
-
+.card.show{display:flex}
 @keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-h2{
-  font-family:'Orbitron',sans-serif;
-  font-size:1.2rem;
-  color:#b8f3ff;
-}
+/* ===== TEXT ===== */
+h2{font-family:'Orbitron',sans-serif;color:#b8f3ff}
+.info{font-size:.95rem;line-height:1.6}
 
-/* INPUTS */
+/* ===== INPUT ===== */
 input{
   padding:12px;
   border-radius:12px;
   border:none;
   outline:none;
-  background:rgba(255,255,255,0.15);
+  background:rgba(255,255,255,.18);
   color:#fff;
 }
-input::placeholder{color:#cfefff;}
+input::placeholder{color:#cfefff}
 
-/* BUTTONS */
-.btn{
+/* ===== BUTTONS ===== */
+button{
   padding:12px;
   border-radius:14px;
   border:none;
   cursor:pointer;
   font-weight:600;
+  transition:.3s;
+}
+.btn{
   background:linear-gradient(135deg,#4facfe,#00f2fe);
   color:#00334a;
-  transition:0.3s;
 }
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(79,172,254,0.5);
-}
-
+.btn:hover{transform:translateY(-2px)}
 .btn-outline{
   background:transparent;
   border:2px solid #8ee7ff;
   color:#eafcff;
 }
-
 .back{
   background:transparent;
-  color:#eafcff;
-  border:1px solid rgba(255,255,255,0.4);
+  border:1px solid rgba(255,255,255,.4);
+  color:#fff;
 }
 
-/* MENU */
-.menu button{
-  width:100%;
-}
-
-/* INFO TEXT */
-.info{
-  font-size:0.95rem;
-  line-height:1.5;
-}
-
-/* FOOT */
-small{
+/* ===== PROFILE PIC ===== */
+.profile{
   text-align:center;
-  opacity:0.7;
+}
+.profile img{
+  width:90px;height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #8ee7ff;
 }
 </style>
 </head>
@@ -152,8 +130,10 @@ small{
 
 <div class="container">
 
-<div class="brand">
-  <h1>FlipNote</h1>
+<!-- SCHOOL -->
+<div class="school">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/School_icon.svg">
+  <h1>PHILTECH GMA</h1>
   <small>Student Digital Portal</small>
 </div>
 
@@ -163,23 +143,46 @@ small{
   <input id="sid" placeholder="Student ID">
   <input id="spass" type="password" placeholder="Passcode">
   <button class="btn" id="loginBtn">Login</button>
-  <button class="btn btn-outline" id="emergencyBtn">Emergency Access</button>
+  <button class="btn-outline" id="emergencyBtn">Emergency Access</button>
 </div>
 
 <!-- MENU -->
-<div class="card menu" id="menu">
+<div class="card" id="menu">
   <h2>Main Menu</h2>
   <button class="btn" id="infoBtn">Student Information</button>
-  <button class="btn btn-outline" id="subjectsBtn">Subjects</button>
-  <button class="btn btn-outline" id="scheduleBtn">Schedule</button>
-  <button class="btn back" id="logoutBtn">Logout</button>
+  <button class="btn-outline" id="subjectsBtn">Subjects</button>
+  <button class="btn-outline" id="scheduleBtn">Schedule</button>
+  <button class="back" id="logoutBtn">Logout</button>
 </div>
 
 <!-- STUDENT INFO -->
 <div class="card" id="info">
-  <h2>Student Information</h2>
+  <h2>Student Profile</h2>
+  <div class="profile">
+    <img id="profilePic" src="https://via.placeholder.com/90">
+    <input type="file" id="uploadPic" accept="image/*">
+  </div>
   <div class="info" id="infoData"></div>
-  <button class="btn back">Back</button>
+  <button class="back">Back</button>
+</div>
+
+<!-- SUBJECTS -->
+<div class="card" id="subjects">
+  <h2>Subjects</h2>
+  <div class="info">Math<br>Science<br>ICT<br>English</div>
+  <button class="back">Back</button>
+</div>
+
+<!-- SCHEDULE -->
+<div class="card" id="schedule">
+  <h2>Schedule</h2>
+  <div class="info">
+    Mon – Math<br>
+    Tue – Science<br>
+    Wed – ICT<br>
+    Thu – English
+  </div>
+  <button class="back">Back</button>
 </div>
 
 <!-- EMERGENCY -->
@@ -188,50 +191,36 @@ small{
   <input id="eid" placeholder="Student ID or Name">
   <button class="btn" id="viewEmergency">View Info</button>
   <div class="info" id="emergencyData"></div>
-  <button class="btn back">Back</button>
+  <button class="back">Back</button>
 </div>
 
 </div>
 
 <script>
-/* BACKGROUND DOTS */
+/* BACKGROUND */
 const bg=document.getElementById('bg');
 for(let i=0;i<40;i++){
   const s=document.createElement('span');
   s.style.left=Math.random()*100+'%';
-  s.style.animationDuration=5+Math.random()*10+'s';
+  s.style.animationDuration=6+Math.random()*8+'s';
   bg.appendChild(s);
 }
 
-/* STUDENT DATA */
+/* STUDENTS */
 const students={
-  student1:{
-    name:"John Doe",
-    contact:"09123456789",
-    emergency:"09211234567",
-    address:"Brgy Poblacion 4, GMA Cavite"
-  }
+  student1:{name:"John Doe",contact:"09123456789",emergency:"09211234567",address:"GMA Cavite"},
+  student2:{name:"Anna Cruz",contact:"09987654321",emergency:"09112223333",address:"Dasmariñas Cavite"}
 };
-
 let current=null;
 
 /* ELEMENTS */
 const cards=document.querySelectorAll('.card');
-const login=document.getElementById('login');
-const menu=document.getElementById('menu');
-const info=document.getElementById('info');
-const emergency=document.getElementById('emergency');
-
-function show(card){
-  cards.forEach(c=>c.classList.remove('show'));
-  card.classList.add('show');
-}
+const show=c=>{cards.forEach(x=>x.classList.remove('show'));c.classList.add('show')}
 
 /* LOGIN */
 loginBtn.onclick=()=>{
-  const id=sid.value;
-  if(students[id] && spass.value==="1234"){
-    current=id;
+  if(students[sid.value] && (sid.value==="student1"?spass.value==="1234":spass.value==="1111")){
+    current=sid.value;
     show(menu);
   }else alert("Invalid login");
 };
@@ -245,39 +234,43 @@ logoutBtn.onclick=()=>{
   }
 };
 
-/* INFO */
+/* MENU */
 infoBtn.onclick=()=>{
   const s=students[current];
   infoData.innerHTML=
-    `<b>Name:</b> ${s.name}<br>
-     <b>Contact:</b> ${s.contact}<br>
-     <b>Emergency:</b> ${s.emergency}<br>
-     <b>Address:</b> ${s.address}`;
+  `<b>Name:</b> ${s.name}<br>
+   <b>Contact:</b> ${s.contact}<br>
+   <b>Emergency:</b> ${s.emergency}<br>
+   <b>Address:</b> ${s.address}`;
   show(info);
 };
+subjectsBtn.onclick=()=>show(subjects);
+scheduleBtn.onclick=()=>show(schedule);
 
 /* EMERGENCY */
 emergencyBtn.onclick=()=>show(emergency);
-
 viewEmergency.onclick=()=>{
-  const val=eid.value.toLowerCase();
-  let found=null;
-  for(let k in students){
-    if(k===val || students[k].name.toLowerCase()===val){
-      found=students[k];
-    }
-  }
-  emergencyData.innerHTML=found
-    ? `<b>Name:</b> ${found.name}<br>
-       <b>Contact:</b> ${found.contact}<br>
-       <b>Emergency:</b> ${found.emergency}<br>
-       <b>Address:</b> ${found.address}`
-    : "Student not found";
+  const v=eid.value.toLowerCase();
+  let s=null;
+  for(let k in students)
+    if(k===v||students[k].name.toLowerCase()===v) s=students[k];
+  emergencyData.innerHTML=s?
+  `<b>Name:</b> ${s.name}<br>
+   <b>Contact:</b> ${s.contact}<br>
+   <b>Emergency:</b> ${s.emergency}<br>
+   <b>Address:</b> ${s.address}`:"Student not found";
 };
 
-/* BACK BUTTONS */
+/* PROFILE UPLOAD */
+uploadPic.onchange=e=>{
+  const r=new FileReader();
+  r.onload=()=>profilePic.src=r.result;
+  r.readAsDataURL(e.target.files[0]);
+};
+
+/* BACK */
 document.querySelectorAll('.back').forEach(b=>{
-  b.onclick=()=>show(current?menu:login);
+  b.onclick=()=>current?show(menu):show(login);
 });
 </script>
 
