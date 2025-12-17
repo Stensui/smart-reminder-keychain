@@ -17,80 +17,62 @@ body{
   align-items:center;
   color:#eafcff;
 }
-
-/* CONTAINER */
-.container{width:95%;max-width:450px}
+.container{width:95%;max-width:460px}
 
 /* BRAND */
-.branding{text-align:center;margin-bottom:25px}
+.brand{text-align:center;margin-bottom:20px}
 .logo{
-  width:90px;height:90px;margin:0 auto 10px;border-radius:50%;
+  width:85px;height:85px;margin:0 auto 10px;border-radius:50%;
   background:linear-gradient(135deg,#4fd1ff,#7cffcb);
   display:flex;align-items:center;justify-content:center;
-  font-size:36px;color:#003344;
-  box-shadow:0 0 25px rgba(79,209,255,.9);
+  font-size:34px;color:#003344;
+  box-shadow:0 0 25px rgba(79,209,255,.9)
 }
-.branding h1{font-family:'Orbitron',sans-serif;color:#4fd1ff}
-.branding small{opacity:.8}
+.brand h1{font-family:'Orbitron',sans-serif;color:#4fd1ff}
+.brand small{opacity:.8}
 
 /* CARD */
 .card{
   display:none;
   background:rgba(15,45,60,.92);
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 0 25px rgba(79,209,255,.4);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 0 25px rgba(79,209,255,.35);
 }
 .card.show{display:block}
-
 h2{text-align:center;color:#4fd1ff;margin-bottom:10px}
 
-/* INPUTS */
+/* INPUT */
 input{
-  width:100%;
-  padding:10px;
-  margin:6px 0;
-  border-radius:10px;
-  border:none;
-  outline:none;
+  width:100%;padding:9px;margin:5px 0;
+  border-radius:8px;border:none;outline:none
 }
 
-/* BUTTONS */
+/* BUTTON */
 button{
-  width:100%;
-  padding:10px;
-  margin-top:6px;
-  border-radius:12px;
-  border:2px solid #4fd1ff;
-  background:transparent;
-  color:#4fd1ff;
-  font-weight:600;
-  cursor:pointer;
+  width:100%;padding:9px;margin-top:6px;
+  border-radius:10px;border:2px solid #4fd1ff;
+  background:transparent;color:#4fd1ff;
+  font-weight:600;cursor:pointer
 }
 button:hover{background:#4fd1ff;color:#003344}
-
-.emergency{border-color:#ff6b6b;color:#ff6b6b}
-.emergency:hover{background:#ff6b6b;color:#fff}
+.danger{border-color:#ff6b6b;color:#ff6b6b}
+.danger:hover{background:#ff6b6b;color:#fff}
 .back{opacity:.7}
 
-/* ADMIN */
-table{width:100%;border-collapse:collapse;font-size:.85rem}
-th,td{border-bottom:1px solid #4fd1ff;padding:6px;text-align:center}
-.status-active{color:#7cffcb}
-.status-blocked{color:#ff6b6b}
-.admin-btn{
-  padding:4px 6px;
-  font-size:.7rem;
-  border-radius:6px;
-}
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th,td{border-bottom:1px solid #4fd1ff;padding:5px;text-align:center}
+.active{color:#7cffcb}
+.blocked{color:#ff6b6b}
+.small-btn{font-size:.65rem;padding:4px 6px;margin:2px;border-radius:6px}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-<div class="branding">
+<div class="brand">
   <div class="logo">🛡️</div>
   <h1>SafeStud</h1>
   <small>Student Information & Emergency Access System</small>
@@ -102,7 +84,7 @@ th,td{border-bottom:1px solid #4fd1ff;padding:6px;text-align:center}
   <input id="loginId" placeholder="Student / Admin ID">
   <input id="loginPass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
-  <button class="emergency" onclick="show('emergency')">Emergency Access</button>
+  <button class="danger" onclick="show('emergency')">Emergency Access</button>
 </div>
 
 <!-- STUDENT MENU -->
@@ -124,18 +106,14 @@ th,td{border-bottom:1px solid #4fd1ff;padding:6px;text-align:center}
 <!-- SUBJECTS -->
 <div class="card" id="subjects">
   <h2>Subjects</h2>
-  <p>• Mathematics</p>
-  <p>• Science</p>
-  <p>• ICT</p>
+  <p>• Mathematics</p><p>• Science</p><p>• ICT</p>
   <button class="back" onclick="show('menu')">Back</button>
 </div>
 
 <!-- SCHEDULE -->
 <div class="card" id="schedule">
   <h2>Schedule</h2>
-  <p>Mon–Wed: ICT</p>
-  <p>Thu: Math</p>
-  <p>Fri: Science</p>
+  <p>Mon–Wed: ICT</p><p>Thu: Math</p><p>Fri: Science</p>
   <button class="back" onclick="show('menu')">Back</button>
 </div>
 
@@ -148,32 +126,40 @@ th,td{border-bottom:1px solid #4fd1ff;padding:6px;text-align:center}
   <button class="back" onclick="backLogin()">Back</button>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <div class="card" id="admin">
   <h2>Admin Panel</h2>
+
+  <input id="aId" placeholder="Student ID">
+  <input id="aName" placeholder="Full Name">
+  <input id="aContact" placeholder="Contact Number">
+  <input id="aAddress" placeholder="Address">
+  <button onclick="addStudent()">Add / Update Student</button>
+
   <table>
     <thead>
-      <tr>
-        <th>ID</th><th>Name</th><th>Status</th><th>Action</th>
-      </tr>
+      <tr><th>ID</th><th>Name</th><th>Status</th><th>Action</th></tr>
     </thead>
     <tbody id="adminTable"></tbody>
   </table>
+
   <button class="back" onclick="logout()">Logout</button>
 </div>
 
 </div>
 
 <script>
-/* DATA */
-const students={
-  "2024-001":{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",status:"active"},
-  "2024-002":{name:"Maria Santos",contact:"09223334444",address:"Dasma Cavite",status:"active"},
-  "2024-003":{name:"Pedro Reyes",contact:"09998887777",address:"Imus Cavite",status:"blocked"}
+/* STORAGE */
+const key="safestud_students";
+let students=JSON.parse(localStorage.getItem(key))||{
+  "2024-001":{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",status:"active"}
 };
+function save(){localStorage.setItem(key,JSON.stringify(students))}
+
+/* GLOBAL */
 let currentUser=null;
 
-/* SHOW */
+/* NAV */
 function show(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
   document.getElementById(id).classList.add('show');
@@ -181,34 +167,20 @@ function show(id){
 
 /* LOGIN */
 function login(){
-  let id=loginId.value;
-  let pass=loginPass.value;
-
-  if(id==="admin" && pass==="admin123"){
-    loadAdmin();
-    show("admin");
-    return;
-  }
-
+  let id=loginId.value, pass=loginPass.value;
+  if(id==="admin" && pass==="admin123"){loadAdmin();show("admin");return;}
   if(students[id]){
-    if(students[id].status==="blocked"){
-      alert("Account is blocked. Contact admin.");
-      return;
-    }
-    if(pass==="1234"){
-      currentUser=id;
-      show("menu");
-    }else alert("Wrong password");
-  }else alert("Account not found");
+    if(students[id].status==="blocked"){alert("Account blocked");return;}
+    if(pass==="1234"){currentUser=id;show("menu")}
+    else alert("Wrong password");
+  } else alert("Account not found");
 }
 
 /* LOGOUT */
 function logout(){
   if(confirm("Are you sure you want to logout?")){
-    currentUser=null;
-    loginId.value="";
-    loginPass.value="";
-    show("login");
+    loginId.value="";loginPass.value="";
+    currentUser=null;show("login");
   }
 }
 
@@ -216,10 +188,10 @@ function logout(){
 function showProfile(){
   let s=students[currentUser];
   profileInfo.innerHTML=`
-    <p><b>Name:</b> ${s.name}</p>
-    <p><b>Contact:</b> ${s.contact}</p>
-    <p><b>Address:</b> ${s.address}</p>
-    <p><b>Status:</b> ${s.status}</p>`;
+  <p><b>Name:</b> ${s.name}</p>
+  <p><b>Contact:</b> ${s.contact}</p>
+  <p><b>Address:</b> ${s.address}</p>
+  <p><b>Status:</b> ${s.status}</p>`;
   show("profile");
 }
 
@@ -237,33 +209,48 @@ function emergencyView(){
   }
   emInfo.innerHTML="Student not found";
 }
-function backLogin(){
-  emInput.value="";emInfo.innerHTML="";
-  show("login");
-}
+function backLogin(){emInput.value="";emInfo.innerHTML="";show("login")}
 
 /* ADMIN */
 function loadAdmin(){
-  const table=document.getElementById("adminTable");
-  table.innerHTML="";
+  adminTable.innerHTML="";
   for(let id in students){
     let s=students[id];
-    table.innerHTML+=`
+    adminTable.innerHTML+=`
     <tr>
       <td>${id}</td>
       <td>${s.name}</td>
-      <td class="${s.status==='active'?'status-active':'status-blocked'}">${s.status}</td>
+      <td class="${s.status}">${s.status}</td>
       <td>
-        <button class="admin-btn" onclick="toggleStatus('${id}')">
-          ${s.status==='active'?'Block':'Activate'}
-        </button>
+        <button class="small-btn" onclick="editStudent('${id}')">Edit</button>
+        <button class="small-btn" onclick="toggle('${id}')">${s.status==="active"?"Block":"Activate"}</button>
+        <button class="small-btn danger" onclick="del('${id}')">Delete</button>
       </td>
     </tr>`;
   }
 }
-function toggleStatus(id){
+function addStudent(){
+  if(!aId.value)return;
+  students[aId.value]={
+    name:aName.value,
+    contact:aContact.value,
+    address:aAddress.value,
+    status:"active"
+  };
+  save();loadAdmin();
+}
+function editStudent(id){
+  let s=students[id];
+  aId.value=id;aName.value=s.name;aContact.value=s.contact;aAddress.value=s.address;
+}
+function toggle(id){
   students[id].status=students[id].status==="active"?"blocked":"active";
-  loadAdmin();
+  save();loadAdmin();
+}
+function del(id){
+  if(confirm("Delete this student?")){
+    delete students[id];save();loadAdmin();
+  }
 }
 </script>
 
