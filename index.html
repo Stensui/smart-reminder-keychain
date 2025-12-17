@@ -2,114 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FlipNote | Student Portal</title>
+<title>SafeStud | Student Information & Emergency System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
-
 body{
   min-height:100vh;
+  background:radial-gradient(circle at top,#12364a,#0b1f2a);
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   color:#eafcff;
   overflow:hidden;
 }
 
-/* BACKGROUND */
+/* BACKGROUND PARTICLES */
 .bg span{
   position:absolute;
-  width:6px;height:6px;
-  border-radius:50%;
-  background:rgba(255,255,255,.15);
-  animation:float 12s linear infinite;
+  width:2px;height:2px;
+  background:#4fd1ff;
+  opacity:.4;
+  animation:floatBg 6s linear infinite;
 }
-@keyframes float{
-  0%{transform:translateY(100vh)}
-  100%{transform:translateY(-10vh)}
+@keyframes floatBg{
+  from{transform:translateY(0)}
+  to{transform:translateY(-500px)}
 }
 
 /* CONTAINER */
 .container{width:95%;max-width:420px}
 
-/* SCHOOL */
-.school{text-align:center;margin-bottom:20px}
-.school img{width:70px;margin-bottom:8px}
-.school h1{
-  font-family:'Orbitron',sans-serif;
-  color:#8ee7ff;
-  text-shadow:0 0 10px rgba(142,231,255,.6);
+/* BRAND */
+.branding{text-align:center;margin-bottom:25px}
+.logo{
+  width:90px;height:90px;
+  margin:0 auto 10px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#4fd1ff,#7cffcb);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  color:#003344;
+  box-shadow:0 0 25px rgba(79,209,255,.9);
+  animation:float 3s ease-in-out infinite;
 }
+.branding h1{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+  color:#4fd1ff;
+}
+.branding small{opacity:.85}
+
+@keyframes float{50%{transform:translateY(-8px)}}
 
 /* CARD */
 .card{
   display:none;
-  flex-direction:column;
-  gap:14px;
-  padding:22px;
+  background:rgba(15,45,60,.9);
   border-radius:20px;
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(18px);
-  box-shadow:0 15px 35px rgba(0,0,0,.4);
-  animation:fadeUp .5s ease;
+  padding:20px;
+  box-shadow:0 0 25px rgba(79,209,255,.35);
+  animation:slide .5s ease;
 }
-.card.show{display:flex}
-@keyframes fadeUp{
+.card.show{display:block}
+
+@keyframes slide{
   from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:translateY(0)}
 }
 
-h2{font-family:'Orbitron',sans-serif;color:#b8f3ff}
-.info{font-size:.95rem;line-height:1.6}
+h2{text-align:center;color:#4fd1ff;margin-bottom:10px}
 
-/* INPUT */
+/* INPUTS */
 input{
-  padding:12px;
-  border-radius:12px;
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
   border:none;
   outline:none;
-  background:rgba(255,255,255,.18);
-  color:#fff;
 }
-input::placeholder{color:#cfefff}
 
 /* BUTTONS */
 button{
-  padding:12px;
-  border-radius:14px;
-  border:none;
-  cursor:pointer;
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border-radius:12px;
+  border:2px solid #4fd1ff;
+  background:transparent;
+  color:#4fd1ff;
   font-weight:600;
+  cursor:pointer;
   transition:.3s;
 }
-.btn{
-  background:linear-gradient(135deg,#4facfe,#00f2fe);
-  color:#00334a;
-}
-.btn:hover{transform:translateY(-2px)}
-.btn-outline{
-  background:transparent;
-  border:2px solid #8ee7ff;
-  color:#eafcff;
-}
-.back{
-  background:transparent;
-  border:1px solid rgba(255,255,255,.4);
-  color:#fff;
-}
+button:hover{background:#4fd1ff;color:#003344}
+
+.emergency{border-color:#ff6b6b;color:#ff6b6b}
+.emergency:hover{background:#ff6b6b;color:#fff}
+
+.back{opacity:.7}
 
 /* PROFILE */
-.profile{text-align:center}
-.profile img{
+.profile-img{
   width:90px;height:90px;
   border-radius:50%;
   object-fit:cover;
-  border:3px solid #8ee7ff;
+  border:2px solid #4fd1ff;
+  display:block;
+  margin:10px auto;
 }
+
+/* INFO */
+.info p{margin:4px 0}
+
+/* MENU */
+.menu button{margin-bottom:8px}
 </style>
 </head>
 
@@ -119,68 +132,67 @@ button{
 
 <div class="container">
 
-<!-- SCHOOL -->
-<div class="school">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/School_icon.svg">
-  <h1>PHILTECH GMA</h1>
-  <small>Student Digital Portal</small>
+<!-- BRAND -->
+<div class="branding">
+  <div class="logo">🛡️</div>
+  <h1>SafeStud</h1>
+  <small>Student Information & Emergency Access System</small>
 </div>
 
 <!-- LOGIN -->
 <div class="card show" id="login">
   <h2>Student Login</h2>
-  <input id="sid" placeholder="Student ID">
-  <input id="spass" type="password" placeholder="Passcode">
-  <button class="btn" id="loginBtn">Login</button>
-  <button class="btn-outline" id="emergencyBtn">Emergency Access</button>
+  <input id="loginId" placeholder="Student ID">
+  <input id="loginPass" type="password" placeholder="Passcode">
+  <button onclick="login()">Login</button>
+  <button class="emergency" onclick="openEmergency()">Emergency Access</button>
 </div>
 
-<!-- MENU -->
+<!-- MAIN MENU -->
 <div class="card" id="menu">
   <h2>Main Menu</h2>
-  <button class="btn" id="infoBtn">Student Information</button>
-  <button class="btn-outline" id="subjectsBtn">Subjects</button>
-  <button class="btn-outline" id="scheduleBtn">Schedule</button>
-  <button class="btn-outline" id="logoutBtn">Logout</button>
+  <div class="menu">
+    <button onclick="openProfile()">Student Information</button>
+    <button onclick="openSubjects()">Subjects</button>
+    <button onclick="openSchedule()">Schedule</button>
+    <button class="back" onclick="logout()">Logout</button>
+  </div>
 </div>
 
-<!-- INFO -->
-<div class="card" id="info">
+<!-- PROFILE -->
+<div class="card" id="profile">
   <h2>Student Profile</h2>
-  <div class="profile">
-    <img id="profilePic" src="https://via.placeholder.com/90">
-    <input type="file" id="uploadPic" accept="image/*">
-  </div>
-  <div class="info" id="infoData"></div>
-  <button class="back">Back</button>
+  <img id="profileImg" class="profile-img">
+  <input type="file" accept="image/*" onchange="uploadPic(event)">
+  <div class="info" id="profileInfo"></div>
+  <button class="back" onclick="backMenu()">Back</button>
 </div>
 
 <!-- SUBJECTS -->
 <div class="card" id="subjects">
   <h2>Subjects</h2>
-  <div class="info">Math<br>Science<br>ICT<br>English</div>
-  <button class="back">Back</button>
+  <p>• Mathematics</p>
+  <p>• Science</p>
+  <p>• ICT</p>
+  <button class="back" onclick="backMenu()">Back</button>
 </div>
 
 <!-- SCHEDULE -->
 <div class="card" id="schedule">
   <h2>Schedule</h2>
-  <div class="info">
-    Mon – Math<br>
-    Tue – Science<br>
-    Wed – ICT<br>
-    Thu – English
-  </div>
-  <button class="back">Back</button>
+  <p>Mon–Wed: ICT</p>
+  <p>Thu: Math</p>
+  <p>Fri: Science</p>
+  <button class="back" onclick="backMenu()">Back</button>
 </div>
 
 <!-- EMERGENCY -->
 <div class="card" id="emergency">
   <h2>Emergency Access</h2>
-  <input id="eid" placeholder="Student ID or Name">
-  <button class="btn" id="viewEmergency">View Info</button>
-  <div class="info" id="emergencyData"></div>
-  <button class="back">Back</button>
+  <input id="emId" placeholder="Student ID or Name">
+  <button onclick="viewEmergency()">View Info</button>
+  <div class="info" id="emInfo"></div>
+  <button class="back" onclick="backLogin()">Back</button>
 </div>
 
 </div>
@@ -188,84 +200,97 @@ button{
 <script>
 /* BACKGROUND */
 const bg=document.getElementById('bg');
-for(let i=0;i<40;i++){
-  const s=document.createElement('span');
+for(let i=0;i<80;i++){
+  let s=document.createElement('span');
   s.style.left=Math.random()*100+'%';
-  s.style.animationDuration=6+Math.random()*8+'s';
+  s.style.top=Math.random()*100+'%';
   bg.appendChild(s);
 }
 
-/* STUDENTS */
+/* DATA */
 const students={
-  student1:{pass:"1234",name:"John Doe",contact:"09123456789",emergency:"09211234567",address:"GMA Cavite"},
-  student2:{pass:"1111",name:"Anna Cruz",contact:"09987654321",emergency:"09112223333",address:"Dasmariñas Cavite"}
+  "2024-001":{
+    name:"Juan Dela Cruz",
+    contact:"09123456789",
+    emergency:"09987654321",
+    address:"GMA Cavite",
+    img:""
+  },
+  "2024-002":{
+    name:"Maria Santos",
+    contact:"09223334444",
+    emergency:"09119998888",
+    address:"Dasmariñas Cavite",
+    img:""
+  }
 };
-
 let current=null;
 
-/* CARDS */
-const cards=document.querySelectorAll('.card');
-const show=c=>{
-  cards.forEach(x=>x.classList.remove('show'));
-  c.classList.add('show');
+/* HELPERS */
+const show=id=>{
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
 };
 
 /* LOGIN */
-loginBtn.onclick=()=>{
-  const s=students[sid.value];
-  if(s && spass.value===s.pass){
-    current=sid.value;
-    show(menu);
-  }else alert("Invalid Student ID or Passcode");
-};
+function login(){
+  let id=loginId.value;
+  let pass=loginPass.value;
+  if(students[id] && pass==="1234"){
+    current=id;
+    show("menu");
+  }else alert("Invalid login");
+}
 
 /* LOGOUT */
-logoutBtn.onclick=()=>{
+function logout(){
   if(confirm("Are you sure you want to logout?")){
     current=null;
-    sid.value=spass.value="";
-    show(login);
+    loginId.value="";
+    loginPass.value="";
+    show("login");
   }
-};
+}
 
-/* MENU */
-infoBtn.onclick=()=>{
-  const s=students[current];
-  infoData.innerHTML=
-  `<b>Name:</b> ${s.name}<br>
-   <b>Contact:</b> ${s.contact}<br>
-   <b>Emergency:</b> ${s.emergency}<br>
-   <b>Address:</b> ${s.address}`;
-  show(info);
-};
-subjectsBtn.onclick=()=>show(subjects);
-scheduleBtn.onclick=()=>show(schedule);
+/* PROFILE */
+function openProfile(){
+  let s=students[current];
+  profileImg.src=s.img||"https://via.placeholder.com/90";
+  profileInfo.innerHTML=`
+    <p><b>Name:</b> ${s.name}</p>
+    <p><b>Contact:</b> ${s.contact}</p>
+    <p><b>Emergency:</b> ${s.emergency}</p>
+    <p><b>Address:</b> ${s.address}</p>`;
+  show("profile");
+}
+function uploadPic(e){
+  const reader=new FileReader();
+  reader.onload=()=>{students[current].img=reader.result;profileImg.src=reader.result;}
+  reader.readAsDataURL(e.target.files[0]);
+}
+
+/* OTHERS */
+function openSubjects(){show("subjects")}
+function openSchedule(){show("schedule")}
+function backMenu(){show("menu")}
 
 /* EMERGENCY */
-emergencyBtn.onclick=()=>show(emergency);
-viewEmergency.onclick=()=>{
-  const v=eid.value.toLowerCase();
-  let s=null;
-  for(let k in students)
-    if(k===v||students[k].name.toLowerCase()===v) s=students[k];
-  emergencyData.innerHTML=s?
-  `<b>Name:</b> ${s.name}<br>
-   <b>Contact:</b> ${s.contact}<br>
-   <b>Emergency:</b> ${s.emergency}<br>
-   <b>Address:</b> ${s.address}`:"Student not found";
-};
-
-/* PROFILE UPLOAD */
-uploadPic.onchange=e=>{
-  const r=new FileReader();
-  r.onload=()=>profilePic.src=r.result;
-  r.readAsDataURL(e.target.files[0]);
-};
-
-/* BACK */
-document.querySelectorAll('.back').forEach(b=>{
-  b.onclick=()=>show(current?menu:login);
-});
+function openEmergency(){show("emergency")}
+function backLogin(){emId.value="";emInfo.innerHTML="";show("login")}
+function viewEmergency(){
+  let v=emId.value.toLowerCase();
+  for(let k in students){
+    let s=students[k];
+    if(v===k.toLowerCase()||v===s.name.toLowerCase()){
+      emInfo.innerHTML=`
+      <p><b>Name:</b> ${s.name}</p>
+      <p><b>Contact:</b> ${s.contact||s.emergency}</p>
+      <p><b>Address:</b> ${s.address}</p>`;
+      return;
+    }
+  }
+  emInfo.innerHTML="Student not found";
+}
 </script>
 
 </body>
