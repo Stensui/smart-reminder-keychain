@@ -2,298 +2,299 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SafeStud | Student & Admin System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<title>SafeStud | Student & Admin System</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
-body{
-  min-height:100vh;
-  background:radial-gradient(circle at top,#12364a,#0b1f2a);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#eafcff;
+* { box-sizing:border-box; font-family:'Orbitron', sans-serif; margin:0; padding:0; }
+body {
+  min-height:100vh; display:flex; justify-content:center; align-items:center;
+  background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+  color:#00ffff; overflow:hidden;
 }
-.container{width:95%;max-width:460px}
+.container { width:95%; max-width:600px; position:relative; perspective:1000px; }
 
-/* BRAND */
-.brand{text-align:center;margin-bottom:20px}
-.logo{
-  width:85px;height:85px;margin:0 auto 10px;border-radius:50%;
-  background:linear-gradient(135deg,#4fd1ff,#7cffcb);
-  display:flex;align-items:center;justify-content:center;
-  font-size:34px;color:#003344;
-  box-shadow:0 0 25px rgba(79,209,255,.9)
-}
-.brand h1{font-family:'Orbitron',sans-serif;color:#4fd1ff}
-.brand small{opacity:.8}
+/* Branding */
+.branding { text-align:center; margin-bottom:20px; }
+.logo-wrapper { position:relative; cursor:pointer; display:inline-block; }
+.logo { width:90px; height:90px; filter: drop-shadow(0 0 15px #4fd1ff); }
+.brand-name { font-size:2rem; color:#4fd1ff; margin-top:8px; letter-spacing:2px; }
 
-/* CARD */
-.card{
-  display:none;
-  background:rgba(15,45,60,.92);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 0 25px rgba(79,209,255,.35);
-}
-.card.show{display:block}
-h2{text-align:center;color:#4fd1ff;margin-bottom:10px}
+/* Cards */
+.card { display:none; flex-direction:column; gap:12px; background:rgba(0,0,0,0.4); 
+       backdrop-filter:blur(15px); border-radius:25px; padding:25px; 
+       box-shadow: 0 0 20px #00ffff,0 20px 40px rgba(0,255,255,0.2); position:relative; }
+.card.show { display:flex; }
+.card input { padding:10px; border-radius:8px; border:none; outline:none; width:100%; margin-bottom:8px; }
+.card button { padding:12px; border-radius:12px; border:2px solid #00ffff; background:rgba(0,0,0,0.3);
+               color:#00ffff; font-weight:600; cursor:pointer; transition:0.3s; position:relative; overflow:hidden;}
+.card button:hover { transform:scale(1.05); box-shadow:0 0 20px #00ffff; }
 
-/* INPUT */
-input{
-  width:100%;padding:9px;margin:5px 0;
-  border-radius:8px;border:none;outline:none
-}
+/* Remember me */
+.remember { display:flex; align-items:center; gap:5px; margin-bottom:10px; }
 
-/* BUTTON */
-button{
-  width:100%;padding:9px;margin-top:6px;
-  border-radius:10px;border:2px solid #4fd1ff;
-  background:transparent;color:#4fd1ff;
-  font-weight:600;cursor:pointer
-}
-button:hover{background:#4fd1ff;color:#003344}
-.danger{border-color:#ff6b6b;color:#ff6b6b}
-.danger:hover{background:#ff6b6b;color:#fff}
-.back{opacity:.7}
+/* Assistance */
+.help { color:#4fd1ff; cursor:pointer; text-decoration:underline; font-size:.9rem; margin-top:5px; }
 
-/* HELP / REMEMBER */
-.help{
-  text-align:center;
-  margin-top:8px;
-  font-size:.8rem;
-  cursor:pointer;
-  color:#7cffcb;
-  text-decoration:underline;
-}
-.remember{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:.75rem;
-  margin-top:6px;
-}
+/* Details cards */
+.detail-card { gap:8px; }
+.detail-card p { opacity:1; }
 
-/* TABLE */
-table{width:100%;border-collapse:collapse;font-size:.8rem}
-th,td{border-bottom:1px solid #4fd1ff;padding:5px;text-align:center}
-.active{color:#7cffcb}
-.blocked{color:#ff6b6b}
-.small-btn{font-size:.65rem;padding:4px 6px;margin:2px;border-radius:6px}
+/* Admin table */
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th, td { border:1px solid #00ffff; padding:8px; text-align:center; }
+
+/* Floating card animation */
+@keyframes floatCard {0%{transform:translateY(0px);}100%{transform:translateY(-10px);}}
+.floating { animation: floatCard 4s ease-in-out infinite alternate; }
 </style>
 </head>
-
 <body>
+
 <div class="container">
 
-<div class="brand">
-  <div class="logo">🛡️</div>
-  <h1>SafeStud</h1>
-  <small>Student Information & Emergency Access System</small>
-</div>
-
-<!-- LOGIN -->
-<div class="card show" id="login">
-  <h2>Login</h2>
-  <input id="loginId" placeholder="Student / Admin ID">
-  <input id="loginPass" type="password" placeholder="Password">
-
-  <div class="remember">
-    <input type="checkbox" id="rememberMe"> Remember Me
+  <!-- Branding -->
+  <div class="branding">
+    <div class="logo-wrapper">
+      <img src="https://i.ibb.co/8K8d0L0/shield.png" class="logo" alt="SafeStud Logo">
+      <div class="brand-name">SafeStud</div>
+    </div>
   </div>
 
-  <button onclick="login()">Login</button>
-  <button class="danger" onclick="show('emergency')">Emergency Access</button>
-
-  <div class="help" onclick="alert('Please contact the school administrator or ICT office for assistance.')">
-    Ask for assistance / Help
+  <!-- Login Card -->
+  <div class="card show" id="loginCard">
+    <h2>Login</h2>
+    <input type="text" id="loginId" placeholder="Student / Admin ID">
+    <input type="password" id="loginPass" placeholder="Password">
+    <div class="remember">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember Me</label>
+    </div>
+    <button onclick="login()">Login</button>
+    <button onclick="showCard('emergencyCard')">Emergency Access</button>
+    <div class="help" onclick="toggleAssistance()">Ask for assistance / Help</div>
+    <div id="assistancePanel" style="display:none; margin-top:10px;">
+      <p>Select your request:</p>
+      <button onclick="alert('Technical issue, contact ICT admin')">Technical Issue</button>
+      <button onclick="alert('Guidance / Counseling')">Guidance / Counseling</button>
+      <button onclick="alert('Academic Question')">Academic Question</button>
+      <p>Or type your question:</p>
+      <input type="text" id="assistanceQuestion" placeholder="Type question">
+      <button onclick="submitQuestion()">Submit Question</button>
+    </div>
   </div>
-</div>
 
-<!-- STUDENT MENU -->
-<div class="card" id="menu">
-  <h2>Student Menu</h2>
-  <button onclick="showProfile()">Student Information</button>
-  <button onclick="show('subjects')">Subjects</button>
-  <button onclick="show('schedule')">Schedule</button>
-  <button class="back" onclick="logout()">Logout</button>
-</div>
+  <!-- Emergency Access -->
+  <div class="card" id="emergencyCard">
+    <h2>Emergency Access</h2>
+    <input type="text" id="emergencyInput" placeholder="Enter Student ID or Name">
+    <button onclick="viewEmergency()">View Info</button>
+    <button onclick="backToLogin('emergencyCard')">Back</button>
+    <div id="emergencyInfo"></div>
+  </div>
 
-<!-- PROFILE -->
-<div class="card" id="profile">
-  <h2>Student Profile</h2>
-  <div id="profileInfo"></div>
-  <button class="back" onclick="show('menu')">Back</button>
-</div>
+  <!-- Student Main Menu -->
+  <div class="card" id="studentMenu">
+    <h2>Student Menu</h2>
+    <button onclick="viewStudentInfo()">Student Info</button>
+    <button onclick="showCard('subjectsCard')">Subjects</button>
+    <button onclick="showCard('scheduleCard')">Schedule</button>
+    <button onclick="showCard('googleLinksCard')">Google Classroom Links</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-<!-- SUBJECTS -->
-<div class="card" id="subjects">
-  <h2>Subjects</h2>
-  <p>• Mathematics</p><p>• Science</p><p>• ICT</p>
-  <button class="back" onclick="show('menu')">Back</button>
-</div>
+  <!-- Student Info Card -->
+  <div class="card detail-card" id="studentInfoCard">
+    <h2>Student Info</h2>
+    <div id="studentDetails"></div>
+    <button onclick="backToMenu('studentInfoCard')">Back</button>
+  </div>
 
-<!-- SCHEDULE -->
-<div class="card" id="schedule">
-  <h2>Schedule</h2>
-  <p>Mon–Wed: ICT</p><p>Thu: Math</p><p>Fri: Science</p>
-  <button class="back" onclick="show('menu')">Back</button>
-</div>
+  <!-- Subjects -->
+  <div class="card detail-card" id="subjectsCard">
+    <h2>Subjects</h2>
+    <p>Math</p>
+    <p>Science</p>
+    <p>ICT</p>
+    <button onclick="backToMenu('subjectsCard')">Back</button>
+  </div>
 
-<!-- EMERGENCY -->
-<div class="card" id="emergency">
-  <h2>Emergency Access</h2>
-  <input id="emInput" placeholder="Student ID or Name">
-  <button onclick="emergencyView()">View</button>
-  <div id="emInfo"></div>
-  <button class="back" onclick="backLogin()">Back</button>
-</div>
+  <!-- Schedule -->
+  <div class="card detail-card" id="scheduleCard">
+    <h2>Schedule</h2>
+    <p>Mon: Math</p>
+    <p>Tue: Science</p>
+    <p>Wed: ICT</p>
+    <button onclick="backToMenu('scheduleCard')">Back</button>
+  </div>
 
-<!-- ADMIN -->
-<div class="card" id="admin">
-  <h2>Admin Panel</h2>
+  <!-- Google Links -->
+  <div class="card detail-card" id="googleLinksCard">
+    <h2>Google Classroom Links</h2>
+    <p><a href="#" target="_blank">Math</a></p>
+    <p><a href="#" target="_blank">Science</a></p>
+    <p><a href="#" target="_blank">ICT</a></p>
+    <button onclick="backToMenu('googleLinksCard')">Back</button>
+  </div>
 
-  <!-- ADD STUDENT -->
-  <h3>Add Student</h3>
-  <input id="addId" placeholder="Student ID">
-  <input id="addName" placeholder="Full Name">
-  <input id="addContact" placeholder="Contact Number">
-  <input id="addAddress" placeholder="Address">
-  <button onclick="addStudent()">Add Student</button>
+  <!-- Admin Panel -->
+  <div class="card" id="adminPanel">
+    <h2>Admin Panel</h2>
+    <button onclick="showCard('addStudentCard')">Add Student</button>
+    <button onclick="showCard('editStudentCard')">Edit / Delete Student</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-  <!-- UPDATE STUDENT -->
-  <h3 style="margin-top:10px">Update Student</h3>
-  <input id="updId" placeholder="Student ID">
-  <input id="updName" placeholder="Full Name">
-  <input id="updContact" placeholder="Contact Number">
-  <input id="updAddress" placeholder="Address">
-  <button onclick="updateStudent()">Update Student</button>
+  <!-- Add Student -->
+  <div class="card" id="addStudentCard">
+    <h2>Add Student</h2>
+    <input type="text" id="addId" placeholder="Student ID">
+    <input type="text" id="addName" placeholder="Student Name">
+    <input type="text" id="addContact" placeholder="Contact Number">
+    <input type="text" id="addAddress" placeholder="Address">
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="backToMenu('addStudentCard')">Back</button>
+  </div>
 
-  <table>
-    <thead>
-      <tr><th>ID</th><th>Name</th><th>Status</th><th>Action</th></tr>
-    </thead>
-    <tbody id="adminTable"></tbody>
-  </table>
-
-  <button class="back" onclick="logout()">Logout</button>
-</div>
+  <!-- Edit / Delete Student -->
+  <div class="card" id="editStudentCard">
+    <h2>Edit / Delete Student</h2>
+    <select id="selectStudent"></select>
+    <input type="text" id="editName" placeholder="Name">
+    <input type="text" id="editContact" placeholder="Contact">
+    <input type="text" id="editAddress" placeholder="Address">
+    <label><input type="checkbox" id="editStatus"> Active</label>
+    <button onclick="updateStudent()">Update</button>
+    <button onclick="deleteStudent()">Delete</button>
+    <button onclick="backToMenu('editStudentCard')">Back</button>
+  </div>
 
 </div>
 
 <script>
-/* STORAGE */
-const key="safestud_students";
-let students=JSON.parse(localStorage.getItem(key))||{
-  "2024-001":{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",status:"active"}
+// LocalStorage setup
+let students = JSON.parse(localStorage.getItem('students')) || {
+  "student1": {name:"John Doe", contact:"09123456789", address:"123 Main St", active:true}
 };
-function save(){localStorage.setItem(key,JSON.stringify(students))}
+localStorage.setItem('students', JSON.stringify(students));
 
-let currentUser=null;
+let admin = {id:"admin", pass:"1234"};
 
-/* NAV */
-function show(id){
+let currentUser="";
+
+// Show card
+function showCard(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
   document.getElementById(id).classList.add('show');
 }
 
-/* LOGIN */
-function login(){
-  let id=loginId.value, pass=loginPass.value;
+// Back buttons
+function backToLogin(id){ showCard('loginCard'); clearInputs(); }
+function backToMenu(id){ showCard('studentMenu'); }
 
-  if(rememberMe.checked) localStorage.setItem("remember",id);
-  else localStorage.removeItem("remember");
-
-  if(id==="admin" && pass==="admin123"){loadAdmin();show("admin");return;}
-
-  if(students[id]){
-    if(students[id].status==="blocked"){alert("Account blocked");return;}
-    if(pass==="1234"){currentUser=id;show("menu")}
-    else alert("Wrong password");
-  } else alert("Account not found");
+// Assistance
+function toggleAssistance(){
+  let panel=document.getElementById('assistancePanel');
+  panel.style.display = panel.style.display==='none'?'block':'none';
+}
+function submitQuestion(){
+  let q=document.getElementById('assistanceQuestion').value;
+  if(q.trim()==='') alert('Please type a question');
+  else { alert('Question submitted:\n'+q); document.getElementById('assistanceQuestion').value=''; }
 }
 
-/* LOGOUT */
+// Login
+function login(){
+  let id=document.getElementById('loginId').value;
+  let pass=document.getElementById('loginPass').value;
+  if(id===admin.id && pass===admin.pass){ currentUser='admin'; showCard('adminPanel'); return; }
+  if(students[id] && students[id].active){ currentUser=id; showCard('studentMenu'); return; }
+  alert('Invalid login or inactive account');
+}
+
+// Logout
 function logout(){
-  if(confirm("Are you sure you want to logout?")){
-    document.querySelectorAll("input").forEach(i=>i.value="");
-    currentUser=null;
-    show("login");
+  if(confirm('Are you sure you want to logout?')){
+    currentUser=""; showCard('loginCard'); clearInputs();
   }
 }
 
-/* PROFILE */
-function showProfile(){
-  let s=students[currentUser];
-  profileInfo.innerHTML=`
-  <p><b>Name:</b> ${s.name}</p>
-  <p><b>Contact:</b> ${s.contact}</p>
-  <p><b>Address:</b> ${s.address}</p>
-  <p><b>Status:</b> ${s.status}</p>`;
-  show("profile");
+// Clear inputs
+function clearInputs(){
+  document.querySelectorAll('input').forEach(i=>i.value='');
 }
 
-/* EMERGENCY */
-function emergencyView(){
-  let v=emInput.value.toLowerCase();
-  for(let id in students){
-    let s=students[id];
-    if(v===id.toLowerCase()||v===s.name.toLowerCase()){
-      emInfo.innerHTML=`<p><b>Name:</b> ${s.name}</p>
-      <p><b>Contact:</b> ${s.contact}</p>
-      <p><b>Address:</b> ${s.address}</p>`;
-      return;
+// View student info
+function viewStudentInfo(){
+  let details=document.getElementById('studentDetails');
+  if(currentUser && students[currentUser]){
+    let s=students[currentUser];
+    details.innerHTML=`ID: ${currentUser}<br>Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}`;
+    showCard('studentInfoCard');
+  }
+}
+
+// Emergency
+function viewEmergency(){
+  let val=document.getElementById('emergencyInput').value.toLowerCase();
+  let div=document.getElementById('emergencyInfo');
+  let found=false;
+  for(let key in students){
+    let s=students[key];
+    if(key.toLowerCase()===val || s.name.toLowerCase()===val){
+      div.innerHTML=`ID: ${key}<br>Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}<br>Status: ${s.active?'Active':'Blocked'}`;
+      found=true;
     }
   }
-  emInfo.innerHTML="Student not found";
+  if(!found) div.innerHTML='Student not found';
 }
-function backLogin(){emInput.value="";emInfo.innerHTML="";show("login")}
 
-/* ADMIN */
-function loadAdmin(){
-  adminTable.innerHTML="";
-  for(let id in students){
-    let s=students[id];
-    adminTable.innerHTML+=`
-    <tr>
-      <td>${id}</td>
-      <td>${s.name}</td>
-      <td class="${s.status}">${s.status}</td>
-      <td>
-        <button class="small-btn" onclick="prepUpdate('${id}')">Edit</button>
-        <button class="small-btn" onclick="toggle('${id}')">${s.status==="active"?"Block":"Activate"}</button>
-        <button class="small-btn danger" onclick="del('${id}')">Delete</button>
-      </td>
-    </tr>`;
-  }
-}
+// Add student
 function addStudent(){
-  if(!addId.value)return;
-  students[addId.value]={name:addName.value,contact:addContact.value,address:addAddress.value,status:"active"};
-  save();loadAdmin();
+  let id=document.getElementById('addId').value;
+  if(!id) return alert('Enter ID');
+  students[id]={name:document.getElementById('addName').value, contact:document.getElementById('addContact').value,
+                address:document.getElementById('addAddress').value, active:true};
+  localStorage.setItem('students', JSON.stringify(students));
+  alert('Student added');
+  populateSelect();
 }
-function prepUpdate(id){
-  let s=students[id];
-  updId.value=id;updName.value=s.name;updContact.value=s.contact;updAddress.value=s.address;
+
+// Edit / delete
+function populateSelect(){
+  let sel=document.getElementById('selectStudent');
+  sel.innerHTML='';
+  for(let key in students) sel.innerHTML+='<option value="'+key+'">'+key+' - '+students[key].name+'</option>';
 }
+populateSelect();
+
 function updateStudent(){
-  if(!updId.value)return;
-  students[updId.value]={name:updName.value,contact:updContact.value,address:updAddress.value,status:students[updId.value].status};
-  save();loadAdmin();
+  let key=document.getElementById('selectStudent').value;
+  students[key].name=document.getElementById('editName').value || students[key].name;
+  students[key].contact=document.getElementById('editContact').value || students[key].contact;
+  students[key].address=document.getElementById('editAddress').value || students[key].address;
+  students[key].active=document.getElementById('editStatus').checked;
+  localStorage.setItem('students', JSON.stringify(students));
+  alert('Updated');
+  populateSelect();
 }
-function toggle(id){
-  students[id].status=students[id].status==="active"?"blocked":"active";
-  save();loadAdmin();
+
+function deleteStudent(){
+  let key=document.getElementById('selectStudent').value;
+  delete students[key];
+  localStorage.setItem('students', JSON.stringify(students));
+  alert('Deleted');
+  populateSelect();
 }
-function del(id){
-  if(confirm("Delete this student?")){
-    delete students[id];save();loadAdmin();
-  }
+
+// Update edit fields when select changes
+document.getElementById('selectStudent').onchange=function(){
+  let s=students[this.value];
+  document.getElementById('editName').value=s.name;
+  document.getElementById('editContact').value=s.contact;
+  document.getElementById('editAddress').value=s.address;
+  document.getElementById('editStatus').checked=s.active;
 }
 </script>
-
 </body>
 </html>
