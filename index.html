@@ -60,6 +60,23 @@ button:hover{background:#4fd1ff;color:#003344}
 .danger:hover{background:#ff6b6b;color:#fff}
 .back{opacity:.7}
 
+/* HELP / REMEMBER */
+.help{
+  text-align:center;
+  margin-top:8px;
+  font-size:.8rem;
+  cursor:pointer;
+  color:#7cffcb;
+  text-decoration:underline;
+}
+.remember{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:.75rem;
+  margin-top:6px;
+}
+
 /* TABLE */
 table{width:100%;border-collapse:collapse;font-size:.8rem}
 th,td{border-bottom:1px solid #4fd1ff;padding:5px;text-align:center}
@@ -83,8 +100,17 @@ th,td{border-bottom:1px solid #4fd1ff;padding:5px;text-align:center}
   <h2>Login</h2>
   <input id="loginId" placeholder="Student / Admin ID">
   <input id="loginPass" type="password" placeholder="Password">
+
+  <div class="remember">
+    <input type="checkbox" id="rememberMe"> Remember Me
+  </div>
+
   <button onclick="login()">Login</button>
   <button class="danger" onclick="show('emergency')">Emergency Access</button>
+
+  <div class="help" onclick="alert('Please contact the school administrator or ICT office for assistance.')">
+    Ask for assistance / Help
+  </div>
 </div>
 
 <!-- STUDENT MENU -->
@@ -130,11 +156,21 @@ th,td{border-bottom:1px solid #4fd1ff;padding:5px;text-align:center}
 <div class="card" id="admin">
   <h2>Admin Panel</h2>
 
-  <input id="aId" placeholder="Student ID">
-  <input id="aName" placeholder="Full Name">
-  <input id="aContact" placeholder="Contact Number">
-  <input id="aAddress" placeholder="Address">
-  <button onclick="addStudent()">Add / Update Student</button>
+  <!-- ADD STUDENT -->
+  <h3>Add Student</h3>
+  <input id="addId" placeholder="Student ID">
+  <input id="addName" placeholder="Full Name">
+  <input id="addContact" placeholder="Contact Number">
+  <input id="addAddress" placeholder="Address">
+  <button onclick="addStudent()">Add Student</button>
+
+  <!-- UPDATE STUDENT -->
+  <h3 style="margin-top:10px">Update Student</h3>
+  <input id="updId" placeholder="Student ID">
+  <input id="updName" placeholder="Full Name">
+  <input id="updContact" placeholder="Contact Number">
+  <input id="updAddress" placeholder="Address">
+  <button onclick="updateStudent()">Update Student</button>
 
   <table>
     <thead>
@@ -156,7 +192,6 @@ let students=JSON.parse(localStorage.getItem(key))||{
 };
 function save(){localStorage.setItem(key,JSON.stringify(students))}
 
-/* GLOBAL */
 let currentUser=null;
 
 /* NAV */
@@ -168,7 +203,12 @@ function show(id){
 /* LOGIN */
 function login(){
   let id=loginId.value, pass=loginPass.value;
+
+  if(rememberMe.checked) localStorage.setItem("remember",id);
+  else localStorage.removeItem("remember");
+
   if(id==="admin" && pass==="admin123"){loadAdmin();show("admin");return;}
+
   if(students[id]){
     if(students[id].status==="blocked"){alert("Account blocked");return;}
     if(pass==="1234"){currentUser=id;show("menu")}
@@ -179,8 +219,9 @@ function login(){
 /* LOGOUT */
 function logout(){
   if(confirm("Are you sure you want to logout?")){
-    loginId.value="";loginPass.value="";
-    currentUser=null;show("login");
+    document.querySelectorAll("input").forEach(i=>i.value="");
+    currentUser=null;
+    show("login");
   }
 }
 
@@ -222,7 +263,7 @@ function loadAdmin(){
       <td>${s.name}</td>
       <td class="${s.status}">${s.status}</td>
       <td>
-        <button class="small-btn" onclick="editStudent('${id}')">Edit</button>
+        <button class="small-btn" onclick="prepUpdate('${id}')">Edit</button>
         <button class="small-btn" onclick="toggle('${id}')">${s.status==="active"?"Block":"Activate"}</button>
         <button class="small-btn danger" onclick="del('${id}')">Delete</button>
       </td>
@@ -230,18 +271,18 @@ function loadAdmin(){
   }
 }
 function addStudent(){
-  if(!aId.value)return;
-  students[aId.value]={
-    name:aName.value,
-    contact:aContact.value,
-    address:aAddress.value,
-    status:"active"
-  };
+  if(!addId.value)return;
+  students[addId.value]={name:addName.value,contact:addContact.value,address:addAddress.value,status:"active"};
   save();loadAdmin();
 }
-function editStudent(id){
+function prepUpdate(id){
   let s=students[id];
-  aId.value=id;aName.value=s.name;aContact.value=s.contact;aAddress.value=s.address;
+  updId.value=id;updName.value=s.name;updContact.value=s.contact;updAddress.value=s.address;
+}
+function updateStudent(){
+  if(!updId.value)return;
+  students[updId.value]={name:updName.value,contact:updContact.value,address:updAddress.value,status:students[updId.value].status};
+  save();loadAdmin();
 }
 function toggle(id){
   students[id].status=students[id].status==="active"?"blocked":"active";
