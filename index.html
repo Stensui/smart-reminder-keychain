@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SafeStud | Student Information & Emergency System</title>
+<title>SafeStud | Student & Admin System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -17,64 +16,32 @@ body{
   justify-content:center;
   align-items:center;
   color:#eafcff;
-  overflow:hidden;
-}
-
-/* BACKGROUND PARTICLES */
-.bg span{
-  position:absolute;
-  width:2px;height:2px;
-  background:#4fd1ff;
-  opacity:.4;
-  animation:floatBg 6s linear infinite;
-}
-@keyframes floatBg{
-  from{transform:translateY(0)}
-  to{transform:translateY(-500px)}
 }
 
 /* CONTAINER */
-.container{width:95%;max-width:420px}
+.container{width:95%;max-width:450px}
 
 /* BRAND */
 .branding{text-align:center;margin-bottom:25px}
 .logo{
-  width:90px;height:90px;
-  margin:0 auto 10px;
-  border-radius:50%;
+  width:90px;height:90px;margin:0 auto 10px;border-radius:50%;
   background:linear-gradient(135deg,#4fd1ff,#7cffcb);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:36px;
-  color:#003344;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;color:#003344;
   box-shadow:0 0 25px rgba(79,209,255,.9);
-  animation:float 3s ease-in-out infinite;
 }
-.branding h1{
-  font-family:'Orbitron',sans-serif;
-  letter-spacing:2px;
-  color:#4fd1ff;
-}
-.branding small{opacity:.85}
-
-@keyframes float{50%{transform:translateY(-8px)}}
+.branding h1{font-family:'Orbitron',sans-serif;color:#4fd1ff}
+.branding small{opacity:.8}
 
 /* CARD */
 .card{
   display:none;
-  background:rgba(15,45,60,.9);
+  background:rgba(15,45,60,.92);
   border-radius:20px;
   padding:20px;
-  box-shadow:0 0 25px rgba(79,209,255,.35);
-  animation:slide .5s ease;
+  box-shadow:0 0 25px rgba(79,209,255,.4);
 }
 .card.show{display:block}
-
-@keyframes slide{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
 
 h2{text-align:center;color:#4fd1ff;margin-bottom:10px}
 
@@ -82,7 +49,7 @@ h2{text-align:center;color:#4fd1ff;margin-bottom:10px}
 input{
   width:100%;
   padding:10px;
-  margin:8px 0;
+  margin:6px 0;
   border-radius:10px;
   border:none;
   outline:none;
@@ -92,47 +59,37 @@ input{
 button{
   width:100%;
   padding:10px;
-  margin-top:8px;
+  margin-top:6px;
   border-radius:12px;
   border:2px solid #4fd1ff;
   background:transparent;
   color:#4fd1ff;
   font-weight:600;
   cursor:pointer;
-  transition:.3s;
 }
 button:hover{background:#4fd1ff;color:#003344}
 
 .emergency{border-color:#ff6b6b;color:#ff6b6b}
 .emergency:hover{background:#ff6b6b;color:#fff}
-
 .back{opacity:.7}
 
-/* PROFILE */
-.profile-img{
-  width:90px;height:90px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid #4fd1ff;
-  display:block;
-  margin:10px auto;
+/* ADMIN */
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{border-bottom:1px solid #4fd1ff;padding:6px;text-align:center}
+.status-active{color:#7cffcb}
+.status-blocked{color:#ff6b6b}
+.admin-btn{
+  padding:4px 6px;
+  font-size:.7rem;
+  border-radius:6px;
 }
-
-/* INFO */
-.info p{margin:4px 0}
-
-/* MENU */
-.menu button{margin-bottom:8px}
 </style>
 </head>
 
 <body>
 
-<div class="bg" id="bg"></div>
-
 <div class="container">
 
-<!-- BRAND -->
 <div class="branding">
   <div class="logo">🛡️</div>
   <h1>SafeStud</h1>
@@ -141,31 +98,27 @@ button:hover{background:#4fd1ff;color:#003344}
 
 <!-- LOGIN -->
 <div class="card show" id="login">
-  <h2>Student Login</h2>
-  <input id="loginId" placeholder="Student ID">
-  <input id="loginPass" type="password" placeholder="Passcode">
+  <h2>Login</h2>
+  <input id="loginId" placeholder="Student / Admin ID">
+  <input id="loginPass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
-  <button class="emergency" onclick="openEmergency()">Emergency Access</button>
+  <button class="emergency" onclick="show('emergency')">Emergency Access</button>
 </div>
 
-<!-- MAIN MENU -->
+<!-- STUDENT MENU -->
 <div class="card" id="menu">
-  <h2>Main Menu</h2>
-  <div class="menu">
-    <button onclick="openProfile()">Student Information</button>
-    <button onclick="openSubjects()">Subjects</button>
-    <button onclick="openSchedule()">Schedule</button>
-    <button class="back" onclick="logout()">Logout</button>
-  </div>
+  <h2>Student Menu</h2>
+  <button onclick="showProfile()">Student Information</button>
+  <button onclick="show('subjects')">Subjects</button>
+  <button onclick="show('schedule')">Schedule</button>
+  <button class="back" onclick="logout()">Logout</button>
 </div>
 
 <!-- PROFILE -->
 <div class="card" id="profile">
   <h2>Student Profile</h2>
-  <img id="profileImg" class="profile-img">
-  <input type="file" accept="image/*" onchange="uploadPic(event)">
-  <div class="info" id="profileInfo"></div>
-  <button class="back" onclick="backMenu()">Back</button>
+  <div id="profileInfo"></div>
+  <button class="back" onclick="show('menu')">Back</button>
 </div>
 
 <!-- SUBJECTS -->
@@ -174,7 +127,7 @@ button:hover{background:#4fd1ff;color:#003344}
   <p>• Mathematics</p>
   <p>• Science</p>
   <p>• ICT</p>
-  <button class="back" onclick="backMenu()">Back</button>
+  <button class="back" onclick="show('menu')">Back</button>
 </div>
 
 <!-- SCHEDULE -->
@@ -183,69 +136,76 @@ button:hover{background:#4fd1ff;color:#003344}
   <p>Mon–Wed: ICT</p>
   <p>Thu: Math</p>
   <p>Fri: Science</p>
-  <button class="back" onclick="backMenu()">Back</button>
+  <button class="back" onclick="show('menu')">Back</button>
 </div>
 
 <!-- EMERGENCY -->
 <div class="card" id="emergency">
   <h2>Emergency Access</h2>
-  <input id="emId" placeholder="Student ID or Name">
-  <button onclick="viewEmergency()">View Info</button>
-  <div class="info" id="emInfo"></div>
+  <input id="emInput" placeholder="Student ID or Name">
+  <button onclick="emergencyView()">View</button>
+  <div id="emInfo"></div>
   <button class="back" onclick="backLogin()">Back</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="card" id="admin">
+  <h2>Admin Panel</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Status</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="adminTable"></tbody>
+  </table>
+  <button class="back" onclick="logout()">Logout</button>
 </div>
 
 </div>
 
 <script>
-/* BACKGROUND */
-const bg=document.getElementById('bg');
-for(let i=0;i<80;i++){
-  let s=document.createElement('span');
-  s.style.left=Math.random()*100+'%';
-  s.style.top=Math.random()*100+'%';
-  bg.appendChild(s);
-}
-
 /* DATA */
 const students={
-  "2024-001":{
-    name:"Juan Dela Cruz",
-    contact:"09123456789",
-    emergency:"09987654321",
-    address:"GMA Cavite",
-    img:""
-  },
-  "2024-002":{
-    name:"Maria Santos",
-    contact:"09223334444",
-    emergency:"09119998888",
-    address:"Dasmariñas Cavite",
-    img:""
-  }
+  "2024-001":{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",status:"active"},
+  "2024-002":{name:"Maria Santos",contact:"09223334444",address:"Dasma Cavite",status:"active"},
+  "2024-003":{name:"Pedro Reyes",contact:"09998887777",address:"Imus Cavite",status:"blocked"}
 };
-let current=null;
+let currentUser=null;
 
-/* HELPERS */
-const show=id=>{
+/* SHOW */
+function show(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
   document.getElementById(id).classList.add('show');
-};
+}
 
 /* LOGIN */
 function login(){
   let id=loginId.value;
   let pass=loginPass.value;
-  if(students[id] && pass==="1234"){
-    current=id;
-    show("menu");
-  }else alert("Invalid login");
+
+  if(id==="admin" && pass==="admin123"){
+    loadAdmin();
+    show("admin");
+    return;
+  }
+
+  if(students[id]){
+    if(students[id].status==="blocked"){
+      alert("Account is blocked. Contact admin.");
+      return;
+    }
+    if(pass==="1234"){
+      currentUser=id;
+      show("menu");
+    }else alert("Wrong password");
+  }else alert("Account not found");
 }
 
 /* LOGOUT */
 function logout(){
   if(confirm("Are you sure you want to logout?")){
-    current=null;
+    currentUser=null;
     loginId.value="";
     loginPass.value="";
     show("login");
@@ -253,43 +213,57 @@ function logout(){
 }
 
 /* PROFILE */
-function openProfile(){
-  let s=students[current];
-  profileImg.src=s.img||"https://via.placeholder.com/90";
+function showProfile(){
+  let s=students[currentUser];
   profileInfo.innerHTML=`
     <p><b>Name:</b> ${s.name}</p>
     <p><b>Contact:</b> ${s.contact}</p>
-    <p><b>Emergency:</b> ${s.emergency}</p>
-    <p><b>Address:</b> ${s.address}</p>`;
+    <p><b>Address:</b> ${s.address}</p>
+    <p><b>Status:</b> ${s.status}</p>`;
   show("profile");
 }
-function uploadPic(e){
-  const reader=new FileReader();
-  reader.onload=()=>{students[current].img=reader.result;profileImg.src=reader.result;}
-  reader.readAsDataURL(e.target.files[0]);
-}
-
-/* OTHERS */
-function openSubjects(){show("subjects")}
-function openSchedule(){show("schedule")}
-function backMenu(){show("menu")}
 
 /* EMERGENCY */
-function openEmergency(){show("emergency")}
-function backLogin(){emId.value="";emInfo.innerHTML="";show("login")}
-function viewEmergency(){
-  let v=emId.value.toLowerCase();
-  for(let k in students){
-    let s=students[k];
-    if(v===k.toLowerCase()||v===s.name.toLowerCase()){
-      emInfo.innerHTML=`
-      <p><b>Name:</b> ${s.name}</p>
-      <p><b>Contact:</b> ${s.contact||s.emergency}</p>
+function emergencyView(){
+  let v=emInput.value.toLowerCase();
+  for(let id in students){
+    let s=students[id];
+    if(v===id.toLowerCase()||v===s.name.toLowerCase()){
+      emInfo.innerHTML=`<p><b>Name:</b> ${s.name}</p>
+      <p><b>Contact:</b> ${s.contact}</p>
       <p><b>Address:</b> ${s.address}</p>`;
       return;
     }
   }
   emInfo.innerHTML="Student not found";
+}
+function backLogin(){
+  emInput.value="";emInfo.innerHTML="";
+  show("login");
+}
+
+/* ADMIN */
+function loadAdmin(){
+  const table=document.getElementById("adminTable");
+  table.innerHTML="";
+  for(let id in students){
+    let s=students[id];
+    table.innerHTML+=`
+    <tr>
+      <td>${id}</td>
+      <td>${s.name}</td>
+      <td class="${s.status==='active'?'status-active':'status-blocked'}">${s.status}</td>
+      <td>
+        <button class="admin-btn" onclick="toggleStatus('${id}')">
+          ${s.status==='active'?'Block':'Activate'}
+        </button>
+      </td>
+    </tr>`;
+  }
+}
+function toggleStatus(id){
+  students[id].status=students[id].status==="active"?"blocked":"active";
+  loadAdmin();
 }
 </script>
 
