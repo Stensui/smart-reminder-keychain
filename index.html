@@ -2,299 +2,234 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>SafeStud | Student Safety System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeStud | Student & Admin System</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-* { box-sizing:border-box; font-family:'Orbitron', sans-serif; margin:0; padding:0; }
-body {
-  min-height:100vh; display:flex; justify-content:center; align-items:center;
-  background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
-  color:#00ffff; overflow:hidden;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+/* ===== BACKGROUND ===== */
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(circle at top,#3a4ed5,#1a1f4d 60%,#0b0f2a);
+  overflow:hidden;
+  color:#eaf6ff;
 }
-.container { width:95%; max-width:600px; position:relative; perspective:1000px; }
 
-/* Branding */
-.branding { text-align:center; margin-bottom:20px; }
-.logo-wrapper { position:relative; cursor:pointer; display:inline-block; }
-.logo { width:90px; height:90px; filter: drop-shadow(0 0 15px #4fd1ff); }
-.brand-name { font-size:2rem; color:#4fd1ff; margin-top:8px; letter-spacing:2px; }
+/* ===== PARTICLES ===== */
+.particles span{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:#5efcff;
+  animation:float 12s linear infinite;
+  opacity:.4;
+}
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
 
-/* Cards */
-.card { display:none; flex-direction:column; gap:12px; background:rgba(0,0,0,0.4); 
-       backdrop-filter:blur(15px); border-radius:25px; padding:25px; 
-       box-shadow: 0 0 20px #00ffff,0 20px 40px rgba(0,255,255,0.2); position:relative; }
-.card.show { display:flex; }
-.card input { padding:10px; border-radius:8px; border:none; outline:none; width:100%; margin-bottom:8px; }
-.card button { padding:12px; border-radius:12px; border:2px solid #00ffff; background:rgba(0,0,0,0.3);
-               color:#00ffff; font-weight:600; cursor:pointer; transition:0.3s; position:relative; overflow:hidden;}
-.card button:hover { transform:scale(1.05); box-shadow:0 0 20px #00ffff; }
+/* ===== CONTAINER ===== */
+.container{width:100%;max-width:420px;padding:20px;z-index:2}
 
-/* Remember me */
-.remember { display:flex; align-items:center; gap:5px; margin-bottom:10px; }
+/* ===== LOGO ===== */
+.logo-box{text-align:center;margin-bottom:20px}
+.logo{
+  width:90px;height:90px;margin:auto;border-radius:50%;
+  background:linear-gradient(135deg,#5efcff,#3b82f6);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 25px rgba(94,252,255,.6)
+}
+.logo svg{width:45px;height:45px}
+.brand{margin-top:10px;font-size:1.9rem;font-weight:600}
+.subtitle{font-size:.85rem;opacity:.8}
 
-/* Assistance */
-.help { color:#4fd1ff; cursor:pointer; text-decoration:underline; font-size:.9rem; margin-top:5px; }
+/* ===== CARD ===== */
+.card{
+  background:rgba(10,15,40,.75);
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 0 25px rgba(94,252,255,.35);
+  display:none;
+}
+.card.show{display:block}
 
-/* Details cards */
-.detail-card { gap:8px; }
-.detail-card p { opacity:1; }
+/* ===== INPUT ===== */
+input{
+  width:100%;padding:12px;border-radius:10px;
+  border:none;outline:none;margin-bottom:12px
+}
 
-/* Admin table */
-table { width:100%; border-collapse:collapse; margin-top:10px; }
-th, td { border:1px solid #00ffff; padding:8px; text-align:center; }
+/* ===== REMEMBER ===== */
+.remember{display:flex;align-items:center;gap:8px;margin-bottom:15px;font-size:.85rem}
+.remember input{width:auto;margin:0;accent-color:#5efcff}
 
-/* Floating card animation */
-@keyframes floatCard {0%{transform:translateY(0px);}100%{transform:translateY(-10px);}}
-.floating { animation: floatCard 4s ease-in-out infinite alternate; }
+/* ===== BUTTON ===== */
+button{
+  width:100%;padding:12px;margin-bottom:10px;
+  border-radius:12px;border:2px solid #5efcff;
+  background:transparent;color:#5efcff;
+  cursor:pointer;transition:.3s
+}
+button:hover{background:#5efcff;color:#08122f;box-shadow:0 0 15px #5efcff}
+.danger{border-color:#ff5e5e;color:#ff5e5e}
+.danger:hover{background:#ff5e5e;color:#08122f}
+
+/* ===== HELP ===== */
+.help{text-align:center;font-size:.85rem;margin-top:5px;cursor:pointer;text-decoration:underline}
+.assist{display:none}
+
+/* ===== PROFILE ===== */
+.profile{text-align:center}
+.profile img{
+  width:80px;height:80px;border-radius:50%;
+  border:2px solid #5efcff;object-fit:cover;margin-bottom:10px
+}
+
+/* ===== ADMIN ===== */
+.admin-title{text-align:center;font-weight:600;margin-bottom:10px}
+
+/* ===== MOBILE ===== */
+@media(max-width:480px){
+  .brand{font-size:1.6rem}
+  .card{padding:18px}
+}
 </style>
 </head>
+
 <body>
+
+<!-- PARTICLES -->
+<div class="particles">
+  <span style="left:10%;animation-delay:0s"></span>
+  <span style="left:30%;animation-delay:2s"></span>
+  <span style="left:50%;animation-delay:4s"></span>
+  <span style="left:70%;animation-delay:6s"></span>
+  <span style="left:90%;animation-delay:8s"></span>
+</div>
 
 <div class="container">
 
-  <!-- Branding -->
-  <div class="branding">
-    <div class="logo-wrapper">
-      <img src="https://i.ibb.co/8K8d0L0/shield.png" class="logo" alt="SafeStud Logo">
-      <div class="brand-name">SafeStud</div>
-    </div>
-  </div>
+<!-- LOGO -->
+<div class="logo-box">
+<div class="logo">
+<svg viewBox="0 0 24 24">
+<path d="M12 2L20 6V12C20 16.5 16.7 20.7 12 22C7.3 20.7 4 16.5 4 12V6L12 2Z" fill="#08122f"/>
+<path d="M12 7V13M12 16H12.01" stroke="#5efcff" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<div class="brand">SafeStud</div>
+<div class="subtitle">Student Information & Emergency Access</div>
+</div>
 
-  <!-- Login Card -->
-  <div class="card show" id="loginCard">
-    <h2>Login</h2>
-    <input type="text" id="loginId" placeholder="Student / Admin ID">
-    <input type="password" id="loginPass" placeholder="Password">
-    <div class="remember">
-      <input type="checkbox" id="rememberMe">
-      <label for="rememberMe">Remember Me</label>
-    </div>
-    <button onclick="login()">Login</button>
-    <button onclick="showCard('emergencyCard')">Emergency Access</button>
-    <div class="help" onclick="toggleAssistance()">Ask for assistance / Help</div>
-    <div id="assistancePanel" style="display:none; margin-top:10px;">
-      <p>Select your request:</p>
-      <button onclick="alert('Technical issue, contact ICT admin')">Technical Issue</button>
-      <button onclick="alert('Guidance / Counseling')">Guidance / Counseling</button>
-      <button onclick="alert('Academic Question')">Academic Question</button>
-      <p>Or type your question:</p>
-      <input type="text" id="assistanceQuestion" placeholder="Type question">
-      <button onclick="submitQuestion()">Submit Question</button>
-    </div>
-  </div>
+<!-- LOGIN -->
+<div class="card show" id="loginCard">
+<input id="loginId" placeholder="Student / Admin ID">
+<input id="loginPass" type="password" placeholder="Password">
+<div class="remember">
+<input type="checkbox" id="remember"><label>Remember Me</label>
+</div>
+<button onclick="login()">Login</button>
+<button class="danger" onclick="show('emergencyCard')">Emergency Access</button>
+<div class="help" onclick="toggleAssist()">Ask for assistance</div>
+<div class="assist" id="assist">
+<input id="assistText" placeholder="Type your concern">
+<button onclick="sendQuestion()">Submit</button>
+</div>
+</div>
 
-  <!-- Emergency Access -->
-  <div class="card" id="emergencyCard">
-    <h2>Emergency Access</h2>
-    <input type="text" id="emergencyInput" placeholder="Enter Student ID or Name">
-    <button onclick="viewEmergency()">View Info</button>
-    <button onclick="backToLogin('emergencyCard')">Back</button>
-    <div id="emergencyInfo"></div>
-  </div>
+<!-- MAIN MENU -->
+<div class="card" id="mainCard">
+<div class="profile">
+<img id="profilePic" src="">
+<input type="file" onchange="uploadPic(event)">
+</div>
+<button onclick="logout()">Logout</button>
+</div>
 
-  <!-- Student Main Menu -->
-  <div class="card" id="studentMenu">
-    <h2>Student Menu</h2>
-    <button onclick="viewStudentInfo()">Student Info</button>
-    <button onclick="showCard('subjectsCard')">Subjects</button>
-    <button onclick="showCard('scheduleCard')">Schedule</button>
-    <button onclick="showCard('googleLinksCard')">Google Classroom Links</button>
-    <button onclick="logout()">Logout</button>
-  </div>
+<!-- ADMIN -->
+<div class="card" id="adminCard">
+<div class="admin-title">Admin Dashboard</div>
+<button onclick="alert('Manage Students')">Manage Students</button>
+<button onclick="alert('View Reports')">View Reports</button>
+<button onclick="logout()">Logout</button>
+</div>
 
-  <!-- Student Info Card -->
-  <div class="card detail-card" id="studentInfoCard">
-    <h2>Student Info</h2>
-    <div id="studentDetails"></div>
-    <button onclick="backToMenu('studentInfoCard')">Back</button>
-  </div>
-
-  <!-- Subjects -->
-  <div class="card detail-card" id="subjectsCard">
-    <h2>Subjects</h2>
-    <p>Math</p>
-    <p>Science</p>
-    <p>ICT</p>
-    <button onclick="backToMenu('subjectsCard')">Back</button>
-  </div>
-
-  <!-- Schedule -->
-  <div class="card detail-card" id="scheduleCard">
-    <h2>Schedule</h2>
-    <p>Mon: Math</p>
-    <p>Tue: Science</p>
-    <p>Wed: ICT</p>
-    <button onclick="backToMenu('scheduleCard')">Back</button>
-  </div>
-
-  <!-- Google Links -->
-  <div class="card detail-card" id="googleLinksCard">
-    <h2>Google Classroom Links</h2>
-    <p><a href="#" target="_blank">Math</a></p>
-    <p><a href="#" target="_blank">Science</a></p>
-    <p><a href="#" target="_blank">ICT</a></p>
-    <button onclick="backToMenu('googleLinksCard')">Back</button>
-  </div>
-
-  <!-- Admin Panel -->
-  <div class="card" id="adminPanel">
-    <h2>Admin Panel</h2>
-    <button onclick="showCard('addStudentCard')">Add Student</button>
-    <button onclick="showCard('editStudentCard')">Edit / Delete Student</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-
-  <!-- Add Student -->
-  <div class="card" id="addStudentCard">
-    <h2>Add Student</h2>
-    <input type="text" id="addId" placeholder="Student ID">
-    <input type="text" id="addName" placeholder="Student Name">
-    <input type="text" id="addContact" placeholder="Contact Number">
-    <input type="text" id="addAddress" placeholder="Address">
-    <button onclick="addStudent()">Add Student</button>
-    <button onclick="backToMenu('addStudentCard')">Back</button>
-  </div>
-
-  <!-- Edit / Delete Student -->
-  <div class="card" id="editStudentCard">
-    <h2>Edit / Delete Student</h2>
-    <select id="selectStudent"></select>
-    <input type="text" id="editName" placeholder="Name">
-    <input type="text" id="editContact" placeholder="Contact">
-    <input type="text" id="editAddress" placeholder="Address">
-    <label><input type="checkbox" id="editStatus"> Active</label>
-    <button onclick="updateStudent()">Update</button>
-    <button onclick="deleteStudent()">Delete</button>
-    <button onclick="backToMenu('editStudentCard')">Back</button>
-  </div>
+<!-- EMERGENCY -->
+<div class="card" id="emergencyCard">
+<input id="emergencyInput" placeholder="Student ID or Name">
+<button onclick="emergency()">View Information</button>
+<button onclick="show('loginCard')">Back</button>
+<div id="emergencyInfo"></div>
+</div>
 
 </div>
 
 <script>
-// LocalStorage setup
-let students = JSON.parse(localStorage.getItem('students')) || {
-  "student1": {name:"John Doe", contact:"09123456789", address:"123 Main St", active:true}
+const students={
+  student1:{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite"},
+  admin:{admin:true}
 };
-localStorage.setItem('students', JSON.stringify(students));
 
-let admin = {id:"admin", pass:"1234"};
-
-let currentUser="";
-
-// Show card
-function showCard(id){
+function show(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
   document.getElementById(id).classList.add('show');
 }
 
-// Back buttons
-function backToLogin(id){ showCard('loginCard'); clearInputs(); }
-function backToMenu(id){ showCard('studentMenu'); }
-
-// Assistance
-function toggleAssistance(){
-  let panel=document.getElementById('assistancePanel');
-  panel.style.display = panel.style.display==='none'?'block':'none';
-}
-function submitQuestion(){
-  let q=document.getElementById('assistanceQuestion').value;
-  if(q.trim()==='') alert('Please type a question');
-  else { alert('Question submitted:\n'+q); document.getElementById('assistanceQuestion').value=''; }
+function toggleAssist(){
+  assist.style.display=assist.style.display==="block"?"none":"block";
 }
 
-// Login
+function sendQuestion(){
+  alert("Concern sent");
+  assistText.value="";
+}
+
 function login(){
-  let id=document.getElementById('loginId').value;
-  let pass=document.getElementById('loginPass').value;
-  if(id===admin.id && pass===admin.pass){ currentUser='admin'; showCard('adminPanel'); return; }
-  if(students[id] && students[id].active){ currentUser=id; showCard('studentMenu'); return; }
-  alert('Invalid login or inactive account');
+  const id=loginId.value;
+  if(students[id]?.admin) show('adminCard');
+  else if(students[id]) show('mainCard');
+  else alert("Invalid ID");
+  if(remember.checked) localStorage.setItem("user",id);
 }
 
-// Logout
 function logout(){
-  if(confirm('Are you sure you want to logout?')){
-    currentUser=""; showCard('loginCard'); clearInputs();
-  }
+  localStorage.removeItem("user");
+  show('loginCard');
 }
 
-// Clear inputs
-function clearInputs(){
-  document.querySelectorAll('input').forEach(i=>i.value='');
-}
-
-// View student info
-function viewStudentInfo(){
-  let details=document.getElementById('studentDetails');
-  if(currentUser && students[currentUser]){
-    let s=students[currentUser];
-    details.innerHTML=`ID: ${currentUser}<br>Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}`;
-    showCard('studentInfoCard');
-  }
-}
-
-// Emergency
-function viewEmergency(){
-  let val=document.getElementById('emergencyInput').value.toLowerCase();
-  let div=document.getElementById('emergencyInfo');
-  let found=false;
-  for(let key in students){
-    let s=students[key];
-    if(key.toLowerCase()===val || s.name.toLowerCase()===val){
-      div.innerHTML=`ID: ${key}<br>Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}<br>Status: ${s.active?'Active':'Blocked'}`;
-      found=true;
+function emergency(){
+  const v=emergencyInput.value.toLowerCase();
+  for(let k in students){
+    const s=students[k];
+    if(s.name?.toLowerCase()===v||k===v){
+      emergencyInfo.innerHTML=`Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}`;
+      return;
     }
   }
-  if(!found) div.innerHTML='Student not found';
+  emergencyInfo.innerHTML="Student not found";
 }
 
-// Add student
-function addStudent(){
-  let id=document.getElementById('addId').value;
-  if(!id) return alert('Enter ID');
-  students[id]={name:document.getElementById('addName').value, contact:document.getElementById('addContact').value,
-                address:document.getElementById('addAddress').value, active:true};
-  localStorage.setItem('students', JSON.stringify(students));
-  alert('Student added');
-  populateSelect();
+function uploadPic(e){
+  const reader=new FileReader();
+  reader.onload=()=>{profilePic.src=reader.result;localStorage.setItem("pic",reader.result)};
+  reader.readAsDataURL(e.target.files[0]);
 }
 
-// Edit / delete
-function populateSelect(){
-  let sel=document.getElementById('selectStudent');
-  sel.innerHTML='';
-  for(let key in students) sel.innerHTML+='<option value="'+key+'">'+key+' - '+students[key].name+'</option>';
-}
-populateSelect();
-
-function updateStudent(){
-  let key=document.getElementById('selectStudent').value;
-  students[key].name=document.getElementById('editName').value || students[key].name;
-  students[key].contact=document.getElementById('editContact').value || students[key].contact;
-  students[key].address=document.getElementById('editAddress').value || students[key].address;
-  students[key].active=document.getElementById('editStatus').checked;
-  localStorage.setItem('students', JSON.stringify(students));
-  alert('Updated');
-  populateSelect();
-}
-
-function deleteStudent(){
-  let key=document.getElementById('selectStudent').value;
-  delete students[key];
-  localStorage.setItem('students', JSON.stringify(students));
-  alert('Deleted');
-  populateSelect();
-}
-
-// Update edit fields when select changes
-document.getElementById('selectStudent').onchange=function(){
-  let s=students[this.value];
-  document.getElementById('editName').value=s.name;
-  document.getElementById('editContact').value=s.contact;
-  document.getElementById('editAddress').value=s.address;
-  document.getElementById('editStatus').checked=s.active;
-}
+window.onload=()=>{
+  const u=localStorage.getItem("user");
+  if(u) loginId.value=u;
+  const p=localStorage.getItem("pic");
+  if(p) profilePic.src=p;
+};
 </script>
+
 </body>
 </html>
