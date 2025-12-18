@@ -9,174 +9,135 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-
-/* ===== BACKGROUND ===== */
 body{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:
-    radial-gradient(circle at top,#3a4ed5,#1a1f4d 60%,#0b0f2a);
-  overflow:hidden;
+  background:linear-gradient(160deg,#1e3a8a,#020617);
   color:#eaf6ff;
 }
-
-/* ===== PARTICLES ===== */
-.particles span{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:#5efcff;
-  animation:float 12s linear infinite;
-  opacity:.4;
-}
-@keyframes float{
-  from{transform:translateY(100vh)}
-  to{transform:translateY(-10vh)}
-}
-
-/* ===== CONTAINER ===== */
-.container{width:100%;max-width:420px;padding:20px;z-index:2}
-
-/* ===== LOGO ===== */
+.container{width:100%;max-width:420px;padding:20px}
 .logo-box{text-align:center;margin-bottom:20px}
 .logo{
   width:90px;height:90px;margin:auto;border-radius:50%;
-  background:linear-gradient(135deg,#5efcff,#3b82f6);
+  background:linear-gradient(135deg,#60a5fa,#22d3ee);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 25px rgba(94,252,255,.6)
+  box-shadow:0 0 20px rgba(96,165,250,.6)
 }
-.logo svg{width:45px;height:45px}
-.brand{margin-top:10px;font-size:1.9rem;font-weight:600}
-.subtitle{font-size:.85rem;opacity:.8}
+.logo svg{width:45px}
+.brand{font-size:1.8rem;font-weight:600;margin-top:8px}
+.subtitle{font-size:.85rem;opacity:.85}
 
-/* ===== CARD ===== */
 .card{
-  background:rgba(10,15,40,.75);
+  background:rgba(2,6,23,.85);
   border-radius:18px;
-  padding:25px;
-  box-shadow:0 0 25px rgba(94,252,255,.35);
+  padding:22px;
+  box-shadow:0 0 25px rgba(96,165,250,.4);
   display:none;
 }
 .card.show{display:block}
 
-/* ===== INPUT ===== */
-input{
-  width:100%;padding:12px;border-radius:10px;
-  border:none;outline:none;margin-bottom:12px
+input,select{
+  width:100%;padding:11px;border-radius:10px;
+  border:none;margin-bottom:10px;font-size:.9rem
 }
 
-/* ===== REMEMBER ===== */
-.remember{display:flex;align-items:center;gap:8px;margin-bottom:15px;font-size:.85rem}
-.remember input{width:auto;margin:0;accent-color:#5efcff}
+.remember{
+  display:flex;align-items:center;gap:6px;
+  font-size:.85rem;margin-bottom:12px
+}
+.remember input{width:auto}
 
-/* ===== BUTTON ===== */
 button{
-  width:100%;padding:12px;margin-bottom:10px;
-  border-radius:12px;border:2px solid #5efcff;
-  background:transparent;color:#5efcff;
-  cursor:pointer;transition:.3s
+  width:100%;padding:11px;border-radius:12px;
+  border:2px solid #60a5fa;
+  background:transparent;color:#60a5fa;
+  cursor:pointer;transition:.3s;margin-bottom:8px
 }
-button:hover{background:#5efcff;color:#08122f;box-shadow:0 0 15px #5efcff}
-.danger{border-color:#ff5e5e;color:#ff5e5e}
-.danger:hover{background:#ff5e5e;color:#08122f}
+button:hover{background:#60a5fa;color:#020617}
+.danger{border-color:#fb7185;color:#fb7185}
+.danger:hover{background:#fb7185;color:#020617}
 
-/* ===== HELP ===== */
-.help{text-align:center;font-size:.85rem;margin-top:5px;cursor:pointer;text-decoration:underline}
-.assist{display:none}
-
-/* ===== PROFILE ===== */
-.profile{text-align:center}
-.profile img{
-  width:80px;height:80px;border-radius:50%;
-  border:2px solid #5efcff;object-fit:cover;margin-bottom:10px
-}
-
-/* ===== ADMIN ===== */
-.admin-title{text-align:center;font-weight:600;margin-bottom:10px}
-
-/* ===== MOBILE ===== */
-@media(max-width:480px){
-  .brand{font-size:1.6rem}
-  .card{padding:18px}
-}
+.help{text-align:center;font-size:.85rem;color:#93c5fd;cursor:pointer}
+.assist{display:none;margin-top:10px}
+.info{font-size:.85rem;line-height:1.5}
+.back{margin-top:10px}
+.small{font-size:.75rem;opacity:.8}
 </style>
 </head>
-
 <body>
-
-<!-- PARTICLES -->
-<div class="particles">
-  <span style="left:10%;animation-delay:0s"></span>
-  <span style="left:30%;animation-delay:2s"></span>
-  <span style="left:50%;animation-delay:4s"></span>
-  <span style="left:70%;animation-delay:6s"></span>
-  <span style="left:90%;animation-delay:8s"></span>
-</div>
 
 <div class="container">
 
 <!-- LOGO -->
 <div class="logo-box">
-<div class="logo">
-<svg viewBox="0 0 24 24">
-<path d="M12 2L20 6V12C20 16.5 16.7 20.7 12 22C7.3 20.7 4 16.5 4 12V6L12 2Z" fill="#08122f"/>
-<path d="M12 7V13M12 16H12.01" stroke="#5efcff" stroke-width="2" stroke-linecap="round"/>
-</svg>
-</div>
-<div class="brand">SafeStud</div>
-<div class="subtitle">Student Information & Emergency Access</div>
+  <div class="logo">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L20 6V12C20 16.5 16.7 20.7 12 22C7.3 20.7 4 16.5 4 12V6L12 2Z"
+            fill="#020617"/>
+      <path d="M12 7V13M12 16H12.01"
+            stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="brand">SafeStud</div>
+  <div class="subtitle">Student Information & Emergency System</div>
 </div>
 
 <!-- LOGIN -->
 <div class="card show" id="loginCard">
-<input id="loginId" placeholder="Student / Admin ID">
-<input id="loginPass" type="password" placeholder="Password">
-<div class="remember">
-<input type="checkbox" id="remember"><label>Remember Me</label>
-</div>
-<button onclick="login()">Login</button>
-<button class="danger" onclick="show('emergencyCard')">Emergency Access</button>
-<div class="help" onclick="toggleAssist()">Ask for assistance</div>
-<div class="assist" id="assist">
-<input id="assistText" placeholder="Type your concern">
-<button onclick="sendQuestion()">Submit</button>
-</div>
+  <input id="loginId" placeholder="Student / Admin ID">
+  <input id="loginPass" type="password" placeholder="Password">
+
+  <div class="remember">
+    <input type="checkbox" id="remember">
+    <label for="remember">Remember Me</label>
+  </div>
+
+  <button onclick="login()">Login</button>
+  <button class="danger" onclick="show('emergencyCard')">Emergency Access</button>
+
+  <div class="help" onclick="toggleAssist()">Ask for assistance / Help</div>
+
+  <div class="assist" id="assist">
+    <button onclick="alert('Go to ICT Office')">Technical Issue</button>
+    <button onclick="alert('Contact Guidance Counselor')">Guidance</button>
+    <input id="assistText" placeholder="Type your question">
+    <button onclick="sendQuestion()">Submit</button>
+  </div>
 </div>
 
-<!-- MAIN MENU -->
-<div class="card" id="mainCard">
-<div class="profile">
-<img id="profilePic" src="">
-<input type="file" onchange="uploadPic(event)">
-</div>
-<button onclick="logout()">Logout</button>
+<!-- STUDENT -->
+<div class="card" id="studentCard">
+  <h3>Student Profile</h3>
+  <div class="info" id="studentInfo"></div>
+  <input type="file" accept="image/*">
+  <button onclick="logout()">Logout</button>
 </div>
 
 <!-- ADMIN -->
 <div class="card" id="adminCard">
-<div class="admin-title">Admin Dashboard</div>
-<button onclick="alert('Manage Students')">Manage Students</button>
-<button onclick="alert('View Reports')">View Reports</button>
-<button onclick="logout()">Logout</button>
+  <h3>Admin Panel</h3>
+  <div class="info" id="adminList"></div>
+  <button onclick="logout()">Logout</button>
 </div>
 
 <!-- EMERGENCY -->
 <div class="card" id="emergencyCard">
-<input id="emergencyInput" placeholder="Student ID or Name">
-<button onclick="emergency()">View Information</button>
-<button onclick="show('loginCard')">Back</button>
-<div id="emergencyInfo"></div>
+  <input id="emergencyInput" placeholder="Student ID or Name">
+  <button onclick="emergency()">View Information</button>
+  <button class="back" onclick="show('loginCard')">Back</button>
+  <div class="info" id="emergencyInfo"></div>
 </div>
 
 </div>
 
 <script>
-const students={
-  student1:{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite"},
-  admin:{admin:true}
+let students=JSON.parse(localStorage.getItem("students"))||{
+  student1:{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",active:true}
 };
+
+function save(){localStorage.setItem("students",JSON.stringify(students))}
 
 function show(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
@@ -184,51 +145,52 @@ function show(id){
 }
 
 function toggleAssist(){
-  assist.style.display=assist.style.display==="block"?"none":"block";
+  const a=document.getElementById('assist');
+  a.style.display=a.style.display==="block"?"none":"block";
 }
 
 function sendQuestion(){
-  alert("Concern sent");
-  assistText.value="";
+  const q=assistText.value.trim();
+  if(!q) alert("Please type a question");
+  else{alert("Submitted:\n"+q);assistText.value=""}
 }
 
 function login(){
   const id=loginId.value;
-  if(students[id]?.admin) show('adminCard');
-  else if(students[id]) show('mainCard');
-  else alert("Invalid ID");
-  if(remember.checked) localStorage.setItem("user",id);
+  if(id==="admin"){
+    show("adminCard");
+    loadAdmin();
+  }else if(students[id] && students[id].active){
+    show("studentCard");
+    studentInfo.innerHTML=`Name: ${students[id].name}<br>Contact: ${students[id].contact}<br>Address: ${students[id].address}`;
+  }else alert("Invalid or blocked account");
+}
+
+function loadAdmin(){
+  let html="";
+  for(let k in students){
+    const s=students[k];
+    html+=`${k} - ${s.name} (${s.active?"Active":"Blocked"})<br>`;
+  }
+  adminList.innerHTML=html;
 }
 
 function logout(){
-  localStorage.removeItem("user");
-  show('loginCard');
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  show("loginCard");
 }
 
 function emergency(){
   const v=emergencyInput.value.toLowerCase();
   for(let k in students){
     const s=students[k];
-    if(s.name?.toLowerCase()===v||k===v){
+    if(k===v||s.name.toLowerCase()===v){
       emergencyInfo.innerHTML=`Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}`;
       return;
     }
   }
   emergencyInfo.innerHTML="Student not found";
 }
-
-function uploadPic(e){
-  const reader=new FileReader();
-  reader.onload=()=>{profilePic.src=reader.result;localStorage.setItem("pic",reader.result)};
-  reader.readAsDataURL(e.target.files[0]);
-}
-
-window.onload=()=>{
-  const u=localStorage.getItem("user");
-  if(u) loginId.value=u;
-  const p=localStorage.getItem("pic");
-  if(p) profilePic.src=p;
-};
 </script>
 
 </body>
