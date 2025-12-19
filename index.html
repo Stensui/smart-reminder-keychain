@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>SafeStud | Student Safety System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -23,111 +22,122 @@ body{
   width:90px;height:90px;margin:auto;border-radius:50%;
   background:linear-gradient(135deg,#60a5fa,#22d3ee);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 20px rgba(96,165,250,.6)
 }
 .logo svg{width:45px}
-.brand{font-size:1.8rem;font-weight:600;margin-top:8px}
-.subtitle{font-size:.85rem;opacity:.85}
+.brand{font-size:1.8rem;font-weight:600}
+.subtitle{font-size:.85rem;opacity:.8}
 
 .card{
-  background:rgba(2,6,23,.85);
+  background:rgba(2,6,23,.9);
   border-radius:18px;
-  padding:22px;
-  box-shadow:0 0 25px rgba(96,165,250,.4);
+  padding:20px;
   display:none;
 }
 .card.show{display:block}
 
-input,select{
-  width:100%;padding:11px;border-radius:10px;
-  border:none;margin-bottom:10px;font-size:.9rem
+input,textarea{
+  width:100%;padding:10px;border-radius:10px;
+  border:none;margin-bottom:8px
 }
-
-.remember{
-  display:flex;align-items:center;gap:6px;
-  font-size:.85rem;margin-bottom:12px
-}
-.remember input{width:auto}
-
 button{
-  width:100%;padding:11px;border-radius:12px;
+  width:100%;padding:10px;border-radius:12px;
   border:2px solid #60a5fa;
   background:transparent;color:#60a5fa;
-  cursor:pointer;transition:.3s;margin-bottom:8px
+  cursor:pointer;margin-bottom:6px
 }
 button:hover{background:#60a5fa;color:#020617}
 .danger{border-color:#fb7185;color:#fb7185}
 .danger:hover{background:#fb7185;color:#020617}
-
-.help{text-align:center;font-size:.85rem;color:#93c5fd;cursor:pointer}
-.assist{display:none;margin-top:10px}
-.info{font-size:.85rem;line-height:1.5}
-.back{margin-top:10px}
-.small{font-size:.75rem;opacity:.8}
+.back{margin-top:6px}
+.info{font-size:.85rem}
 </style>
 </head>
-<body>
 
+<body>
 <div class="container">
 
 <!-- LOGO -->
 <div class="logo-box">
   <div class="logo">
-    <svg viewBox="0 0 24 24" fill="none">
-      <path d="M12 2L20 6V12C20 16.5 16.7 20.7 12 22C7.3 20.7 4 16.5 4 12V6L12 2Z"
-            fill="#020617"/>
-      <path d="M12 7V13M12 16H12.01"
-            stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2L20 6V12C20 17 16 21 12 22C8 21 4 17 4 12V6L12 2Z" fill="#020617"/>
+      <path d="M12 7V13M12 16H12.01" stroke="#60a5fa" stroke-width="2"/>
     </svg>
   </div>
   <div class="brand">SafeStud</div>
-  <div class="subtitle">Student Information & Emergency System</div>
+  <div class="subtitle">Student Safety & Information System</div>
 </div>
 
 <!-- LOGIN -->
 <div class="card show" id="loginCard">
   <input id="loginId" placeholder="Student / Admin ID">
   <input id="loginPass" type="password" placeholder="Password">
-
-  <div class="remember">
-    <input type="checkbox" id="remember">
-    <label for="remember">Remember Me</label>
-  </div>
-
   <button onclick="login()">Login</button>
   <button class="danger" onclick="show('emergencyCard')">Emergency Access</button>
-
-  <div class="help" onclick="toggleAssist()">Ask for assistance / Help</div>
-
-  <div class="assist" id="assist">
-    <button onclick="alert('Go to ICT Office')">Technical Issue</button>
-    <button onclick="alert('Contact Guidance Counselor')">Guidance</button>
-    <input id="assistText" placeholder="Type your question">
-    <button onclick="sendQuestion()">Submit</button>
-  </div>
+  <button onclick="show('assistCard')">Ask for Assistance</button>
 </div>
 
-<!-- STUDENT -->
-<div class="card" id="studentCard">
-  <h3>Student Profile</h3>
-  <div class="info" id="studentInfo"></div>
-  <input type="file" accept="image/*">
-  <button onclick="logout()">Logout</button>
+<!-- ASSISTANCE -->
+<div class="card" id="assistCard">
+  <h3>Assistance</h3>
+  <button onclick="alert('Go to ICT Office')">Technical Problem</button>
+  <button onclick="alert('Contact Guidance Counselor')">Guidance / Counseling</button>
+  <button onclick="alert('Contact Subject Teacher')">Academic Concern</button>
+  <textarea id="assistText" placeholder="Other question..."></textarea>
+  <button onclick="sendQuestion()">Submit</button>
+  <button class="back" onclick="show('loginCard')">Back</button>
+</div>
+
+<!-- STUDENT MENU -->
+<div class="card" id="studentMenu">
+  <h3>Student Menu</h3>
+  <button onclick="show('studentInfoCard')">Student Information</button>
+  <button onclick="show('scheduleCard')">Class Schedule</button>
+  <button onclick="show('subjectsCard')">Subjects</button>
+  <button onclick="show('linksCard')">Google Links</button>
+  <button class="danger" onclick="logout()">Logout</button>
+</div>
+
+<div class="card" id="studentInfoCard">
+  <div id="studentInfo"></div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
+</div>
+
+<div class="card" id="scheduleCard">
+  <div class="info">Mon–Fri | 7:30 AM – 4:30 PM</div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
+</div>
+
+<div class="card" id="subjectsCard">
+  <div class="info">ICT • Math • English • Science</div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
+</div>
+
+<div class="card" id="linksCard">
+  <a href="https://classroom.google.com" target="_blank">Google Classroom</a><br>
+  <a href="https://mail.google.com" target="_blank">Gmail</a><br>
+  <a href="https://meet.google.com" target="_blank">Google Meet</a>
+  <button class="back" onclick="show('studentMenu')">Back</button>
 </div>
 
 <!-- ADMIN -->
 <div class="card" id="adminCard">
   <h3>Admin Panel</h3>
-  <div class="info" id="adminList"></div>
-  <button onclick="logout()">Logout</button>
+  <input id="sid" placeholder="Student ID">
+  <input id="sname" placeholder="Name">
+  <input id="scontact" placeholder="Contact">
+  <input id="saddress" placeholder="Address">
+  <button onclick="addStudent()">Add / Update</button>
+  <div id="adminList"></div>
+  <button class="danger" onclick="logout()">Logout</button>
 </div>
 
 <!-- EMERGENCY -->
 <div class="card" id="emergencyCard">
   <input id="emergencyInput" placeholder="Student ID or Name">
-  <button onclick="emergency()">View Information</button>
+  <button onclick="emergency()">View Info</button>
   <button class="back" onclick="show('loginCard')">Back</button>
-  <div class="info" id="emergencyInfo"></div>
+  <div id="emergencyInfo"></div>
 </div>
 
 </div>
@@ -138,60 +148,50 @@ let students=JSON.parse(localStorage.getItem("students"))||{
 };
 
 function save(){localStorage.setItem("students",JSON.stringify(students))}
-
 function show(id){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
   document.getElementById(id).classList.add('show');
 }
-
-function toggleAssist(){
-  const a=document.getElementById('assist');
-  a.style.display=a.style.display==="block"?"none":"block";
-}
-
-function sendQuestion(){
-  const q=assistText.value.trim();
-  if(!q) alert("Please type a question");
-  else{alert("Submitted:\n"+q);assistText.value=""}
-}
-
 function login(){
   const id=loginId.value;
-  if(id==="admin"){
-    show("adminCard");
-    loadAdmin();
-  }else if(students[id] && students[id].active){
-    show("studentCard");
+  if(id==="admin"){show("adminCard");loadAdmin();}
+  else if(students[id]&&students[id].active){
+    show("studentMenu");
     studentInfo.innerHTML=`Name: ${students[id].name}<br>Contact: ${students[id].contact}<br>Address: ${students[id].address}`;
-  }else alert("Invalid or blocked account");
+  }else alert("Invalid or blocked");
 }
-
+function addStudent(){
+  students[sid.value]={name:sname.value,contact:scontact.value,address:saddress.value,active:true};
+  save();loadAdmin();
+}
 function loadAdmin(){
   let html="";
   for(let k in students){
-    const s=students[k];
-    html+=`${k} - ${s.name} (${s.active?"Active":"Blocked"})<br>`;
+    let s=students[k];
+    html+=`${k} - ${s.name}
+    <button onclick="toggle('${k}')">${s.active?"Block":"Activate"}</button>
+    <button onclick="del('${k}')">Delete</button><br>`;
   }
   adminList.innerHTML=html;
 }
-
-function logout(){
-  document.querySelectorAll("input").forEach(i=>i.value="");
-  show("loginCard");
-}
-
+function toggle(id){students[id].active=!students[id].active;save();loadAdmin();}
+function del(id){delete students[id];save();loadAdmin();}
+function logout(){document.querySelectorAll("input").forEach(i=>i.value="");show("loginCard")}
 function emergency(){
-  const v=emergencyInput.value.toLowerCase();
+  let v=emergencyInput.value.toLowerCase();
   for(let k in students){
-    const s=students[k];
+    let s=students[k];
     if(k===v||s.name.toLowerCase()===v){
-      emergencyInfo.innerHTML=`Name: ${s.name}<br>Contact: ${s.contact}<br>Address: ${s.address}`;
+      emergencyInfo.innerHTML=`${s.name}<br>${s.contact}<br>${s.address}`;
       return;
     }
   }
-  emergencyInfo.innerHTML="Student not found";
+  emergencyInfo.innerHTML="Not found";
+}
+function sendQuestion(){
+  if(!assistText.value.trim())alert("Type question");
+  else{alert("Submitted");assistText.value="";}
 }
 </script>
-
 </body>
 </html>
