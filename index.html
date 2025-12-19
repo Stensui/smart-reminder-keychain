@@ -2,264 +2,196 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SafeStud</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>SafeStud | Student Safety System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;font-family:'Poppins',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{
-margin:0;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:#fff;
-min-height:100vh;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(160deg,#1e3a8a,#020617);
+  color:#eaf6ff;
 }
-
-header{
-display:flex;
-align-items:center;
-gap:15px;
-padding:15px 25px;
-background:rgba(0,0,0,.45);
+.container{width:100%;max-width:420px;padding:20px}
+.logo-box{text-align:center;margin-bottom:20px}
+.logo{
+  width:90px;height:90px;margin:auto;border-radius:50%;
+  background:linear-gradient(135deg,#60a5fa,#22d3ee);
+  display:flex;align-items:center;justify-content:center;
 }
-header img{
-width:50px;height:50px;border-radius:50%;
-border:2px solid cyan;
-}
-header h1{color:cyan;margin:0}
-
-.container{padding:30px}
+.logo svg{width:45px}
+.brand{font-size:1.8rem;font-weight:600}
+.subtitle{font-size:.85rem;opacity:.8}
 
 .card{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-padding:25px;
-border-radius:18px;
-max-width:420px;
-margin:auto;
-box-shadow:0 0 25px rgba(0,255,255,.25);
+  background:rgba(2,6,23,.9);
+  border-radius:18px;
+  padding:20px;
+  display:none;
 }
+.card.show{display:block}
 
-input,select{
-width:100%;
-padding:10px;
-margin-bottom:10px;
-border-radius:8px;
-border:none;
-outline:none;
+input,textarea{
+  width:100%;padding:10px;border-radius:10px;
+  border:none;margin-bottom:8px
 }
-
 button{
-padding:10px 20px;
-border:none;
-border-radius:25px;
-background:linear-gradient(90deg,cyan,#00e5ff);
-color:#000;
-font-weight:600;
-cursor:pointer;
-margin:5px 0;
+  width:100%;padding:10px;border-radius:12px;
+  border:2px solid #60a5fa;
+  background:transparent;color:#60a5fa;
+  cursor:pointer;margin-bottom:6px
 }
-button:hover{transform:scale(1.05)}
-
-.hidden{display:none}
-
-.menu button{width:100%}
-
-.tab-btn{
-background:none;
-color:cyan;
-border:1px solid cyan;
-margin-right:5px;
-}
-
-.panel{
-background:rgba(0,0,0,.35);
-padding:20px;
-border-radius:15px;
-margin-top:15px;
-}
-
-.profile{
-width:100px;height:100px;
-border-radius:50%;
-border:2px solid cyan;
-object-fit:cover;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-th,td{
-border:1px solid rgba(255,255,255,.2);
-padding:8px;
-text-align:center;
-}
-th{background:rgba(0,255,255,.2)}
+button:hover{background:#60a5fa;color:#020617}
+.danger{border-color:#fb7185;color:#fb7185}
+.danger:hover{background:#fb7185;color:#020617}
+.back{margin-top:6px}
+.info{font-size:.85rem}
 </style>
 </head>
 
 <body>
-
-<header>
-<img src="https://i.imgur.com/4AiXzf8.png">
-<h1>SafeStud</h1>
-</header>
-
 <div class="container">
 
+<!-- LOGO -->
+<div class="logo-box">
+  <div class="logo">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2L20 6V12C20 17 16 21 12 22C8 21 4 17 4 12V6L12 2Z" fill="#020617"/>
+      <path d="M12 7V13M12 16H12.01" stroke="#60a5fa" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="brand">SafeStud</div>
+  <div class="subtitle">Student Safety & Information System</div>
+</div>
+
 <!-- LOGIN -->
-<div class="card" id="login">
-<h2 align="center">Login</h2>
-<input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
-
-<label><input type="checkbox"> Remember Me</label>
-
-<button onclick="login()">Login</button>
-<p style="color:cyan;cursor:pointer" onclick="assist()">Ask for Assistance</p>
+<div class="card show" id="loginCard">
+  <input id="loginId" placeholder="Student / Admin ID">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <button class="danger" onclick="show('emergencyCard')">Emergency Access</button>
+  <button onclick="show('assistCard')">Ask for Assistance</button>
 </div>
 
-<!-- ASSIST -->
-<div class="card hidden" id="assist">
-<h3>How can we help?</h3>
-<button>Academic Concern</button>
-<button>Personal Concern</button>
-<button>Technical Concern</button>
-<button onclick="back()">Back</button>
+<!-- ASSISTANCE -->
+<div class="card" id="assistCard">
+  <h3>Assistance</h3>
+  <button onclick="alert('Go to ICT Office')">Technical Problem</button>
+  <button onclick="alert('Contact Guidance Counselor')">Guidance / Counseling</button>
+  <button onclick="alert('Contact Subject Teacher')">Academic Concern</button>
+  <textarea id="assistText" placeholder="Other question..."></textarea>
+  <button onclick="sendQuestion()">Submit</button>
+  <button class="back" onclick="show('loginCard')">Back</button>
 </div>
 
-<!-- STUDENT -->
-<div class="hidden" id="studentPanel">
-<h2>Student Menu</h2>
-
-<div class="menu">
-<button onclick="showStud('info')">Student Information</button>
-<button onclick="showStud('sched')">Class Schedule</button>
-<button onclick="showStud('subj')">Subjects</button>
-<button onclick="showStud('links')">Google Links</button>
-<button onclick="logout()">Logout</button>
+<!-- STUDENT MENU -->
+<div class="card" id="studentMenu">
+  <h3>Student Menu</h3>
+  <button onclick="show('studentInfoCard')">Student Information</button>
+  <button onclick="show('scheduleCard')">Class Schedule</button>
+  <button onclick="show('subjectsCard')">Subjects</button>
+  <button onclick="show('linksCard')">Google Links</button>
+  <button class="danger" onclick="logout()">Logout</button>
 </div>
 
-<div class="panel hidden" id="studInfo"></div>
-<div class="panel hidden" id="studSched">Mon–Fri | 8AM–4PM</div>
-<div class="panel hidden" id="studSubj">ICT • Programming • Animation</div>
-<div class="panel hidden" id="studLinks">
-<a href="https://classroom.google.com" target="_blank">Google Classroom</a>
+<div class="card" id="studentInfoCard">
+  <div id="studentInfo"></div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
 </div>
+
+<div class="card" id="scheduleCard">
+  <div class="info">Mon–Fri | 7:30 AM – 4:30 PM</div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
+</div>
+
+<div class="card" id="subjectsCard">
+  <div class="info">ICT • Math • English • Science</div>
+  <button class="back" onclick="show('studentMenu')">Back</button>
+</div>
+
+<div class="card" id="linksCard">
+  <a href="https://classroom.google.com" target="_blank">Google Classroom</a><br>
+  <a href="https://mail.google.com" target="_blank">Gmail</a><br>
+  <a href="https://meet.google.com" target="_blank">Google Meet</a>
+  <button class="back" onclick="show('studentMenu')">Back</button>
 </div>
 
 <!-- ADMIN -->
-<div class="hidden" id="adminPanel">
-<h2>Admin Panel</h2>
-
-<button class="tab-btn" onclick="showAdmin('view')">View Students</button>
-<button class="tab-btn" onclick="showAdmin('add')">Add Student</button>
-<button class="tab-btn" onclick="showAdmin('edit')">Update Student</button>
-
-<div class="panel" id="adminView"></div>
-
-<div class="panel hidden" id="adminAdd">
-<input id="aUser" placeholder="Username">
-<input id="aPass" placeholder="Password">
-<input id="aName" placeholder="Full Name">
-<button onclick="addStudent()">Add</button>
+<div class="card" id="adminCard">
+  <h3>Admin Panel</h3>
+  <input id="sid" placeholder="Student ID">
+  <input id="sname" placeholder="Name">
+  <input id="scontact" placeholder="Contact">
+  <input id="saddress" placeholder="Address">
+  <button onclick="addStudent()">Add / Update</button>
+  <div id="adminList"></div>
+  <button class="danger" onclick="logout()">Logout</button>
 </div>
 
-<div class="panel hidden" id="adminEdit">
-<input id="eUser" placeholder="Username">
-<input id="eName" placeholder="New Name">
-<select id="eStatus">
-<option>Active</option>
-<option>Blocked</option>
-</select>
-<button onclick="updateStudent()">Update</button>
-</div>
-
-<button onclick="logout()">Logout</button>
+<!-- EMERGENCY -->
+<div class="card" id="emergencyCard">
+  <input id="emergencyInput" placeholder="Student ID or Name">
+  <button onclick="emergency()">View Info</button>
+  <button class="back" onclick="show('loginCard')">Back</button>
+  <div id="emergencyInfo"></div>
 </div>
 
 </div>
 
 <script>
 let students=JSON.parse(localStorage.getItem("students"))||{
-student1:{pass:"1234",name:"Juan Dela Cruz",status:"Active"}
+  student1:{name:"Juan Dela Cruz",contact:"09123456789",address:"GMA Cavite",active:true}
 };
 
+function save(){localStorage.setItem("students",JSON.stringify(students))}
+function show(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+}
 function login(){
-if(user.value==="admin"&&pass.value==="admin123"){
-login.style.display="none";
-adminPanel.style.display="block";
-loadAdmin();
-return;
+  const id=loginId.value;
+  if(id==="admin"){show("adminCard");loadAdmin();}
+  else if(students[id]&&students[id].active){
+    show("studentMenu");
+    studentInfo.innerHTML=`Name: ${students[id].name}<br>Contact: ${students[id].contact}<br>Address: ${students[id].address}`;
+  }else alert("Invalid or blocked");
 }
-if(students[user.value]&&students[user.value].pass===pass.value){
-login.style.display="none";
-studentPanel.style.display="block";
-}else alert("Invalid");
-}
-
-function logout(){
-if(confirm("Are you sure you want to logout?")){
-location.reload();
-}
-}
-
-function assist(){
-login.style.display="none";
-assist.style.display="block";
-}
-function back(){
-assist.style.display="none";
-login.style.display="block";
-}
-
-function showStud(type){
-document.querySelectorAll("#studentPanel .panel").forEach(p=>p.style.display="none");
-if(type==="info"){
-studInfo.style.display="block";
-studInfo.innerHTML=`Name: ${students[user.value].name}<br>Status: ${students[user.value].status}`;
-}
-if(type==="sched")studSched.style.display="block";
-if(type==="subj")studSubj.style.display="block";
-if(type==="links")studLinks.style.display="block";
-}
-
-function loadAdmin(){
-showAdmin('view');
-}
-
-function showAdmin(tab){
-adminView.style.display="none";
-adminAdd.style.display="none";
-adminEdit.style.display="none";
-if(tab==="view"){
-adminView.style.display="block";
-let html="<table><tr><th>User</th><th>Name</th><th>Status</th></tr>";
-for(let s in students){
-html+=`<tr><td>${s}</td><td>${students[s].name}</td><td>${students[s].status}</td></tr>`;
-}
-adminView.innerHTML=html+"</table>";
-}
-if(tab==="add")adminAdd.style.display="block";
-if(tab==="edit")adminEdit.style.display="block";
-}
-
 function addStudent(){
-students[aUser.value]={pass:aPass.value,name:aName.value,status:"Active"};
-localStorage.setItem("students",JSON.stringify(students));
-loadAdmin();
+  students[sid.value]={name:sname.value,contact:scontact.value,address:saddress.value,active:true};
+  save();loadAdmin();
 }
-
-function updateStudent(){
-if(students[eUser.value]){
-students[eUser.value].name=eName.value;
-students[eUser.value].status=eStatus.value;
-localStorage.setItem("students",JSON.stringify(students));
-loadAdmin();
+function loadAdmin(){
+  let html="";
+  for(let k in students){
+    let s=students[k];
+    html+=`${k} - ${s.name}
+    <button onclick="toggle('${k}')">${s.active?"Block":"Activate"}</button>
+    <button onclick="del('${k}')">Delete</button><br>`;
+  }
+  adminList.innerHTML=html;
 }
+function toggle(id){students[id].active=!students[id].active;save();loadAdmin();}
+function del(id){delete students[id];save();loadAdmin();}
+function logout(){document.querySelectorAll("input").forEach(i=>i.value="");show("loginCard")}
+function emergency(){
+  let v=emergencyInput.value.toLowerCase();
+  for(let k in students){
+    let s=students[k];
+    if(k===v||s.name.toLowerCase()===v){
+      emergencyInfo.innerHTML=`${s.name}<br>${s.contact}<br>${s.address}`;
+      return;
+    }
+  }
+  emergencyInfo.innerHTML="Not found";
+}
+function sendQuestion(){
+  if(!assistText.value.trim())alert("Type question");
+  else{alert("Submitted");assistText.value="";}
 }
 </script>
-
 </body>
 </html>
