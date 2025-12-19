@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SafeStud | Student Safety & Information System</title>
+<title>SafeStud</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -13,53 +13,33 @@ margin:0;
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:#fff;
 min-height:100vh;
-overflow-x:hidden;
 }
 
-/* ===== HEADER ===== */
 header{
 display:flex;
 align-items:center;
 gap:15px;
-padding:15px 30px;
-background:rgba(0,0,0,.4);
-border-bottom:1px solid rgba(255,255,255,.1);
+padding:15px 25px;
+background:rgba(0,0,0,.45);
 }
 header img{
-width:55px;
-height:55px;
-border-radius:50%;
+width:50px;height:50px;border-radius:50%;
 border:2px solid cyan;
 }
-header h1{
-margin:0;
-font-size:24px;
-color:cyan;
-}
+header h1{color:cyan;margin:0}
 
-/* ===== CENTER CARD ===== */
-.container{
-display:flex;
-justify-content:center;
-align-items:center;
-padding:40px;
-}
+.container{padding:30px}
+
 .card{
 background:rgba(255,255,255,.08);
-backdrop-filter:blur(12px);
-padding:30px;
+backdrop-filter:blur(10px);
+padding:25px;
 border-radius:18px;
-width:380px;
-box-shadow:0 0 30px rgba(0,255,255,.2);
-animation:float 5s ease-in-out infinite;
+max-width:420px;
+margin:auto;
+box-shadow:0 0 25px rgba(0,255,255,.25);
 }
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-}
-h2{text-align:center;color:cyan;margin-bottom:20px}
 
-/* ===== INPUT ===== */
 input,select{
 width:100%;
 padding:10px;
@@ -69,67 +49,43 @@ border:none;
 outline:none;
 }
 
-/* ===== BUTTON ===== */
 button{
-width:100%;
-padding:10px;
+padding:10px 20px;
 border:none;
 border-radius:25px;
 background:linear-gradient(90deg,cyan,#00e5ff);
 color:#000;
 font-weight:600;
 cursor:pointer;
-transition:.3s;
+margin:5px 0;
 }
 button:hover{transform:scale(1.05)}
 
-/* ===== CHECKBOX FIX ===== */
-.checkbox{
-display:flex;
-align-items:center;
-gap:8px;
-font-size:14px;
-margin-bottom:10px;
-}
+.hidden{display:none}
 
-/* ===== LINK ===== */
-.link{
-text-align:center;
-margin-top:10px;
+.menu button{width:100%}
+
+.tab-btn{
+background:none;
 color:cyan;
-cursor:pointer;
+border:1px solid cyan;
+margin-right:5px;
 }
 
-/* ===== PANELS ===== */
 .panel{
-display:none;
-padding:30px;
-}
-.show{display:block}
-
-/* ===== MENU ===== */
-.menu button{
-margin-bottom:10px;
-}
-
-/* ===== STUDENT CARD ===== */
-.student-card{
-background:rgba(0,0,0,.4);
-padding:15px;
+background:rgba(0,0,0,.35);
+padding:20px;
 border-radius:15px;
-margin-bottom:15px;
+margin-top:15px;
 }
 
-/* ===== PROFILE ===== */
-.profile-pic{
-width:100px;
-height:100px;
+.profile{
+width:100px;height:100px;
 border-radius:50%;
 border:2px solid cyan;
 object-fit:cover;
 }
 
-/* ===== ADMIN TABLE ===== */
 table{
 width:100%;
 border-collapse:collapse;
@@ -153,63 +109,72 @@ th{background:rgba(0,255,255,.2)}
 <div class="container">
 
 <!-- LOGIN -->
-<div class="card show" id="loginCard">
-<h2>Login</h2>
+<div class="card" id="login">
+<h2 align="center">Login</h2>
 <input id="user" placeholder="Username">
 <input id="pass" type="password" placeholder="Password">
 
-<div class="checkbox">
-<input type="checkbox" id="remember">
-<label for="remember">Remember Me</label>
-</div>
+<label><input type="checkbox"> Remember Me</label>
 
 <button onclick="login()">Login</button>
-<div class="link" onclick="showAssist()">Ask for Assistance</div>
+<p style="color:cyan;cursor:pointer" onclick="assist()">Ask for Assistance</p>
 </div>
 
-<!-- ASSISTANCE -->
-<div class="card panel" id="assistCard">
-<h2>Assistance</h2>
-<button onclick="alert('Academic: Grades, Subjects, Schedule')">Academic Concern</button>
-<button onclick="alert('Personal: Bullying, Mental Health')">Personal Concern</button>
-<button onclick="alert('Technical: Account, System')">Technical Concern</button>
-<button onclick="backLogin()">Back</button>
+<!-- ASSIST -->
+<div class="card hidden" id="assist">
+<h3>How can we help?</h3>
+<button>Academic Concern</button>
+<button>Personal Concern</button>
+<button>Technical Concern</button>
+<button onclick="back()">Back</button>
 </div>
 
 <!-- STUDENT -->
-<div class="panel" id="studentPanel">
-<h2>Student Dashboard</h2>
-
-<div class="student-card">
-<img id="studPic" class="profile-pic">
-<input type="file" onchange="uploadPic(event)">
-<p id="studInfo"></p>
-</div>
+<div class="hidden" id="studentPanel">
+<h2>Student Menu</h2>
 
 <div class="menu">
-<button onclick="alert('Schedule loaded')">Subjects & Schedule</button>
-<button onclick="alert('Emergency Contact Displayed')">Emergency Info</button>
+<button onclick="showStud('info')">Student Information</button>
+<button onclick="showStud('sched')">Class Schedule</button>
+<button onclick="showStud('subj')">Subjects</button>
+<button onclick="showStud('links')">Google Links</button>
 <button onclick="logout()">Logout</button>
+</div>
+
+<div class="panel hidden" id="studInfo"></div>
+<div class="panel hidden" id="studSched">Mon–Fri | 8AM–4PM</div>
+<div class="panel hidden" id="studSubj">ICT • Programming • Animation</div>
+<div class="panel hidden" id="studLinks">
+<a href="https://classroom.google.com" target="_blank">Google Classroom</a>
 </div>
 </div>
 
 <!-- ADMIN -->
-<div class="panel" id="adminPanel">
+<div class="hidden" id="adminPanel">
 <h2>Admin Panel</h2>
 
-<h3>Add / Edit Student</h3>
+<button class="tab-btn" onclick="showAdmin('view')">View Students</button>
+<button class="tab-btn" onclick="showAdmin('add')">Add Student</button>
+<button class="tab-btn" onclick="showAdmin('edit')">Update Student</button>
+
+<div class="panel" id="adminView"></div>
+
+<div class="panel hidden" id="adminAdd">
 <input id="aUser" placeholder="Username">
 <input id="aPass" placeholder="Password">
 <input id="aName" placeholder="Full Name">
-<button onclick="saveStudent()">Save Student</button>
+<button onclick="addStudent()">Add</button>
+</div>
 
-<h3>All Students</h3>
-<table>
-<thead>
-<tr><th>User</th><th>Name</th><th>Status</th><th>Action</th></tr>
-</thead>
-<tbody id="studTable"></tbody>
-</table>
+<div class="panel hidden" id="adminEdit">
+<input id="eUser" placeholder="Username">
+<input id="eName" placeholder="New Name">
+<select id="eStatus">
+<option>Active</option>
+<option>Blocked</option>
+</select>
+<button onclick="updateStudent()">Update</button>
+</div>
 
 <button onclick="logout()">Logout</button>
 </div>
@@ -218,22 +183,20 @@ th{background:rgba(0,255,255,.2)}
 
 <script>
 let students=JSON.parse(localStorage.getItem("students"))||{
-student1:{pass:"1234",name:"Juan Dela Cruz",status:"Active",pic:""}
+student1:{pass:"1234",name:"Juan Dela Cruz",status:"Active"}
 };
 
 function login(){
-let u=user.value,p=pass.value;
-if(u==="admin"&&p==="admin123"){
-loginCard.classList.remove("show");
-adminPanel.classList.add("show");
-loadTable(); return;
+if(user.value==="admin"&&pass.value==="admin123"){
+login.style.display="none";
+adminPanel.style.display="block";
+loadAdmin();
+return;
 }
-if(students[u]&&students[u].pass===p){
-loginCard.classList.remove("show");
-studentPanel.classList.add("show");
-studInfo.innerHTML=`<b>${students[u].name}</b><br>Status: ${students[u].status}`;
-studPic.src=students[u].pic||"https://i.imgur.com/4AiXzf8.png";
-}else alert("Invalid Login");
+if(students[user.value]&&students[user.value].pass===pass.value){
+login.style.display="none";
+studentPanel.style.display="block";
+}else alert("Invalid");
 }
 
 function logout(){
@@ -242,49 +205,59 @@ location.reload();
 }
 }
 
-function showAssist(){
-loginCard.classList.remove("show");
-assistCard.classList.add("show");
+function assist(){
+login.style.display="none";
+assist.style.display="block";
 }
-function backLogin(){
-assistCard.classList.remove("show");
-loginCard.classList.add("show");
-}
-
-function uploadPic(e){
-let file=e.target.files[0];
-let reader=new FileReader();
-reader.onload=()=>{studPic.src=reader.result;}
-reader.readAsDataURL(file);
+function back(){
+assist.style.display="none";
+login.style.display="block";
 }
 
-function saveStudent(){
-students[aUser.value]={
-pass:aPass.value,
-name:aName.value,
-status:"Active",
-pic:""
-};
-localStorage.setItem("students",JSON.stringify(students));
-loadTable();
+function showStud(type){
+document.querySelectorAll("#studentPanel .panel").forEach(p=>p.style.display="none");
+if(type==="info"){
+studInfo.style.display="block";
+studInfo.innerHTML=`Name: ${students[user.value].name}<br>Status: ${students[user.value].status}`;
+}
+if(type==="sched")studSched.style.display="block";
+if(type==="subj")studSubj.style.display="block";
+if(type==="links")studLinks.style.display="block";
 }
 
-function loadTable(){
-studTable.innerHTML="";
+function loadAdmin(){
+showAdmin('view');
+}
+
+function showAdmin(tab){
+adminView.style.display="none";
+adminAdd.style.display="none";
+adminEdit.style.display="none";
+if(tab==="view"){
+adminView.style.display="block";
+let html="<table><tr><th>User</th><th>Name</th><th>Status</th></tr>";
 for(let s in students){
-studTable.innerHTML+=`
-<tr>
-<td>${s}</td>
-<td>${students[s].name}</td>
-<td>${students[s].status}</td>
-<td><button onclick="deleteStudent('${s}')">Delete</button></td>
-</tr>`;
+html+=`<tr><td>${s}</td><td>${students[s].name}</td><td>${students[s].status}</td></tr>`;
 }
+adminView.innerHTML=html+"</table>";
 }
-function deleteStudent(s){
-delete students[s];
+if(tab==="add")adminAdd.style.display="block";
+if(tab==="edit")adminEdit.style.display="block";
+}
+
+function addStudent(){
+students[aUser.value]={pass:aPass.value,name:aName.value,status:"Active"};
 localStorage.setItem("students",JSON.stringify(students));
-loadTable();
+loadAdmin();
+}
+
+function updateStudent(){
+if(students[eUser.value]){
+students[eUser.value].name=eName.value;
+students[eUser.value].status=eStatus.value;
+localStorage.setItem("students",JSON.stringify(students));
+loadAdmin();
+}
 }
 </script>
 
